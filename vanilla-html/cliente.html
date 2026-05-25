@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@sonet — Clientes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --sb: #ffffff;
+            --sb2: #f8f9fb;
+            --sb3: #f1f3f8;
+            --surf: #e8ecf4;
+            --b: #1a56db;
+            --bd: #1044bb;
+            --or: #f04e00;
+            --t: #111827;
+            --t2: #4b5563;
+            --t3: #9ca3af;
+            --bdr: #e5e7eb;
+            --bdr2: #d1d5db;
+            --sidebar-w: 220px;
+            --red: #dc2626;
+            --red-bg: #fef2f2;
+            --red-t: #dc2626;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #f3f4f8;
+            color: var(--t);
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--sb);
+            border-right: 1px solid var(--bdr);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 200;
+            transition: transform .28s ease;
+            box-shadow: 1px 0 0 var(--bdr)
+        }
+
+        .logo {
+            padding: 10px 10px 10px;
+            border-bottom: 1px solid var(--bdr);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            max-height: 80px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            color: var(--or)
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--bdr)
+        }
+
+        .av {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a56db, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            font-family: 'Outfit', sans-serif
+        }
+
+        .u-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--t)
+        }
+
+        .u-role {
+            font-size: 11px;
+            color: var(--t3);
+            margin-top: 1px
+        }
+
+        .online {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            color: #16a34a;
+            margin-top: 2px;
+            font-weight: 600
+        }
+
+        .dot-g {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #22c55e
+        }
+
+        nav {
+            flex: 1;
+            padding: 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            overflow-y: auto
+        }
+
+        .ni {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 11px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--t2);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            transition: .15s;
+            text-decoration: none
+        }
+
+        .ni:hover {
+            background: var(--sb3);
+            color: var(--t)
+        }
+
+        .ni.act {
+            background: #eff6ff;
+            color: var(--b);
+            font-weight: 600
+        }
+
+        .ni i {
+            font-size: 17px;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0
+        }
+
+        .nbadge {
+            margin-left: auto;
+            font-size: 10px;
+            font-weight: 700;
+            background: var(--or);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 100px
+        }
+
+        .sb-bot {
+            padding: 10px;
+            border-top: 1px solid var(--bdr)
+        }
+
+        /* ── OVERLAY MOBILE ── */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            z-index: 199
+        }
+
+        .overlay.show {
+            display: block
+        }
+
+        /* ── MAIN ── */
+        .main {
+            margin-left: var(--sidebar-w);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 30px;
+            background: var(--sb2);
+            border-bottom: 1px solid var(--bdr);
+            position: sticky;
+            top: 0;
+            z-index: 100
+        }
+
+        .tb-l {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .hamburger {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--t2)
+        }
+
+        .hamburger i {
+            font-size: 18px
+        }
+
+        .tb-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--t)
+        }
+
+        .tb-sub {
+            font-size: 15px;
+            color: var(--t3);
+            margin-top: 2px
+        }
+
+        .tb-r {
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .ib {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            color: var(--t2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: .15s
+        }
+
+        .ib:hover {
+            background: var(--surf);
+            color: var(--t)
+        }
+
+        .ib i {
+            font-size: 16px
+        }
+
+        .nb {
+            position: absolute;
+            top: 7px;
+            right: 7px;
+            width: 6px;
+            height: 6px;
+            background: var(--or);
+            border-radius: 50%;
+            border: 2px solid #fff
+        }
+
+        /* ── CONTENT ── */
+        .content {
+            padding: 24px 28px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px
+        }
+
+        .ph-left h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--t);
+            margin-bottom: 3px
+        }
+
+        .ph-left p {
+            font-size: 13px;
+            color: var(--t3)
+        }
+
+        .btn-p {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--b);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: .15s
+        }
+
+        .btn-p:hover {
+            background: var(--bd)
+        }
+
+        .btn-p i {
+            font-size: 15px
+        }
+
+        /* ── STATS ROW ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px
+        }
+
+        .stat {
+            background: #fff;
+            border: 1px solid var(--bdr);
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .stat-icon i {
+            font-size: 19px
+        }
+
+        .si-b {
+            background: #eff6ff;
+            color: var(--b)
+        }
+
+        .si-g {
+            background: #f0fdf4;
+            color: #16a34a
+        }
+
+        .si-a {
+            background: #fffbeb;
+            color: #d97706
+        }
+
+        .si-r {
+            background: #fef2f2;
+            color: #dc2626
+        }
+
+        .stat-body {}
+
+        .stat-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--t);
+            line-height: 1
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--t3);
+            margin-top: 3px;
+            font-weight: 500
+        }
+
+        /* ── TABLE CARD ── */
+        .tbl-card {
+            background: #fff;
+            border: 1px solid var(--bdr);
+            border-radius: 14px;
+            overflow: hidden;
+            animation: fadeUp .3s ease both
+        }
+
+        .tbl-hd {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--bdr);
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .tbl-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--t)
+        }
+
+        .tbl-ctrl {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .s-wrap {
+            position: relative
+        }
+
+        .s-wrap i {
+            position: absolute;
+            left: 9px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--t3);
+            pointer-events: none
+        }
+
+        .s-inp {
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 8px;
+            padding: 7px 10px 7px 30px;
+            color: var(--t);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            width: 200px;
+            transition: .15s
+        }
+
+        .s-inp:focus {
+            border-color: var(--b);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, .08)
+        }
+
+        .s-inp::placeholder {
+            color: var(--t3)
+        }
+
+        .sel {
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 8px;
+            padding: 7px 10px;
+            color: var(--t);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            transition: .15s
+        }
+
+        .sel:focus {
+            border-color: var(--b)
+        }
+
+        .tbl-wrap {
+            overflow-x: auto
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px
+        }
+
+        thead th {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--t3);
+            padding: 10px 18px;
+            text-align: left;
+            background: var(--sb2);
+            border-bottom: 1px solid var(--bdr);
+            white-space: nowrap
+        }
+
+        tbody td {
+            padding: 13px 18px;
+            font-size: 13px;
+            color: var(--t);
+            border-bottom: 1px solid var(--bdr);
+            vertical-align: middle
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none
+        }
+
+        tbody tr:hover td {
+            background: #f8faff
+        }
+
+        .c-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .c-av {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--b);
+            background: #eff6ff;
+            flex-shrink: 0;
+            border: 1.5px solid #dbeafe
+        }
+
+        .c-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--t)
+        }
+
+        .c-id {
+            font-size: 11px;
+            color: var(--t3);
+            margin-top: 1px
+        }
+
+        .service-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--t2);
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 6px;
+            padding: 3px 8px
+        }
+
+        .service-tag i {
+            font-size: 13px;
+            color: var(--t3)
+        }
+
+        .pdf-yes {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #16a34a;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 6px;
+            padding: 3px 8px
+        }
+
+        .pdf-yes i {
+            font-size: 12px
+        }
+
+        .pdf-no {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #d97706;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 3px 8px
+        }
+
+        .pdf-no i {
+            font-size: 12px
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn-ver {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 7px;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--t2);
+            cursor: pointer;
+            transition: .15s;
+            white-space: nowrap
+        }
+
+        .btn-ver:hover {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: var(--b)
+        }
+
+        .btn-ver i {
+            font-size: 13px
+        }
+
+        .btn-del {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--red-bg);
+            border: 1px solid #fecaca;
+            border-radius: 7px;
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--red-t);
+            cursor: pointer;
+            transition: .15s;
+            white-space: nowrap
+        }
+
+        .btn-del:hover {
+            background: #dc2626;
+            border-color: #dc2626;
+            color: #fff
+        }
+
+        .btn-del i {
+            font-size: 13px
+        }
+
+        /* empty */
+        .empty-state {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 52px 20px;
+            color: var(--t3);
+            gap: 10px
+        }
+
+        .empty-state i {
+            font-size: 44px;
+            opacity: .3;
+            color: var(--t3)
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: var(--t3)
+        }
+
+        /* pagination */
+        .pag {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-top: 1px solid var(--bdr);
+            flex-wrap: wrap;
+            gap: 10px;
+            background: var(--sb2)
+        }
+
+        .pag-info {
+            font-size: 12px;
+            color: var(--t3)
+        }
+
+        .pag-btns {
+            display: flex;
+            gap: 4px
+        }
+
+        .pb {
+            background: #fff;
+            border: 1px solid var(--bdr);
+            border-radius: 7px;
+            padding: 5px 10px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--t2);
+            cursor: pointer;
+            transition: .15s;
+            min-width: 32px;
+            text-align: center
+        }
+
+        .pb:hover:not(:disabled) {
+            background: var(--sb3);
+            color: var(--t);
+            border-color: var(--bdr2)
+        }
+
+        .pb.cur {
+            background: var(--b);
+            border-color: var(--b);
+            color: #fff;
+            font-weight: 600
+        }
+
+        .pb:disabled {
+            opacity: .35;
+            cursor: not-allowed
+        }
+
+        /* ── MODAL CONFIRMAR ELIMINAR ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .35);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+            padding: 20px
+        }
+
+        .modal-overlay.show {
+            display: flex
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+            animation: fadeUp .2s ease
+        }
+
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            background: #fef2f2;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px
+        }
+
+        .modal-icon i {
+            font-size: 24px;
+            color: #dc2626
+        }
+
+        .modal h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--t);
+            text-align: center;
+            margin-bottom: 8px
+        }
+
+        .modal p {
+            font-size: 13px;
+            color: var(--t3);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 22px
+        }
+
+        .modal p strong {
+            color: var(--t);
+            font-weight: 600
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 8px;
+            padding: 9px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--t2);
+            cursor: pointer;
+            transition: .15s
+        }
+
+        .btn-cancel:hover {
+            background: var(--surf);
+            color: var(--t)
+        }
+
+        .btn-confirm-del {
+            flex: 1;
+            background: #dc2626;
+            border: 1px solid #dc2626;
+            border-radius: 8px;
+            padding: 9px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: .15s
+        }
+
+        .btn-confirm-del:hover {
+            background: #b91c1c
+        }
+
+        /* mobile */
+        .mobile-nav {
+            display: none
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @media(max-width:900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                box-shadow: 4px 0 40px rgba(0, 0, 0, .12)
+            }
+
+            .sidebar.open {
+                transform: translateX(0)
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .hamburger {
+                display: flex
+            }
+
+            .topbar {
+                padding: 12px 16px
+            }
+
+            .content {
+                padding: 16px 14px 90px
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+
+            .s-inp {
+                width: 150px
+            }
+
+            .mobile-nav {
+                display: flex;
+                justify-content: space-around;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #fff;
+                border-top: 1px solid var(--bdr);
+                padding: 10px 0 20px;
+                z-index: 150
+            }
+
+            .mnav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 3px;
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--t3);
+                cursor: pointer;
+                border: none;
+                background: none;
+                text-decoration: none;
+                transition: color .15s;
+                padding: 0 10px
+            }
+
+            .mnav-item i {
+                font-size: 22px
+            }
+
+            .mnav-item.act {
+                color: var(--b)
+            }
+        }
+
+        @media(max-width:540px) {
+            .stats-row {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .stat-num {
+                font-size: 26px
+            }
+
+            .tbl-ctrl {
+                width: 100%
+            }
+
+            .s-inp {
+                flex: 1
+            }
+
+            .btn-p span {
+                display: none
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- MODAL ELIMINAR -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-icon"><i class="ti ti-trash" aria-hidden="true"></i></div>
+            <h3>Eliminar contrato</h3>
+            <p>¿Estás seguro de que deseas eliminar el contrato de <strong id="modal-nombre">—</strong>? Esta acción no
+                se puede deshacer.</p>
+            <div class="modal-btns">
+                <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn-confirm-del" id="btn-confirm-del" onclick="confirmarEliminar()">Sí, eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo"><img src="logo-sonet-light.png" alt="Asonet Logo"></div>
+
+        <div class="user-pill">
+            <div class="av" id="sb-avatar">JP</div>
+            <div>
+                <div class="u-name" id="sb-name">Juan Pérez</div>
+                <div class="u-role" id="sb-role">Asesor comercial</div>
+            </div>
+        </div>
+
+        <nav>
+            <a class="ni" href="dasboard.html">
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+            </a>
+            <a class="ni" href="#">
+                <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
+                <span class="nbadge" id="sb-pending-badge">0</span>
+            </a>
+            <a class="ni act" href="#">
+                <i class="ti ti-users" aria-hidden="true"></i>Clientes
+            </a>
+        </nav>
+
+        <div class="sb-bot">
+            <a class="ni" href="#"><i class="ti ti-settings" aria-hidden="true"></i>Configuración</a>
+            <button class="ni" onclick="logout()"><i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión</button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <header class="topbar">
+            <div class="tb-l">
+                <button class="hamburger" onclick="toggleSidebar()" aria-label="Menú">
+                    <i class="ti ti-menu-2" aria-hidden="true"></i>
+                </button>
+                <div>
+                    <div class="tb-title">Clientes</div>
+                    <div class="tb-sub" id="today-date"></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="ph-left">
+                    <h1>Lista de clientes</h1>
+                    <p>Todos los contratos registrados por el asesor</p>
+                </div>
+                <button class="btn-p" onclick="nuevoContrato()">
+                    <i class="ti ti-plus" aria-hidden="true"></i>
+                    <span>Nuevo contrato</span>
+                </button>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-row">
+                <div class="stat">
+                    <div class="stat-icon si-b"><i class="ti ti-users" aria-hidden="true"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-total">0</div>
+                        <div class="stat-lbl">Total clientes</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon si-g"><i class="ti ti-file-check" aria-hidden="true"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-pdf">0</div>
+                        <div class="stat-lbl">PDF generados</div>
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="stat-icon si-r"><i class="ti ti-calendar-month" aria-hidden="true"></i></div>
+                    <div class="stat-body">
+                        <div class="stat-num" id="stat-month">0</div>
+                        <div class="stat-lbl">Este mes</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="tbl-card">
+                <div class="tbl-hd">
+                    <div class="tbl-title">Contratos registrados</div>
+                    <div class="tbl-ctrl">
+                        <div class="s-wrap">
+                            <i class="ti ti-search" aria-hidden="true"></i>
+                            <input class="s-inp" type="text" id="search-input" placeholder="Buscar por nombre, CC…"
+                                oninput="filterTable()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tbl-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Cliente</th>
+                                <th>CC / NIT</th>
+                                <th>Servicio</th>
+                                <th>Fecha</th>
+                                <th>PDF</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contracts-tbody"></tbody>
+                    </table>
+                    <div class="empty-state" id="empty-state">
+                        <i class="ti ti-users-off" aria-hidden="true"></i>
+                        <p>No se encontraron contratos</p>
+                    </div>
+                </div>
+
+                <div class="pag">
+                    <span class="pag-info" id="page-info"></span>
+                    <div class="pag-btns" id="page-btns"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+        <a class="mnav-item" href="dasboard.html"><i class="ti ti-layout-dashboard"></i>Inicio</a>
+        <a class="mnav-item" href="contrato.html"><i class="ti ti-file-text"></i>Contratos</a>
+        <a class="mnav-item act" href="#"><i class="ti ti-users"></i>Clientes</a>
+        <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
+    </nav>
+
+    <script>
+        /* ════════════════════════════════════════════════════
+           CONFIGURACIÓN — AJUSTA ESTAS URLs A TU BACKEND
+        ════════════════════════════════════════════════════ */
+        const API = {
+            clientes: '/api/clientes',
+            eliminar: '/api/contratos/{id}',
+            detalle: '/contratos/{id}',
+            nuevo: 'contrato.html',
+            logout: '/api/logout',
+        };
+
+        /* Formato esperado de cada contrato desde el backend:
+        {
+          id:        "001",
+          nombre:    "Carlos Medina",
+          cc:        "12.345.678",
+          servicio:  "Internet + TV",
+          fecha:     "2025-05-15",    // ISO date YYYY-MM-DD
+          pdf_listo: true             // boolean
+        }
+        Asesor:
+        {
+          nombre:    "Juan Pérez",
+          rol:       "Asesor comercial",
+          iniciales: "JP"             // opcional
+        }
+        */
+
+        /* ════════════════════════════════════════════════════
+           DATOS DE EJEMPLO — eliminar cuando conectes el backend
+        ════════════════════════════════════════════════════ */
+        const DEMO_DATA = {
+            asesor: { nombre: 'Juan Pérez', rol: 'Asesor comercial', iniciales: 'JP' },
+            contratos: [
+                { id: '001', nombre: 'Carlos Medina', cc: '12.345.678', servicio: 'Internet + TV', fecha: '2025-05-15', pdf_listo: true },
+                { id: '002', nombre: 'María Torres', cc: '98.765.432', servicio: 'Internet fijo', fecha: '2025-05-19', pdf_listo: true },
+                { id: '003', nombre: 'Luis Gómez', cc: '45.123.900', servicio: 'Telefonía + Internet', fecha: '2025-05-20', pdf_listo: false },
+                { id: '004', nombre: 'Ana Rodríguez', cc: '71.456.012', servicio: 'Internet fijo', fecha: '2025-05-21', pdf_listo: false },
+                { id: '005', nombre: 'Ricardo Fuentes', cc: '10.234.567', servicio: 'Internet + TV', fecha: '2025-05-21', pdf_listo: false },
+                { id: '006', nombre: 'Sandra Vargas', cc: '52.874.190', servicio: 'Telefonía fija', fecha: '2025-04-10', pdf_listo: true },
+                { id: '007', nombre: 'Pedro Sánchez', cc: '80.341.229', servicio: 'Internet fijo', fecha: '2025-04-18', pdf_listo: true },
+                { id: '008', nombre: 'Laura Jiménez', cc: '63.907.441', servicio: 'Internet + TV', fecha: '2025-04-22', pdf_listo: true },
+                { id: '009', nombre: 'Manuel Castro', cc: '19.543.002', servicio: 'Telefonía + Internet', fecha: '2025-03-05', pdf_listo: true },
+                { id: '010', nombre: 'Claudia Ríos', cc: '44.218.763', servicio: 'Internet fijo', fecha: '2025-03-14', pdf_listo: true },
+                { id: '011', nombre: 'Héctor Morales', cc: '77.654.320', servicio: 'Internet + TV', fecha: '2025-03-29', pdf_listo: true },
+                { id: '012', nombre: 'Isabel Peña', cc: '33.109.874', servicio: 'Telefonía fija', fecha: '2025-02-07', pdf_listo: true },
+                { id: '013', nombre: 'Andrés Castellanos', cc: '56.432.187', servicio: 'Internet + TV', fecha: '2025-02-14', pdf_listo: true },
+                { id: '014', nombre: 'Patricia Herrera', cc: '29.876.543', servicio: 'Internet fijo', fecha: '2025-01-22', pdf_listo: true },
+                { id: '015', nombre: 'Camilo Ospina', cc: '66.321.098', servicio: 'Telefonía + Internet', fecha: '2025-01-30', pdf_listo: false },
+            ]
+        };
+
+        /* ════════════════════════════════════════════════════
+           ESTADO LOCAL
+        ════════════════════════════════════════════════════ */
+        let allContracts = [];
+        let filtered = [];
+        let currentPage = 1;
+        const PAGE_SIZE = 8;
+        let pendingDelete = null;
+
+        /* ════════════════════════════════════════════════════
+           INIT
+        ════════════════════════════════════════════════════ */
+        document.addEventListener('DOMContentLoaded', () => {
+            setTodayDate();
+            loadData();
+        });
+
+        function setTodayDate() {
+            const d = new Date();
+            document.getElementById('today-date').textContent =
+                d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        /* ════════════════════════════════════════════════════
+           CARGA DE DATOS
+        ════════════════════════════════════════════════════ */
+        async function loadData() {
+            // Leer asesor desde sessionStorage (datos del login Firebase)
+            const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
+            if (!sessionUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+            const asesorLocal = {
+                nombre: sessionUser.name || sessionUser.email || 'Asesor',
+                rol: sessionUser.role === 'ADMIN' ? 'Administrador' : 'Asesor comercial',
+                iniciales: sessionUser.iniciales || getIni(sessionUser.name || sessionUser.email || 'Asesor')
+            };
+            setAsesor(asesorLocal);
+
+            try {
+                /* ── BACKEND REAL ──────────────────────────────
+                const res = await fetch(API.clientes, { credentials: 'include' });
+                if (res.status === 401) { window.location.href = '/login'; return; }
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                setAsesor(data.asesor);
+                setContracts(data.contratos);
+                ─────────────────────────────────────────────── */
+
+                // ── DEMO (eliminar en producción) ──
+                setAsesor(DEMO_DATA.asesor);
+                setContracts(DEMO_DATA.contratos);
+
+            } catch (err) {
+                console.error('Error cargando datos:', err);
+                showError('No se pudo conectar con el servidor.');
+            }
+        }
+
+        /* ════════════════════════════════════════════════════
+           ASESOR
+        ════════════════════════════════════════════════════ */
+        function setAsesor(a) {
+            const ini = a.iniciales || getIni(a.nombre);
+            ['sb-avatar'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = ini;
+            });
+            document.getElementById('sb-name').textContent = a.nombre;
+            document.getElementById('sb-role').textContent = a.rol;
+        }
+
+        function getIni(n) {
+            return (n || '').split(' ').slice(0, 2).map(p => p[0]).join('').toUpperCase();
+        }
+
+        /* ════════════════════════════════════════════════════
+           CONTRATOS
+        ════════════════════════════════════════════════════ */
+        function setContracts(contratos) {
+            allContracts = contratos;
+            updateStats();
+            filtered = [...allContracts];
+            currentPage = 1;
+            renderTable();
+        }
+
+        function updateStats() {
+            const now = new Date();
+            const mes = now.getMonth();
+            const anio = now.getFullYear();
+            const total = allContracts.length;
+            const pdf = allContracts.filter(c => c.pdf_listo).length;
+            const pending = allContracts.filter(c => !c.pdf_listo).length;
+            const month = allContracts.filter(c => {
+                const d = new Date(c.fecha);
+                return d.getMonth() === mes && d.getFullYear() === anio;
+            }).length;
+
+            animNum('stat-total', total);
+            animNum('stat-pdf', pdf);
+            animNum('stat-month', month);
+            document.getElementById('sb-pending-badge').textContent = pending;
+        }
+
+        function animNum(id, target) {
+            const el = document.getElementById(id);
+            let cur = 0;
+            const step = Math.ceil(target / 20) || 1;
+            const t = setInterval(() => {
+                cur = Math.min(cur + step, target);
+                el.textContent = cur;
+                if (cur >= target) clearInterval(t);
+            }, 40);
+        }
+
+        function filterTable() {
+            const q = document.getElementById('search-input').value.toLowerCase().trim();
+            const pdf = document.getElementById('filter-pdf').value;
+            filtered = allContracts.filter(c => {
+                const matchQ = !q ||
+                    c.nombre.toLowerCase().includes(q) ||
+                    c.cc.replace(/\./g, '').includes(q.replace(/\./g, '')) ||
+                    c.servicio.toLowerCase().includes(q) ||
+                    c.id.includes(q);
+                const matchP = !pdf ||
+                    (pdf === 'yes' && c.pdf_listo) ||
+                    (pdf === 'no' && !c.pdf_listo);
+                return matchQ && matchP;
+            });
+            currentPage = 1;
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('contracts-tbody');
+            const empty = document.getElementById('empty-state');
+            const start = (currentPage - 1) * PAGE_SIZE;
+            const page = filtered.slice(start, start + PAGE_SIZE);
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'flex';
+            } else {
+                empty.style.display = 'none';
+                tbody.innerHTML = page.map((c, i) => `
+      <tr>
+        <td style="color:var(--t3);font-size:12px;font-variant-numeric:tabular-nums;font-weight:600">${String(start + i + 1).padStart(3, '0')}</td>
+        <td>
+          <div class="c-cell">
+            <div class="c-av">${getIni(c.nombre)}</div>
+            <div>
+              <div class="c-name">${esc(c.nombre)}</div>
+              <div class="c-id">ID #${esc(c.id)}</div>
+            </div>
+          </div>
+        </td>
+        <td style="font-size:12px;color:var(--t2);font-variant-numeric:tabular-nums">${esc(c.cc)}</td>
+        <td>
+          <span class="service-tag">
+            <i class="ti ti-wifi" aria-hidden="true"></i>${esc(c.servicio)}
+          </span>
+        </td>
+        <td style="font-size:12px;color:var(--t2)">${formatDate(c.fecha)}</td>
+        <td>
+          ${c.pdf_listo
+                        ? `<span class="pdf-yes"><i class="ti ti-check" aria-hidden="true"></i>Listo</span>`
+                        : `<span class="pdf-no"><i class="ti ti-clock" aria-hidden="true"></i>Pendiente</span>`
+                    }
+        </td>
+        <td>
+          <div class="actions">
+            <button class="btn-ver" onclick="verContrato('${esc(c.id)}')">
+              <i class="ti ti-eye" aria-hidden="true"></i>Ver
+            </button>
+            <button class="btn-del" onclick="abrirModal('${esc(c.id)}','${esc(c.nombre)}')">
+              <i class="ti ti-trash" aria-hidden="true"></i>Eliminar
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+            }
+            renderPagination();
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '—';
+            const [y, m, d] = iso.split('-');
+            return `${d}/${m}/${y}`;
+        }
+
+        function esc(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        /* ════════════════════════════════════════════════════
+           PAGINACIÓN
+        ════════════════════════════════════════════════════ */
+        function renderPagination() {
+            const total = filtered.length;
+            const pages = Math.ceil(total / PAGE_SIZE);
+            const start = (currentPage - 1) * PAGE_SIZE + 1;
+            const end = Math.min(currentPage * PAGE_SIZE, total);
+
+            document.getElementById('page-info').textContent =
+                total === 0 ? 'Sin resultados' : `Mostrando ${start}–${end} de ${total} contratos`;
+
+            const btns = document.getElementById('page-btns');
+            if (pages <= 1) { btns.innerHTML = ''; return; }
+
+            let html = `<button class="pb" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+            for (let p = 1; p <= pages; p++) {
+                if (pages > 7 && p > 2 && p < pages - 1 && Math.abs(p - currentPage) > 1) {
+                    if (p === 3 || p === pages - 2) html += `<button class="pb" disabled>…</button>`;
+                    continue;
+                }
+                html += `<button class="pb ${p === currentPage ? 'cur' : ''}" onclick="goPage(${p})">${p}</button>`;
+            }
+            html += `<button class="pb" onclick="goPage(${currentPage + 1})" ${currentPage === pages ? 'disabled' : ''}>›</button>`;
+            btns.innerHTML = html;
+        }
+
+        function goPage(p) {
+            const pages = Math.ceil(filtered.length / PAGE_SIZE);
+            if (p < 1 || p > pages) return;
+            currentPage = p;
+            renderTable();
+            document.querySelector('.tbl-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* ════════════════════════════════════════════════════
+           MODAL ELIMINAR
+        ════════════════════════════════════════════════════ */
+        function abrirModal(id, nombre) {
+            pendingDelete = id;
+            document.getElementById('modal-nombre').textContent = nombre;
+            document.getElementById('modal-overlay').classList.add('show');
+        }
+        function cerrarModal() {
+            pendingDelete = null;
+            document.getElementById('modal-overlay').classList.remove('show');
+        }
+
+        async function confirmarEliminar() {
+            if (!pendingDelete) return;
+            const id = pendingDelete;
+            cerrarModal();
+            try {
+                /* ── BACKEND REAL ──────────────────────────────
+                const url = API.eliminar.replace('{id}', encodeURIComponent(id));
+                const res = await fetch(url, { method:'DELETE', credentials:'include' });
+                if(!res.ok) throw new Error(`HTTP ${res.status}`);
+                ─────────────────────────────────────────────── */
+
+                // ── DEMO: eliminar del array local ──
+                allContracts = allContracts.filter(c => c.id !== id);
+                updateStats();
+                filterTable();
+
+            } catch (err) {
+                alert('Error al eliminar: ' + err.message);
+            }
+        }
+
+        /* ════════════════════════════════════════════════════
+           NAVEGACIÓN
+        ════════════════════════════════════════════════════ */
+        function verContrato(id) {
+            // Sin backend, mostramos el formulario del contrato
+            window.location.href = 'contrato_internet.html';
+        }
+        function nuevoContrato() {
+            window.location.href = API.nuevo;
+        }
+        async function logout() {
+            try { await fetch(API.logout, { method: 'POST', credentials: 'include' }); } catch (_) { }
+            sessionStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+        function showError(msg) {
+            const el = document.getElementById('empty-state');
+            el.style.display = 'flex';
+            el.querySelector('p').textContent = msg;
+        }
+
+        /* ── SIDEBAR TOGGLE ── */
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        /* Cerrar modal con Escape */
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
+    </script>
+</body>
+
+</html>

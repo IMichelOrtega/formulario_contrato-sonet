@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@sonet — Contratos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --sb: #f4f7fe;
+            --sb2: #ffffff;
+            --sb3: #ffffff;
+            --surf: #f8fafc;
+            --b: #1a56db;
+            --bd: #1044bb;
+            --or: #f04e00;
+            --t: #1e293b;
+            --t2: #475569;
+            --t3: #64748b;
+            --bdr: rgba(0, 0, 0, 0.08);
+            --gs: #dcfce7;
+            --gst: #166534;
+            --is: #dbeafe;
+            --ist: #1e40af;
+            --sidebar-w: 220px;
+        }
+
+        html { font-size: 16px; -webkit-text-size-adjust: 100% }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--sb); color: var(--t); min-height: 100vh; overflow-x: hidden }
+
+        /* SIDEBAR (from dasboard) */
+        .sidebar { width: var(--sidebar-w); background: var(--sb2); border-right: 1px solid var(--bdr); position: fixed; top: 0; left: 0; height: 100vh; display: flex; flex-direction: column; z-index: 200; transition: transform .28s ease }
+        .logo { padding: 10px 10px 10px; border-bottom: 1px solid var(--bdr); display: flex; align-items: center; justify-content: flex-start; }
+        .logo img { max-width: 100%; height: auto; max-height: 80px; object-fit: contain; }
+        .logo span { color: var(--or) }
+        .user-pill { display: flex; align-items: center; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--bdr) }
+        .av { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #1a56db, #7c3aed); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; flex-shrink: 0; font-family: 'Syne', sans-serif }
+        .u-name { font-size: 13px; font-weight: 700 }
+        .u-role { font-size: 11px; color: var(--t3); margin-top: 2px }
+        .online { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--gst); margin-top: 3px }
+        .dot-g { width: 5px; height: 5px; border-radius: 50%; background: #22c55e }
+        nav { flex: 1; padding: 10px; display: flex; flex-direction: column; gap: 1px; overflow-y: auto }
+        .ni { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--t3); cursor: pointer; border: none; background: none; width: 100%; text-align: left; transition: .15s }
+        .ni:hover { background: var(--sb3); color: var(--t) }
+        .ni.act { background: rgba(26, 86, 219, .10); color: var(--b) }
+        .ni i { font-size: 17px; width: 20px; text-align: center; flex-shrink: 0 }
+        .nbadge { margin-left: auto; font-size: 10px; font-weight: 700; background: var(--or); color: #fff; padding: 2px 6px; border-radius: 100px }
+        .sb-bot { padding: 10px; border-top: 1px solid var(--bdr) }
+
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, .55); z-index: 199 }
+        .overlay.show { display: block }
+
+        /* MAIN */
+        .main { margin-left: var(--sidebar-w); display: flex; flex-direction: column; min-height: 100vh }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 30px; background: var(--sb2); border-bottom: 1px solid var(--bdr); position: sticky; top: 0; z-index: 100 }
+        .tb-l { display: flex; align-items: center; gap: 12px }
+        .hamburger { display: none; align-items: center; justify-content: center; width: 34px; height: 34px; background: var(--sb3); border: 1px solid var(--bdr); border-radius: 8px; cursor: pointer; color: var(--t2) }
+        .hamburger i { font-size: 18px }
+        .tb-title { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800 }
+        .tb-sub { font-size: 15px; color: var(--t3); margin-top: 2px }
+
+        /* CONTENT */
+        .content { padding: 24px 28px; flex: 1; display: flex; flex-direction: column; gap: 20px }
+
+        /* ── SELECTOR DE TIPO (NUEVO ESTILO) ── */
+        .selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+        }
+
+        .card-option {
+            background: var(--sb3);
+            border: 1px solid var(--bdr);
+            border-radius: 14px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            cursor: pointer;
+            animation: fadeUp .35s ease both;
+        }
+
+        .card-option:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            border-color: var(--b);
+        }
+
+        .card-option .icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 24px;
+        }
+
+        .card-option.internet .icon-box {
+            background-color: var(--is);
+            color: var(--b);
+        }
+
+        .card-option.tv .icon-box {
+            background-color: #fff7ed;
+            color: var(--or);
+        }
+
+        .card-option h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--t);
+            margin-bottom: 8px;
+        }
+
+        .card-option p {
+            font-size: 13px;
+            color: var(--t3);
+            line-height: 1.5;
+        }
+
+        .card-option.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .card-option.disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-color: var(--bdr);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px) }
+            to { opacity: 1; transform: translateY(0) }
+        }
+
+        /* MOBILE NAV */
+        .mobile-nav { display: none }
+
+        @media(max-width:900px) {
+            .sidebar { transform: translateX(-100%); box-shadow: 4px 0 40px rgba(0, 0, 0, .08) }
+            .sidebar.open { transform: translateX(0) }
+            .main { margin-left: 0 }
+            .hamburger { display: flex }
+            .topbar { padding: 14px 18px }
+            .content { padding: 18px 16px 90px }
+            .mobile-nav { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 0; right: 0; background: var(--sb2); border-top: 1px solid var(--bdr); padding: 10px 0 20px; z-index: 150 }
+            .mnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: var(--t3); cursor: pointer; border: none; background: none; text-decoration: none; transition: color .15s; padding: 0 10px }
+            .mnav-item i { font-size: 22px }
+            .mnav-item.act { color: var(--b) }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <img src="logo-sonet-light.png" alt="Asonet Logo">
+        </div>
+        <div class="user-pill">
+            <div class="av" id="sb-avatar">JP</div>
+            <div>
+                <div class="u-name" id="sb-name">Juan Pérez</div>
+                <div class="u-role" id="sb-role">Asesor comercial</div>
+                <div class="online"><div class="dot-g"></div>En línea</div>
+            </div>
+        </div>
+        <nav>
+            <button class="ni" onclick="window.location.href='dasboard.html'">
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+            </button>
+            <button class="ni act">
+                <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
+                <span class="nbadge" id="sb-pending-badge">4</span>
+            </button>
+            <button class="ni" onclick="window.location.href='cliente.html'">
+                <i class="ti ti-users" aria-hidden="true"></i>Clientes
+            </button>
+        </nav>
+        <div class="sb-bot">
+            <button class="ni"><i class="ti ti-settings" aria-hidden="true"></i>Configuración</button>
+            <button class="ni" onclick="logout()"><i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión</button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+        <header class="topbar">
+            <div class="tb-l">
+                <button class="hamburger" onclick="toggleSidebar()"><i class="ti ti-menu-2"></i></button>
+                <div>
+                    <div class="tb-title" id="topbar-title">Contratos</div>
+                    <div class="tb-sub" id="today-date"></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="content">
+            <div style="margin-bottom: 4px;">
+                <h1 style="font-size: 22px; font-weight: 700; color: var(--t);">Nuevo Contrato</h1>
+                <p style="color: var(--t3); font-size: 14px; margin-top: 4px;">Seleccione el tipo de servicio para desplegar la plantilla digital interactiva.</p>
+            </div>
+
+            <div class="selector-grid">
+                <a href="contrato_internet.html" class="card-option internet">
+                    <div class="icon-box"><i class="ti ti-wifi"></i></div>
+                    <h3>Contrato de Internet Fijo</h3>
+                    <p>Desplegar formulario único de servicios fijos con plantilla adaptada para navegación por fibra u otras tecnologías.</p>
+                </a>
+
+                <div class="card-option tv disabled" onclick="alert('La plantilla digital de TV estará disponible próximamente.')">
+                    <div class="icon-box"><i class="ti ti-device-tv"></i></div>
+                    <h3>Contrato de Televisión</h3>
+                    <p>Módulo de registro integrado con facturación asociada bajo operador autorizado (Próximamente).</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav">
+        <a class="mnav-item" href="dasboard.html"><i class="ti ti-layout-dashboard"></i>Inicio</a>
+        <a class="mnav-item act" href="contrato.html"><i class="ti ti-file-text"></i>Contratos</a>
+        <a class="mnav-item" href="cliente.html"><i class="ti ti-users"></i>Clientes</a>
+        <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fecha
+            const d = new Date();
+            document.getElementById('today-date').textContent = 
+                d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            // Cargar datos del asesor desde sessionStorage
+            const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
+            if (!sessionUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+            const nombre = sessionUser.name || sessionUser.email || 'Asesor';
+            const iniciales = sessionUser.iniciales ||
+                nombre.split(' ').slice(0, 2).map(p => p[0]).join('').toUpperCase();
+            const rol = sessionUser.role === 'ADMIN' ? 'Administrador' : 'Asesor comercial';
+
+            document.getElementById('sb-avatar').textContent = iniciales;
+            document.getElementById('sb-name').textContent = nombre;
+            document.getElementById('sb-role').textContent = rol;
+        });
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
+        }
+        async function logout() {
+            try {
+                await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+            } catch (_) {}
+            sessionStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

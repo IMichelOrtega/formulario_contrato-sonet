@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Asesores - Asonet</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #020617;
+            position: relative;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -3;
+        }
+
+        .background video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            z-index: -2;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .35;
+        }
+
+        .circle.one {
+            width: 300px;
+            height: 300px;
+            background: #001aff;
+            top: -80px;
+            left: -80px;
+        }
+
+        .circle.two {
+            width: 250px;
+            height: 250px;
+            background: #ff003c;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 430px;
+            padding: 50px 45px;
+            background: rgba(10, 15, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            color: white;
+            animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            width: 240px;
+            max-width: 100%;
+            margin: 0 auto 10px auto;
+            display: block;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+        }
+
+        .login-box h1 {
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #ffffff, #b3c0d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .login-box p {
+            color: #a0aec0;
+            font-size: 15px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .tabs {
+            width: 100%;
+            display: flex;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab {
+            width: 50%;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            background: transparent;
+            color: #8f9baf;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab:hover {
+            color: white;
+        }
+
+        .tab.active {
+            background: rgba(2, 60, 126, 0.562);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .input-box {
+            width: 100%;
+            height: 54px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            transition: all 0.3s ease;
+        }
+
+        .input-box:focus-within {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #ff0000;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.562);
+        }
+
+        .input-box i {
+            color: #ff0404;
+            margin-right: 12px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .input-box:focus-within i {
+            color: #2f73ff;
+        }
+
+        .input-box input {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .input-box input::placeholder {
+            color: #64748b;
+        }
+
+        /* Mostrar/ocultar contraseña */
+        .input-box .toggle-pass {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0 0 0 8px;
+            font-size: 15px;
+            transition: color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .input-box .toggle-pass:hover {
+            color: #cbd5e1;
+        }
+
+        .forgot {
+            text-align: right;
+            margin-bottom: 28px;
+        }
+
+        .forgot a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .forgot a:hover {
+            color: #2f73ff;
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 54px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgb(2, 60, 126, 0.562) 0%, rgb(2, 60, 126, 0.562) 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 20px rgba(28, 83, 185, 0.979);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .login-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgb(57, 2, 255);
+        }
+
+        .login-btn:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Spinner dentro del botón */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .login-btn.loading .spinner {
+            display: block;
+        }
+
+        .login-btn.loading .btn-text,
+        .login-btn.loading .btn-icon {
+            display: none;
+        }
+
+        /* Alerta de error */
+        .alert {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(220, 38, 38, 0.15);
+            border: 1px solid rgba(220, 38, 38, 0.4);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fca5a5;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: fadeUp 0.3s ease forwards;
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert i {
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        /* Alerta de éxito */
+        .alert.success {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
+        }
+
+        .footer {
+            margin-top: 32px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #ff0000;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 500px) {
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .login-box h1 {
+                font-size: 28px;
+            }
+
+            .logo {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 15px;
+            }
+
+            .login-box {
+                padding: 25px 15px;
+            }
+
+            .login-box h1 {
+                font-size: 24px;
+            }
+
+            .input-box {
+                height: 48px;
+            }
+
+            .login-btn {
+                height: 48px;
+            }
+        }
+
+        @media (max-height: 650px) {
+            .container {
+                padding-top: 40px;
+                padding-bottom: 40px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background">
+        <video id="bg-video" autoplay muted loop playsinline>
+            <source src="video_mundo/20349219-hd_1080_1920_30fps.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="overlay"></div>
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+
+    <div class="container">
+        <div class="login-box">
+
+            <div class="login-header">
+                <img src="login-asonet-removebg-preview (1).png" class="logo" alt="Logo Asonet">
+                <h1>Bienvenido</h1>
+                <p id="subtitle">Accede al portal exclusivo para asesores comerciales.</p>
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab active" id="tab-asesor" onclick="switchTab('ASESOR')">
+                    <i class="fa-solid fa-user"></i> Asesor
+                </button>
+                <button class="tab" id="tab-admin" onclick="switchTab('ADMIN')">
+                    <i class="fa-solid fa-shield"></i> Admin
+                </button>
+            </div>
+
+            <!-- ALERTA -->
+            <div class="alert" id="alert">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="alert-msg">Error al iniciar sesión.</span>
+            </div>
+
+            <!-- FORM -->
+            <form id="login-form" novalidate>
+
+                <div class="input-group">
+                    <label id="label-email">ASESOR</label>
+                    <div class="input-box">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="email" id="input-email" placeholder="correo@asonet.com.co" autocomplete="email"
+                            required />
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>CONTRASEÑA</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="input-password" placeholder="Ingresa tu contraseña"
+                            autocomplete="current-password" required />
+                        <button type="button" class="toggle-pass" id="toggle-pass" title="Mostrar/ocultar contraseña">
+                            <i class="fa-regular fa-eye" id="eye-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="forgot">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="login-btn">
+                    <div class="spinner"></div>
+                    <i class="fa-solid fa-right-to-bracket btn-icon"></i>
+                    <span class="btn-text">Ingresar al Sistema</span>
+                </button>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <script type="module">
+        import { auth, db } from './firebase-config.js';
+        import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+        import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+        // ─── Estado ───────────────────────────────────────────
+        let currentRole = 'ASESOR';
+
+        // ─── Video ────────────────────────────────────────────
+        document.getElementById('bg-video').play().catch(() => { });
+
+        // ─── Tabs ─────────────────────────────────────────────
+        window.switchTab = function(role) {
+            currentRole = role;
+
+            document.getElementById('tab-asesor').classList.toggle('active', role === 'ASESOR');
+            document.getElementById('tab-admin').classList.toggle('active', role === 'ADMIN');
+
+            const subtitle = document.getElementById('subtitle');
+            const labelEmail = document.getElementById('label-email');
+
+            if (role === 'ADMIN') {
+                subtitle.textContent = 'Accede al panel de administración.';
+                labelEmail.textContent = 'ADMINISTRADOR';
+            } else {
+                subtitle.textContent = 'Accede al portal exclusivo para asesores comerciales.';
+                labelEmail.textContent = 'ASESOR';
+            }
+
+            hideAlert();
+            document.getElementById('input-email').focus();
+        };
+
+        // ─── Mostrar / ocultar contraseña ─────────────────────
+        document.getElementById('toggle-pass').addEventListener('click', () => {
+            const input = document.getElementById('input-password');
+            const icon = document.getElementById('eye-icon');
+            const visible = input.type === 'text';
+            input.type = visible ? 'password' : 'text';
+            icon.className = visible ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
+        });
+
+        // ─── Alertas ──────────────────────────────────────────
+        function showAlert(msg, type = 'error') {
+            const el = document.getElementById('alert');
+            const icon = el.querySelector('i');
+            document.getElementById('alert-msg').textContent = msg;
+            el.className = 'alert show' + (type === 'success' ? ' success' : '');
+            icon.className = type === 'success'
+                ? 'fa-solid fa-circle-check'
+                : 'fa-solid fa-circle-exclamation';
+        }
+
+        function hideAlert() {
+            document.getElementById('alert').classList.remove('show');
+        }
+
+        // ─── Estado del botón ─────────────────────────────────
+        function setLoading(loading) {
+            const btn = document.getElementById('login-btn');
+            btn.classList.toggle('loading', loading);
+            btn.disabled = loading;
+        }
+
+        // ─── Submit ───────────────────────────────────────────
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideAlert();
+
+            const email = document.getElementById('input-email').value.trim();
+            const password = document.getElementById('input-password').value;
+
+            // Validación básica en cliente
+            if (!email || !password) {
+                showAlert('Por favor completa todos los campos.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showAlert('Ingresa un correo electrónico válido.');
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                // 1. Iniciar sesión con Firebase Auth
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // 2. Obtener el rol del usuario desde Firestore
+                const userDocRef = doc(db, 'usuarios', user.uid);
+                const userDoc = await getDoc(userDocRef);
+
+                let userData = {
+                    uid: user.uid,
+                    email: user.email,
+                    role: currentRole, // Asignamos el rol seleccionado para auto-creación si no existe
+                    name: user.email.split('@')[0]
+                };
+
+                if (userDoc.exists()) {
+                    userData = { ...userData, ...userDoc.data() };
+                } else {
+                    console.warn("Usuario no encontrado en la colección 'usuarios' de Firestore. Creando perfil automático...");
+                    const nameParts = userData.name.split(/[._-]/);
+                    const iniciales = nameParts.slice(0, 2).map(p => p[0]).join('').toUpperCase() || 'US';
+                    
+                    // Guardar perfil inicial en Firestore
+                    await setDoc(userDocRef, {
+                        name: userData.name,
+                        role: userData.role,
+                        email: userData.email,
+                        iniciales: iniciales
+                    });
+                }
+
+                // 3. Validar que el rol coincida con el tab seleccionado
+                if (userData.role !== currentRole) {
+                    // Si no coincide, cerramos la sesión y mostramos error
+                    await signOut(auth);
+                    const nombre = currentRole === 'ASESOR' ? 'asesor' : 'administrador';
+                    showAlert(`Esta cuenta no tiene perfil de ${nombre}.`);
+                    return;
+                }
+
+                // Guardar datos en sessionStorage para acceso rápido en las otras páginas
+                sessionStorage.setItem('user', JSON.stringify(userData));
+
+                showAlert(`¡Bienvenido, ${userData.name}!`, 'success');
+
+                // Redirigir según rol
+                setTimeout(() => {
+                    if (userData.role === 'ADMIN') {
+                        window.location.href = 'admin/dashboard.html';
+                    } else {
+                        window.location.href = 'dasboard.html'; // Cambiado a dasboard.html para coincidir con tu archivo
+                    }
+                }, 800);
+
+            } catch (err) {
+                console.error('Login error:', err);
+                // Manejo de errores de Firebase
+                if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+                    showAlert('Email o contraseña incorrectos.');
+                } else {
+                    showAlert('Error al iniciar sesión: ' + err.message);
+                }
+            } finally {
+                setLoading(false);
+            }
+        });
+
+        // ─── Si ya hay sesión activa, redirigir directo ───────
+        // Usamos un flag para no redirigir durante el proceso de login
+        let isLoggingIn = false;
+        onAuthStateChanged(auth, async (user) => {
+            if (user && !isLoggingIn) {
+                const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
+                if (sessionUser) {
+                    window.location.href = sessionUser.role === 'ADMIN'
+                        ? 'admin/dashboard.html'
+                        : 'dasboard.html';
+                }
+            }
+        });
+
+        document.getElementById('login-form').addEventListener('submit', () => {
+            isLoggingIn = true;
+        }, { capture: true });
+    </script>
+
+</body>
+
+</html>
