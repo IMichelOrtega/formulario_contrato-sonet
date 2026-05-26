@@ -6,18 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@sonet — Panel Administrador</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
     <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 
         :root {
             --sb: #020617;
@@ -30,202 +22,221 @@
             --t: #f8fafc;
             --t2: #cbd5e1;
             --t3: #94a3b8;
-            --bdr: rgba(255, 255, 255, 0.08);
+            --bdr: rgba(255,255,255,0.08);
+            --red: #ef4444;
+            --green: #22c55e;
             --sidebar-w: 240px;
         }
 
-        html {
-            font-size: 16px;
-            -webkit-text-size-adjust: 100%
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--sb);
-            color: var(--t);
-            min-height: 100vh;
-            overflow-x: hidden
-        }
+        html { font-size: 16px; -webkit-text-size-adjust: 100% }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--sb); color: var(--t); min-height: 100vh; overflow-x: hidden }
 
         /* ── SIDEBAR ── */
         .sidebar {
             width: var(--sidebar-w);
             background: var(--sb2);
             border-right: 1px solid var(--bdr);
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            z-index: 200;
+            position: fixed; top: 0; left: 0; height: 100vh;
+            display: flex; flex-direction: column; z-index: 200;
         }
-
-        .logo {
-            padding: 24px;
-            border-bottom: 1px solid var(--bdr);
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .logo img {
-            max-width: 100%;
-            height: auto;
-            max-height: 50px;
-            object-fit: contain;
-        }
-
-        .user-pill {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--bdr)
-        }
-
+        .logo { padding: 24px; border-bottom: 1px solid var(--bdr); display: flex; align-items: center; }
+        .logo img { max-width: 100%; height: auto; max-height: 50px; object-fit: contain; }
+        .user-pill { display: flex; align-items: center; gap: 12px; padding: 20px 24px; border-bottom: 1px solid var(--bdr) }
         .av {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
+            width: 42px; height: 42px; border-radius: 50%;
             background: linear-gradient(135deg, #ea580c, #7c3aed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 800;
-            color: #fff;
-            flex-shrink: 0;
-            font-family: 'Syne', sans-serif
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 800; color: #fff; flex-shrink: 0; font-family: 'Syne', sans-serif
         }
-
-        .u-name {
-            font-size: 14px;
-            font-weight: 700
-        }
-
-        .u-role {
-            font-size: 12px;
-            color: #ea580c;
-            margin-top: 2px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        nav {
-            flex: 1;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            overflow-y: auto
-        }
-
+        .u-name { font-size: 14px; font-weight: 700 }
+        .u-role { font-size: 12px; color: #ea580c; margin-top: 2px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        nav { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 4px; overflow-y: auto }
         .ni {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--t2);
-            cursor: pointer;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            transition: .15s
+            display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px;
+            font-size: 14px; font-weight: 600; color: var(--t2); cursor: pointer;
+            border: none; background: none; width: 100%; text-align: left; transition: .15s
         }
-
-        .ni:hover {
-            background: var(--sb3);
-            color: var(--t)
-        }
-
-        .ni.act {
-            background: rgba(234, 88, 12, 0.15);
-            color: var(--or);
-            border: 1px solid rgba(234, 88, 12, 0.3);
-        }
-
-        .ni i {
-            font-size: 20px;
-            width: 24px;
-            text-align: center;
-            flex-shrink: 0
-        }
-
-        .sb-bot {
-            padding: 16px;
-            border-top: 1px solid var(--bdr)
-        }
+        .ni:hover { background: var(--sb3); color: var(--t) }
+        .ni.act { background: rgba(234,88,12,0.15); color: var(--or); border: 1px solid rgba(234,88,12,0.3); }
+        .ni i { font-size: 20px; width: 24px; text-align: center; flex-shrink: 0 }
+        .sb-bot { padding: 16px; border-top: 1px solid var(--bdr); display: flex; flex-direction: column; gap: 4px; }
 
         /* ── MAIN ── */
-        .main {
-            margin-left: var(--sidebar-w);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh
-        }
-
-        /* ── TOPBAR ── */
+        .main { margin-left: var(--sidebar-w); display: flex; flex-direction: column; min-height: 100vh }
         .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 40px;
-            background: var(--sb2);
-            border-bottom: 1px solid var(--bdr);
-            position: sticky;
-            top: 0;
-            z-index: 100
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 40px; background: var(--sb2); border-bottom: 1px solid var(--bdr);
+            position: sticky; top: 0; z-index: 100
         }
+        .tb-title { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800 }
+        .tb-sub { font-size: 13px; color: var(--t3); margin-top: 4px }
+        .content { padding: 36px 40px; flex: 1; display: flex; flex-direction: column; gap: 28px }
 
-        .tb-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 28px;
-            font-weight: 800
-        }
+        /* ── SECTIONS ── */
+        .section { display: none; flex-direction: column; gap: 28px; }
+        .section.active { display: flex; }
+        .section-header h2 { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+        .section-header p { font-size: 13px; color: var(--t3); }
 
-        .tb-sub {
-            font-size: 14px;
-            color: var(--t3);
-            margin-top: 4px
+        /* ── KPI ROW ── */
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .kpi {
+            background: var(--sb2); border: 1px solid var(--bdr); border-radius: 16px;
+            padding: 22px; display: flex; flex-direction: column; gap: 8px;
         }
+        .kpi-label { font-size: 13px; color: var(--t3); font-weight: 500; }
+        .kpi-num { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; }
+        .kpi-icon { font-size: 24px; margin-bottom: 4px; }
+        .kpi-b .kpi-icon { color: var(--b); }
+        .kpi-g .kpi-icon { color: var(--green); }
+        .kpi-o .kpi-icon { color: var(--or); }
+        .kpi-r .kpi-icon { color: var(--red); }
 
-        /* ── CONTENT ── */
-        .content {
-            padding: 40px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 32px
+        /* ── TABLE CARD ── */
+        .tbl-card { background: var(--sb2); border: 1px solid var(--bdr); border-radius: 16px; overflow: hidden; }
+        .tbl-hd { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--bdr); flex-wrap: wrap; gap: 12px; }
+        .tbl-title { font-size: 16px; font-weight: 700; }
+        .tbl-ctrl { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .s-wrap { position: relative; display: flex; align-items: center; }
+        .s-wrap i { position: absolute; left: 12px; font-size: 15px; color: var(--t3); pointer-events: none; }
+        .s-inp {
+            height: 36px; padding: 0 12px 0 36px; background: var(--sb3); border: 1px solid var(--bdr);
+            border-radius: 8px; font-family: inherit; font-size: 13px; color: var(--t); width: 220px;
         }
+        .s-inp:focus { outline: none; border-color: var(--b); }
+        .s-inp::placeholder { color: var(--t3); }
+        .btn-p {
+            display: flex; align-items: center; gap: 7px; padding: 0 16px; height: 36px;
+            background: var(--or); border: none; border-radius: 8px; font-size: 13px;
+            font-weight: 700; color: #fff; cursor: pointer; transition: .15s; font-family: inherit;
+        }
+        .btn-p:hover { background: #c2410c; }
+        .tbl-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { padding: 11px 16px; text-align: left; font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--bdr); }
+        td { padding: 13px 16px; font-size: 13px; border-bottom: 1px solid var(--bdr); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        .empty-state { display: flex; flex-direction: column; align-items: center; padding: 48px 20px; color: var(--t3); gap: 10px; }
+        .empty-state i { font-size: 40px; opacity: .4; }
+        .empty-state p { font-size: 14px; }
+        .pag { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-top: 1px solid var(--bdr); flex-wrap: wrap; gap: 10px; }
+        .pag-info { font-size: 12px; color: var(--t3); }
+        .pag-btns { display: flex; gap: 5px; }
+        .pb { background: var(--sb3); border: 1px solid var(--bdr); border-radius: 7px; padding: 5px 10px; font-family: inherit; font-size: 12px; color: var(--t2); cursor: pointer; transition: .15s; }
+        .pb:hover:not(:disabled) { background: var(--surf); color: var(--t); }
+        .pb.cur { background: var(--b); border-color: var(--b); color: #fff; }
+        .pb:disabled { opacity: .35; cursor: not-allowed; }
 
-        .section-header {
-            margin-bottom: 8px;
-        }
+        /* ── BADGES ── */
+        .badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; }
+        .badge-blue { background: rgba(37,99,235,0.2); color: #93c5fd; }
+        .badge-orange { background: rgba(234,88,12,0.2); color: #fdba74; }
+        .badge-green { background: rgba(34,197,94,0.2); color: #86efac; }
 
-        .section-header h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 6px;
+        /* ── ACTION BUTTONS ── */
+        .actions { display: flex; gap: 6px; align-items: center; }
+        .btn-icon {
+            width: 30px; height: 30px; border-radius: 7px; border: 1px solid var(--bdr);
+            background: var(--sb3); color: var(--t2); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 15px; transition: .15s;
         }
-
-        .section-header p {
-            font-size: 14px;
-            color: var(--t3);
-        }
+        .btn-icon:hover { background: var(--surf); color: var(--t); }
+        .btn-danger { border-color: rgba(239,68,68,0.3); color: #f87171; }
+        .btn-danger:hover { background: rgba(239,68,68,0.15); color: var(--red); }
 
         /* ── CREDENTIALS GRID ── */
-        .credentials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
+        .credentials-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .cred-card { background: var(--sb3); border: 1px solid var(--bdr); border-radius: 16px; padding: 22px; }
+        .cred-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+        .cred-av {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, #ea580c, #7c3aed);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 16px; font-family: 'Syne', sans-serif;
         }
+        .cred-name { font-weight: 700; font-size: 16px; }
+        .cred-role { color: var(--or); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+        .cred-email-box {
+            background: var(--sb); border: 1px solid var(--bdr); border-radius: 10px; padding: 12px;
+            display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        }
+        .cred-email { font-family: monospace; font-size: 13px; color: var(--t2); word-break: break-all; }
+        .btn-copy {
+            background: var(--b); border: none; color: white; cursor: pointer; font-size: 12px;
+            font-weight: 600; padding: 5px 10px; border-radius: 6px; transition: .15s; flex-shrink: 0;
+        }
+        .btn-copy:hover { background: var(--bd); }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+            z-index: 500; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-card {
+            background: var(--sb2); border: 1px solid var(--bdr); border-radius: 20px;
+            width: 100%; max-width: 500px; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: slideUp .3s cubic-bezier(0.16,1,0.3,1);
+        }
+        .modal-header {
+            padding: 20px 24px; border-bottom: 1px solid var(--bdr);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .modal-header h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .modal-close {
+            background: var(--sb3); border: none; color: var(--t2); width: 32px; height: 32px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: .15s; font-size: 18px;
+        }
+        .modal-close:hover { background: var(--surf); color: var(--t); }
+        .modal-body { padding: 24px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-label { font-size: 12px; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-input {
+            height: 42px; background: var(--sb3); border: 1px solid var(--bdr);
+            border-radius: 9px; padding: 0 13px; font-family: inherit; font-size: 14px; color: var(--t);
+            transition: .15s;
+        }
+        .form-input:focus { outline: none; border-color: var(--or); background: var(--surf); }
+        .form-hint { font-size: 11px; color: var(--t3); }
+        .modal-footer {
+            padding: 16px 24px; border-top: 1px solid var(--bdr);
+            display: flex; justify-content: flex-end; gap: 10px;
+        }
+        .btn-sec {
+            padding: 9px 18px; border-radius: 8px; border: 1px solid var(--bdr);
+            background: transparent; color: var(--t2); font-weight: 600; font-size: 13px;
+            cursor: pointer; transition: .15s; font-family: inherit;
+        }
+        .btn-sec:hover { background: var(--sb3); color: var(--t); }
+        .btn-save {
+            padding: 9px 20px; border-radius: 8px; border: none; background: var(--or);
+            color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; transition: .15s;
+            display: flex; align-items: center; gap: 6px; font-family: inherit;
+        }
+        .btn-save:hover { background: #c2410c; }
+        .btn-save:disabled { opacity: .6; cursor: not-allowed; }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed; bottom: 28px; right: 28px; background: var(--sb3);
+            border: 1px solid var(--bdr); border-radius: 12px; padding: 14px 20px;
+            font-size: 14px; font-weight: 600; color: var(--t); z-index: 1000;
+            display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            animation: fadeUp .25s ease; pointer-events: none;
+        }
+        .toast.toast-ok { border-color: rgba(34,197,94,0.4); color: #86efac; }
+        .toast.toast-err { border-color: rgba(239,68,68,0.4); color: #f87171; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; display: inline-block; }
     </style>
 </head>
 
@@ -233,8 +244,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="logo"><img src="../logo-sonet-light.png" alt="Asonet Logo"></div>
-
+        <div class="logo"><img src="../logo-sonet-light.png" alt="SONET Logo"></div>
         <div class="user-pill">
             <div class="av" id="sb-avatar">AD</div>
             <div>
@@ -242,56 +252,231 @@
                 <div class="u-role">Administrador</div>
             </div>
         </div>
-
         <nav>
-            <button class="ni act">
-                <i class="ti ti-shield-half" aria-hidden="true"></i>Credenciales Admin
+            <button class="ni act" id="nav-resumen" onclick="showSection('resumen')">
+                <i class="ti ti-layout-dashboard"></i>Resumen
             </button>
-            <button class="ni" onclick="window.location.href='../dasboard.html'">
-                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Ir a Dashboard Asesor
+            <button class="ni" id="nav-contratos" onclick="showSection('contratos')">
+                <i class="ti ti-file-text"></i>Contratos
+            </button>
+            <button class="ni" id="nav-asesores" onclick="showSection('asesores')">
+                <i class="ti ti-users"></i>Asesores
+            </button>
+            <button class="ni" id="nav-admins" onclick="showSection('admins')">
+                <i class="ti ti-shield-half"></i>Administradores
             </button>
         </nav>
-
         <div class="sb-bot">
+            <button class="ni" onclick="window.location.href='../dasboard.html'">
+                <i class="ti ti-layout-dashboard"></i>Dashboard Asesor
+            </button>
             <button class="ni" onclick="logout()">
-                <i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión
+                <i class="ti ti-logout"></i>Cerrar sesión
             </button>
         </div>
     </aside>
 
     <!-- MAIN -->
     <div class="main">
-
-        <!-- TOPBAR -->
         <header class="topbar">
             <div>
-                <div class="tb-title">Consola de Administración</div>
+                <div class="tb-title" id="page-title">Resumen</div>
                 <div class="tb-sub" id="today-date"></div>
             </div>
         </header>
 
-        <!-- CONTENT -->
         <main class="content">
-            <div class="section-header">
-                <h2>Cuentas y Credenciales de Administradores</h2>
-                <p>Lista de accesos autorizados en el sistema. Asegúrate de registrar estas cuentas en la consola de Firebase Authentication.</p>
-            </div>
 
-            <!-- CONTENEDOR DE CREDENCIALES -->
-            <div class="credentials-grid" id="admin-credentials-container">
-                <div style="color: var(--t3); grid-column: 1/-1; text-align: center; padding: 40px;">
-                    <i class="ti ti-loader" style="font-size: 32px; animation: spin 1s linear infinite;"></i>
-                    <p style="margin-top: 8px;">Cargando credenciales desde Firebase Firestore...</p>
+            <!-- ── RESUMEN ── -->
+            <div class="section active" id="section-resumen">
+                <div class="kpi-row" id="kpi-row">
+                    <div class="kpi kpi-b">
+                        <i class="ti ti-files kpi-icon"></i>
+                        <div class="kpi-num" id="kpi-total">—</div>
+                        <div class="kpi-label">Contratos totales</div>
+                    </div>
+                    <div class="kpi kpi-g">
+                        <i class="ti ti-calendar-check kpi-icon"></i>
+                        <div class="kpi-num" id="kpi-mes">—</div>
+                        <div class="kpi-label">Contratos este mes</div>
+                    </div>
+                    <div class="kpi kpi-o">
+                        <i class="ti ti-users kpi-icon"></i>
+                        <div class="kpi-num" id="kpi-asesores">—</div>
+                        <div class="kpi-label">Asesores activos</div>
+                    </div>
+                </div>
+
+                <div class="tbl-card">
+                    <div class="tbl-hd">
+                        <div class="tbl-title">Últimos contratos registrados</div>
+                    </div>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead><tr>
+                                <th>Cliente</th><th>CC / NIT</th><th>Servicio</th><th>Asesor</th><th>Fecha</th>
+                            </tr></thead>
+                            <tbody id="recent-tbody"></tbody>
+                        </table>
+                        <div class="empty-state" id="recent-empty" style="display:none">
+                            <i class="ti ti-file-off"></i><p>Sin contratos aún</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- ── CONTRATOS ── -->
+            <div class="section" id="section-contratos">
+                <div class="section-header">
+                    <h2>Todos los contratos</h2>
+                    <p>Visualiza y administra los contratos registrados por todos los asesores.</p>
+                </div>
+                <div class="tbl-card">
+                    <div class="tbl-hd">
+                        <div class="tbl-title" id="contratos-count">Contratos</div>
+                        <div class="tbl-ctrl">
+                            <div class="s-wrap">
+                                <i class="ti ti-search"></i>
+                                <input class="s-inp" id="search-contratos" placeholder="Buscar cliente, CC…" oninput="filtrarContratos()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead><tr>
+                                <th>#</th><th>Cliente</th><th>CC / NIT</th><th>Servicio</th><th>Asesor</th><th>Fecha</th><th></th>
+                            </tr></thead>
+                            <tbody id="contratos-tbody"></tbody>
+                        </table>
+                        <div class="empty-state" id="contratos-empty" style="display:none">
+                            <i class="ti ti-file-off"></i><p>Sin contratos</p>
+                        </div>
+                    </div>
+                    <div class="pag">
+                        <span class="pag-info" id="contratos-page-info"></span>
+                        <div class="pag-btns" id="contratos-page-btns"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── ASESORES ── -->
+            <div class="section" id="section-asesores">
+                <div class="section-header">
+                    <h2>Gestión de asesores</h2>
+                    <p>Crea, consulta y elimina cuentas de asesores del sistema.</p>
+                </div>
+                <div class="tbl-card">
+                    <div class="tbl-hd">
+                        <div class="tbl-title" id="asesores-count">Asesores</div>
+                        <div class="tbl-ctrl">
+                            <div class="s-wrap">
+                                <i class="ti ti-search"></i>
+                                <input class="s-inp" id="search-asesores" placeholder="Buscar asesor…" oninput="filtrarAsesores()">
+                            </div>
+                            <button class="btn-p" onclick="abrirModalAsesor()">
+                                <i class="ti ti-plus"></i>Nuevo asesor
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead><tr>
+                                <th>Asesor</th><th>Email</th><th>Iniciales</th><th></th>
+                            </tr></thead>
+                            <tbody id="asesores-tbody"></tbody>
+                        </table>
+                        <div class="empty-state" id="asesores-empty" style="display:none">
+                            <i class="ti ti-users-off"></i><p>No hay asesores registrados</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── ADMINS ── -->
+            <div class="section" id="section-admins">
+                <div class="section-header">
+                    <h2>Cuentas de Administradores</h2>
+                    <p>Lista de accesos autorizados en el sistema. Registra estas cuentas en la consola de Firebase Authentication.</p>
+                </div>
+                <div class="credentials-grid" id="admin-credentials-container">
+                    <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--t3)">
+                        <i class="ti ti-loader spin" style="font-size:28px"></i>
+                        <p style="margin-top:8px">Cargando...</p>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
-    <script type="module">
-        import { db, auth } from '../firebase-config.js';
-        import { collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-        import { signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+    <!-- MODAL NUEVO ASESOR -->
+    <div class="modal-overlay" id="modal-asesor">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="ti ti-user-plus"></i> Crear nuevo asesor</h3>
+                <button class="modal-close" onclick="cerrarModalAsesor()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="form-asesor" onsubmit="event.preventDefault(); crearAsesor();" class="form-grid">
+                    <div class="form-group full">
+                        <label class="form-label">Nombre completo</label>
+                        <input type="text" id="a-nombre" class="form-input" placeholder="Ej: Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Iniciales</label>
+                        <input type="text" id="a-iniciales" class="form-input" placeholder="JP" maxlength="3" required>
+                        <span class="form-hint">Máx. 3 caracteres</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="a-email" class="form-input" placeholder="asesor@asonet.com.co" required>
+                    </div>
+                    <div class="form-group full">
+                        <label class="form-label">Contraseña temporal</label>
+                        <input type="password" id="a-password" class="form-input" placeholder="Mín. 6 caracteres" minlength="6" required>
+                        <span class="form-hint">El asesor podrá cambiarla luego desde Firebase.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-sec" onclick="cerrarModalAsesor()">Cancelar</button>
+                <button type="submit" form="form-asesor" class="btn-save" id="btn-crear-asesor">
+                    <i class="ti ti-circle-check"></i> Crear asesor
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword }
+            from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+        import { getFirestore, collection, getDocs, deleteDoc, doc, addDoc, setDoc, query, where }
+            from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { db, auth } from '../firebase-config.js';
+
+        // ── Segunda instancia de Firebase para crear usuarios sin cerrar sesión del admin ──
+        const firebaseConfig = {
+            apiKey: "AIzaSyALifNLjZgvAgbyz_CdRSPnKzCw9XzCQxA",
+            authDomain: "asonet-comercial.firebaseapp.com",
+            projectId: "asonet-comercial",
+            storageBucket: "asonet-comercial.firebasestorage.app",
+            messagingSenderId: "1015959268602",
+            appId: "1:1015959268602:web:326c4a13028ff347632d43"
+        };
+        const secondaryApp = initializeApp(firebaseConfig, 'secondary');
+        const secondaryAuth = getAuth(secondaryApp);
+
+        // ── Estado ──
+        let allContratos = [];
+        let filtContratos = [];
+        let pagContratos = 1;
+        const PAGE = 10;
+
+        let allAsesores = [];
+        let filtAsesores = [];
+
+        // ── Init ──
         document.addEventListener('DOMContentLoaded', () => {
             const d = new Date();
             document.getElementById('today-date').textContent =
@@ -306,150 +491,366 @@
             document.getElementById('sb-avatar').textContent = sessionUser.iniciales || 'AD';
             document.getElementById('sb-name').textContent = sessionUser.name || 'Administrador';
 
-            mostrarCredencialesAdmin();
+            cargarTodo();
         });
 
-        async function mostrarCredencialesAdmin() {
+        async function cargarTodo() {
+            await Promise.all([cargarContratos(), cargarAsesores(), cargarAdmins()]);
+        }
+
+        // ── CONTRATOS ──
+        async function cargarContratos() {
             try {
-                const usuariosRef = collection(db, 'usuarios');
-                const q = query(usuariosRef, where('role', '==', 'ADMIN'));
-                const querySnapshot = await getDocs(q);
+                const snap = await getDocs(collection(db, 'contratos'));
+                allContratos = [];
+                snap.forEach(d => allContratos.push({ id: d.id, ...d.data() }));
+                allContratos.sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''));
+            } catch (e) {
+                console.error('Error cargando contratos:', e);
+            }
+            renderResumen();
+            filtContratos = [...allContratos];
+            renderTablaContratos();
+        }
 
-                const admins = [];
-                querySnapshot.forEach((doc) => {
-                    admins.push({
-                        uid: doc.id,
-                        ...doc.data()
-                    });
-                });
+        function renderResumen() {
+            const now = new Date();
+            const mes = now.getMonth(), anio = now.getFullYear();
+            const esteMes = allContratos.filter(c => {
+                const d = new Date(c.fecha);
+                return d.getMonth() === mes && d.getFullYear() === anio;
+            }).length;
+            animNum('kpi-total', allContratos.length);
+            animNum('kpi-mes', esteMes);
 
-                if (admins.length === 0) {
-                    // Si no hay datos en Firestore aún, mostramos la lista predefinida
-                    const defaultAdmins = [
-                        { email: 'admin1@asonet.com.co', name: 'Administrador 1', role: 'ADMIN', iniciales: 'A1' },
-                        { email: 'admin2@asonet.com.co', name: 'Administrador 2', role: 'ADMIN', iniciales: 'A2' },
-                        { email: 'admin3@asonet.com.co', name: 'Administrador 3', role: 'ADMIN', iniciales: 'A3' },
-                        { email: 'admin4@asonet.com.co', name: 'Administrador 4', role: 'ADMIN', iniciales: 'A4' }
-                    ];
-                    mostrarTarjetasAdmin(defaultAdmins);
-                } else {
-                    mostrarTarjetasAdmin(admins);
-                }
-            } catch (err) {
-                console.error('Error al cargar admins:', err);
-                // Fallback en caso de error de conexión
-                const defaultAdmins = [
-                    { email: 'admin1@asonet.com.co', name: 'Administrador 1', role: 'ADMIN', iniciales: 'A1' },
-                    { email: 'admin2@asonet.com.co', name: 'Administrador 2', role: 'ADMIN', iniciales: 'A2' },
-                    { email: 'admin3@asonet.com.co', name: 'Administrador 3', role: 'ADMIN', iniciales: 'A3' },
-                    { email: 'admin4@asonet.com.co', name: 'Administrador 4', role: 'ADMIN', iniciales: 'A4' }
-                ];
-                mostrarTarjetasAdmin(defaultAdmins);
+            // Últimos 5 contratos
+            const recientes = allContratos.slice(0, 5);
+            const tbody = document.getElementById('recent-tbody');
+            const empty = document.getElementById('recent-empty');
+            if (recientes.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'flex';
+            } else {
+                empty.style.display = 'none';
+                tbody.innerHTML = recientes.map(c => `
+                    <tr>
+                        <td><strong>${esc(c.nombre)}</strong></td>
+                        <td style="color:var(--t3);font-size:12px">${esc(c.cc)}</td>
+                        <td>${esc(c.servicio)}</td>
+                        <td style="color:var(--t3);font-size:12px">${esc(c.asesor || '—')}</td>
+                        <td style="color:var(--t3);font-size:12px">${fmtDate(c.fecha)}</td>
+                    </tr>`).join('');
             }
         }
 
-        function mostrarTarjetasAdmin(admins) {
-            const contenedor = document.getElementById('admin-credentials-container');
-            if (!contenedor) return;
+        // ── TABLA CONTRATOS ──
+        window.filtrarContratos = function() {
+            const q = document.getElementById('search-contratos').value.toLowerCase().trim();
+            filtContratos = q
+                ? allContratos.filter(c =>
+                    (c.nombre || '').toLowerCase().includes(q) ||
+                    (c.cc || '').replace(/\./g,'').includes(q.replace(/\./g,'')) ||
+                    (c.asesor || '').toLowerCase().includes(q) ||
+                    (c.servicio || '').toLowerCase().includes(q))
+                : [...allContratos];
+            pagContratos = 1;
+            renderTablaContratos();
+        };
 
-            contenedor.innerHTML = admins.map(admin => `
-                <div style="
-                    background: var(--sb2);
-                    border: 1px solid var(--bdr);
-                    border-radius: 16px;
-                    padding: 24px;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                ">
-                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
-                        <div style="
-                            width: 52px;
-                            height: 52px;
-                            border-radius: 50%;
-                            background: linear-gradient(135deg, #ea580c, #7c3aed);
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: white;
-                            font-weight: 800;
-                            font-size: 16px;
-                            font-family: 'Syne', sans-serif;
-                        ">
-                            ${admin.iniciales || 'AD'}
-                        </div>
-                        <div>
-                            <div style="font-weight: 700; color: var(--t); font-size: 18px;">
-                                ${admin.name}
+        function renderTablaContratos() {
+            const tbody = document.getElementById('contratos-tbody');
+            const empty = document.getElementById('contratos-empty');
+            const start = (pagContratos - 1) * PAGE;
+            const page = filtContratos.slice(start, start + PAGE);
+            document.getElementById('contratos-count').textContent =
+                `${filtContratos.length} contrato${filtContratos.length !== 1 ? 's' : ''}`;
+
+            if (filtContratos.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'flex';
+            } else {
+                empty.style.display = 'none';
+                tbody.innerHTML = page.map((c, i) => `
+                    <tr>
+                        <td style="color:var(--t3);font-size:12px">${String(start+i+1).padStart(3,'0')}</td>
+                        <td><strong>${esc(c.nombre)}</strong></td>
+                        <td style="color:var(--t3);font-size:12px">${esc(c.cc)}</td>
+                        <td>${esc(c.servicio)}</td>
+                        <td style="font-size:12px;color:var(--t3)">${esc(c.asesor || '—')}</td>
+                        <td style="font-size:12px;color:var(--t3)">${fmtDate(c.fecha)}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-icon btn-danger" title="Eliminar" onclick="eliminarContrato('${esc(c.id)}')">
+                                    <i class="ti ti-trash"></i>
+                                </button>
                             </div>
-                            <div style="color: var(--or); font-size: 13px; font-weight: 600; text-transform: uppercase;">
-                                Administrador
-                            </div>
+                        </td>
+                    </tr>`).join('');
+            }
+            renderPagContratos();
+        }
+
+        function renderPagContratos() {
+            const total = filtContratos.length;
+            const pages = Math.ceil(total / PAGE);
+            const start = (pagContratos - 1) * PAGE + 1;
+            const end = Math.min(pagContratos * PAGE, total);
+            document.getElementById('contratos-page-info').textContent =
+                total === 0 ? 'Sin resultados' : `Mostrando ${start}–${end} de ${total}`;
+            const btns = document.getElementById('contratos-page-btns');
+            if (pages <= 1) { btns.innerHTML = ''; return; }
+            let h = `<button class="pb" onclick="goPageC(${pagContratos-1})" ${pagContratos===1?'disabled':''}>‹</button>`;
+            for (let p = 1; p <= pages; p++) {
+                if (pages > 7 && p > 2 && p < pages-1 && Math.abs(p-pagContratos) > 1) {
+                    if (p===3||p===pages-2) h += `<button class="pb" disabled>…</button>`;
+                    continue;
+                }
+                h += `<button class="pb ${p===pagContratos?'cur':''}" onclick="goPageC(${p})">${p}</button>`;
+            }
+            h += `<button class="pb" onclick="goPageC(${pagContratos+1})" ${pagContratos===pages?'disabled':''}>›</button>`;
+            btns.innerHTML = h;
+        }
+
+        window.goPageC = function(p) {
+            const pages = Math.ceil(filtContratos.length / PAGE);
+            if (p < 1 || p > pages) return;
+            pagContratos = p;
+            renderTablaContratos();
+        };
+
+        window.eliminarContrato = async function(id) {
+            if (!confirm('¿Eliminar este contrato? Esta acción no se puede deshacer.')) return;
+            try {
+                await deleteDoc(doc(db, 'contratos', id));
+                allContratos = allContratos.filter(c => c.id !== id);
+                filtContratos = filtContratos.filter(c => c.id !== id);
+                renderResumen();
+                renderTablaContratos();
+                toast('Contrato eliminado', 'ok');
+            } catch (e) {
+                toast('Error al eliminar: ' + e.message, 'err');
+            }
+        };
+
+        // ── ASESORES ──
+        async function cargarAsesores() {
+            try {
+                const q = query(collection(db, 'usuarios'), where('role', '==', 'ASESOR'));
+                const snap = await getDocs(q);
+                allAsesores = [];
+                snap.forEach(d => allAsesores.push({ uid: d.id, ...d.data() }));
+            } catch (e) {
+                console.error('Error cargando asesores:', e);
+            }
+            animNum('kpi-asesores', allAsesores.length);
+            filtAsesores = [...allAsesores];
+            renderTablaAsesores();
+        }
+
+        window.filtrarAsesores = function() {
+            const q = document.getElementById('search-asesores').value.toLowerCase().trim();
+            filtAsesores = q
+                ? allAsesores.filter(a =>
+                    (a.name || '').toLowerCase().includes(q) ||
+                    (a.email || '').toLowerCase().includes(q))
+                : [...allAsesores];
+            renderTablaAsesores();
+        };
+
+        function renderTablaAsesores() {
+            const tbody = document.getElementById('asesores-tbody');
+            const empty = document.getElementById('asesores-empty');
+            document.getElementById('asesores-count').textContent =
+                `${filtAsesores.length} asesor${filtAsesores.length !== 1 ? 'es' : ''}`;
+
+            if (filtAsesores.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'flex';
+                return;
+            }
+            empty.style.display = 'none';
+            tbody.innerHTML = filtAsesores.map(a => `
+                <tr>
+                    <td>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <div class="av" style="width:34px;height:34px;font-size:12px;flex-shrink:0">${esc(a.iniciales || '??')}</div>
+                            <strong>${esc(a.name)}</strong>
                         </div>
-                    </div>
-                    
-                    <div style="background: var(--sb); border: 1px solid var(--bdr); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
-                        <div style="color: var(--t3); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;">
-                            Email de Ingreso
-                        </div>
-                        <div style="
-                            font-family: monospace;
-                            background: rgba(0,0,0,0.2);
-                            border: 1px solid var(--bdr);
-                            border-radius: 8px;
-                            padding: 10px 14px;
-                            font-size: 14px;
-                            color: var(--t2);
-                            word-break: break-all;
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
-                            gap: 8px;
-                        ">
-                            <span>${admin.email}</span>
-                            <button onclick="copiarAlPortapapeles('${admin.email}')" style="
-                                background: var(--b);
-                                border: none;
-                                color: white;
-                                cursor: pointer;
-                                font-size: 12px;
-                                font-weight: 600;
-                                padding: 6px 10px;
-                                border-radius: 6px;
-                                transition: 0.2s;
-                            " onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
-                                Copiar
+                    </td>
+                    <td style="font-size:13px;color:var(--t2)">${esc(a.email)}</td>
+                    <td><span class="badge badge-blue">${esc(a.iniciales || '—')}</span></td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn-icon btn-danger" title="Eliminar asesor" onclick="eliminarAsesor('${esc(a.uid)}','${esc(a.name)}')">
+                                <i class="ti ti-trash"></i>
                             </button>
                         </div>
-                    </div>
-
-                    <div style="font-size: 12px; color: var(--t3); line-height: 1.6;">
-                        <strong>Instrucciones:</strong><br>
-                        1. Usa el email para iniciar sesión.<br>
-                        2. Registra la cuenta en la consola de Firebase.<br>
-                        3. Crea el perfil en la colección <code>usuarios</code>.<br>
-                        <strong style="color: #ef4444;">⚠️ Credenciales confidenciales</strong>
-                    </div>
-                </div>
-            `).join('');
+                    </td>
+                </tr>`).join('');
         }
 
-        function copiarAlPortapapeles(texto) {
-            navigator.clipboard.writeText(texto).then(() => {
-                alert('✓ Email copiado al portapapeles');
-            }).catch(err => {
-                console.error('Error al copiar:', err);
-            });
-        }
-
-        async function logout() {
+        window.eliminarAsesor = async function(uid, nombre) {
+            if (!confirm(`¿Eliminar al asesor "${nombre}" del sistema?\n\nNota: Esto elimina su perfil de Firestore. Para revocar el acceso de Firebase Auth debes hacerlo desde la consola de Firebase.`)) return;
             try {
-                await signOut(auth);
-            } catch (_) { }
+                await deleteDoc(doc(db, 'usuarios', uid));
+                allAsesores = allAsesores.filter(a => a.uid !== uid);
+                filtAsesores = filtAsesores.filter(a => a.uid !== uid);
+                animNum('kpi-asesores', allAsesores.length);
+                renderTablaAsesores();
+                toast('Asesor eliminado del sistema', 'ok');
+            } catch (e) {
+                toast('Error: ' + e.message, 'err');
+            }
+        };
+
+        window.abrirModalAsesor = function() {
+            document.getElementById('form-asesor').reset();
+            document.getElementById('modal-asesor').classList.add('show');
+        };
+
+        window.cerrarModalAsesor = function() {
+            document.getElementById('modal-asesor').classList.remove('show');
+        };
+
+        window.crearAsesor = async function() {
+            const nombre = document.getElementById('a-nombre').value.trim();
+            const iniciales = document.getElementById('a-iniciales').value.trim().toUpperCase();
+            const email = document.getElementById('a-email').value.trim();
+            const password = document.getElementById('a-password').value;
+            const btn = document.getElementById('btn-crear-asesor');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="ti ti-loader spin"></i> Creando...';
+
+            try {
+                // Crear cuenta en Firebase Auth (usando instancia secundaria)
+                const cred = await createUserWithEmailAndPassword(secondaryAuth, email, password);
+                const uid = cred.user.uid;
+                await signOut(secondaryAuth);
+
+                // Crear perfil en Firestore
+                await setDoc(doc(db, 'usuarios', uid), {
+                    name: nombre,
+                    email: email,
+                    iniciales: iniciales,
+                    role: 'ASESOR'
+                });
+
+                const nuevoAsesor = { uid, name: nombre, email, iniciales, role: 'ASESOR' };
+                allAsesores.unshift(nuevoAsesor);
+                filtAsesores = [...allAsesores];
+                animNum('kpi-asesores', allAsesores.length);
+                renderTablaAsesores();
+                cerrarModalAsesor();
+                toast(`Asesor "${nombre}" creado exitosamente`, 'ok');
+            } catch (e) {
+                let msg = e.message;
+                if (e.code === 'auth/email-already-in-use') msg = 'Este email ya está registrado en Firebase.';
+                else if (e.code === 'auth/weak-password') msg = 'La contraseña debe tener al menos 6 caracteres.';
+                else if (e.code === 'auth/invalid-email') msg = 'El email no es válido.';
+                toast('Error: ' + msg, 'err');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="ti ti-circle-check"></i> Crear asesor';
+            }
+        };
+
+        // ── ADMINS ──
+        async function cargarAdmins() {
+            try {
+                const q = query(collection(db, 'usuarios'), where('role', '==', 'ADMIN'));
+                const snap = await getDocs(q);
+                const admins = [];
+                snap.forEach(d => admins.push({ uid: d.id, ...d.data() }));
+                renderCredenciales(admins.length > 0 ? admins : defaultAdmins());
+            } catch (e) {
+                renderCredenciales(defaultAdmins());
+            }
+        }
+
+        function defaultAdmins() {
+            return [
+                { email: 'admin1@asonet.com.co', name: 'Administrador 1', iniciales: 'A1' },
+                { email: 'admin2@asonet.com.co', name: 'Administrador 2', iniciales: 'A2' },
+                { email: 'admin3@asonet.com.co', name: 'Administrador 3', iniciales: 'A3' },
+                { email: 'admin4@asonet.com.co', name: 'Administrador 4', iniciales: 'A4' },
+            ];
+        }
+
+        function renderCredenciales(admins) {
+            document.getElementById('admin-credentials-container').innerHTML = admins.map(a => `
+                <div class="cred-card">
+                    <div class="cred-head">
+                        <div class="cred-av">${esc(a.iniciales || 'AD')}</div>
+                        <div>
+                            <div class="cred-name">${esc(a.name)}</div>
+                            <div class="cred-role">Administrador</div>
+                        </div>
+                    </div>
+                    <div class="cred-email-box">
+                        <span class="cred-email">${esc(a.email)}</span>
+                        <button class="btn-copy" onclick="copiar('${esc(a.email)}')">Copiar</button>
+                    </div>
+                </div>`).join('');
+        }
+
+        // ── HELPERS ──
+        function animNum(id, target) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            let cur = 0;
+            const step = Math.ceil(target / 20) || 1;
+            const t = setInterval(() => {
+                cur = Math.min(cur + step, target);
+                el.textContent = cur;
+                if (cur >= target) clearInterval(t);
+            }, 40);
+        }
+
+        function fmtDate(iso) {
+            if (!iso) return '—';
+            const [y, m, d] = iso.split('-');
+            return `${d}/${m}/${y}`;
+        }
+
+        function esc(s) {
+            return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+        }
+
+        let toastTimer;
+        window.toast = function(msg, type = 'ok') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            clearTimeout(toastTimer);
+            const el = document.createElement('div');
+            el.className = `toast toast-${type}`;
+            el.innerHTML = `<i class="ti ti-${type==='ok'?'circle-check':'circle-x'}"></i> ${msg}`;
+            document.body.appendChild(el);
+            toastTimer = setTimeout(() => el.remove(), 3500);
+        };
+
+        window.copiar = function(texto) {
+            navigator.clipboard.writeText(texto)
+                .then(() => toast('Email copiado al portapapeles', 'ok'))
+                .catch(() => toast('No se pudo copiar', 'err'));
+        };
+
+        window.logout = async function() {
+            try { await signOut(auth); } catch (_) {}
             sessionStorage.removeItem('user');
             window.location.href = '../index.html';
-        }
+        };
 
-        window.copiarAlPortapapeles = copiarAlPortapapeles;
-        window.logout = logout;
+        // ── NAVEGACIÓN ──
+        window.showSection = function(name) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.ni').forEach(n => n.classList.remove('act'));
+            document.getElementById('section-' + name).classList.add('active');
+            document.getElementById('nav-' + name).classList.add('act');
+            const titles = { resumen: 'Resumen', contratos: 'Contratos', asesores: 'Asesores', admins: 'Administradores' };
+            document.getElementById('page-title').textContent = titles[name] || name;
+        };
     </script>
 </body>
 
