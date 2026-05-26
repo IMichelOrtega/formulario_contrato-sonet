@@ -503,15 +503,18 @@
     <script type="module">
         import { auth, db } from './firebase-config.js';
         import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-        import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-        // ─── Estado ───────────────────────────────────────────
+        // ───────────────────────────────────────────────────────────────────────────
+        // VARIABLES GLOBALES
+        // ───────────────────────────────────────────────────────────────────────────
+
         let currentRole = 'ASESOR';
 
-        // ─── Video ────────────────────────────────────────────
-        document.getElementById('bg-video').play().catch(() => { });
+        // ───────────────────────────────────────────────────────────────────────────
+        // CAMBIAR ENTRE TABS (ASESOR / ADMIN)
+        // ───────────────────────────────────────────────────────────────────────────
 
-        // ─── Tabs ─────────────────────────────────────────────
         window.switchTab = function(role) {
             currentRole = role;
 
@@ -533,38 +536,10 @@
             document.getElementById('input-email').focus();
         };
 
-        // ─── Mostrar / ocultar contraseña ─────────────────────
-        document.getElementById('toggle-pass').addEventListener('click', () => {
-            const input = document.getElementById('input-password');
-            const icon = document.getElementById('eye-icon');
-            const visible = input.type === 'text';
-            input.type = visible ? 'password' : 'text';
-            icon.className = visible ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
-        });
+        // ───────────────────────────────────────────────────────────────────────────
+        // FUNCIÓN DE LOGIN (MEJORADA PARA ADMINS)
+        // ───────────────────────────────────────────────────────────────────────────
 
-        // ─── Alertas ──────────────────────────────────────────
-        function showAlert(msg, type = 'error') {
-            const el = document.getElementById('alert');
-            const icon = el.querySelector('i');
-            document.getElementById('alert-msg').textContent = msg;
-            el.className = 'alert show' + (type === 'success' ? ' success' : '');
-            icon.className = type === 'success'
-                ? 'fa-solid fa-circle-check'
-                : 'fa-solid fa-circle-exclamation';
-        }
-
-        function hideAlert() {
-            document.getElementById('alert').classList.remove('show');
-        }
-
-        // ─── Estado del botón ─────────────────────────────────
-        function setLoading(loading) {
-            const btn = document.getElementById('login-btn');
-            btn.classList.toggle('loading', loading);
-            btn.disabled = loading;
-        }
-
-        // ─── Submit ───────────────────────────────────────────
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             hideAlert();
@@ -572,11 +547,11 @@
             const email = document.getElementById('input-email').value.trim();
             const password = document.getElementById('input-password').value;
 
-            // Validación básica en cliente
             if (!email || !password) {
                 showAlert('Por favor completa todos los campos.');
                 return;
             }
+
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 showAlert('Ingresa un correo electrónico válido.');
                 return;
@@ -589,61 +564,77 @@
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // 2. Obtener el rol del usuario desde Firestore
+                // 2. NUEVO: Obtener el rol del usuario desde Firestore
                 const userDocRef = doc(db, 'usuarios', user.uid);
                 const userDoc = await getDoc(userDocRef);
 
-                let userData = {
-                    uid: user.uid,
-                    email: user.email,
-                    role: currentRole, // Asignamos el rol seleccionado para auto-creación si no existe
-                    name: user.email.split('@')[0]
-                };
-
-                if (userDoc.exists()) {
-                    userData = { ...userData, ...userDoc.data() };
-                } else {
-                    console.warn("Usuario no encontrado en la colección 'usuarios' de Firestore. Creando perfil automático...");
-                    const nameParts = userData.name.split(/[._-]/);
-                    const iniciales = nameParts.slice(0, 2).map(p => p[0]).join('').toUpperCase() || 'US';
-                    
-                    // Guardar perfil inicial en Firestore
-                    await setDoc(userDocRef, {
-                        name: userData.name,
-                        role: userData.role,
-                        email: userData.email,
-                        iniciales: iniciales
-                    });
-                }
-
-                // 3. Validar que el rol coincida con el tab seleccionado
-                if (userData.role !== currentRole) {
-                    // Si no coincide, cerramos la sesión y mostramos error
+                if (!userDoc.exists()) {
+                    // Usuario no existe en Firestore
                     await signOut(auth);
-                    const nombre = currentRole === 'ASESOR' ? 'asesor' : 'administrador';
-                    showAlert(`Esta cuenta no tiene perfil de ${nombre}.`);
+                    showAlert('Usuario no registrado en el sistema.');
                     return;
                 }
 
-                // Guardar datos en sessionStorage para acceso rápido en las otras páginas
-                sessionStorage.setItem('user', JSON.stringify(userData));
+                const userData = userDoc.data();
+
+                // 3. NUEVO: Validar que el rol coincida
+                if (userData.role !== currentRole) {
+                    await signOut(auth);
+                    const nombreRol = currentRole === 'ASESOR' ? 'asesor' : 'administrador';
+                    showAlert(`Esta cuenta no tiene perfil de ${nombreRol}.`);
+                    return;
+                }
+
+                // 4. NUEVO: Si es ADMIN, validar que está en la lista autorizada
+                if (userData.role === 'ADMIN') {
+                    const ADMINS_AUTORIZADOS = [
+                        'admin1@asonet.com.co',
+                        'admin2@asonet.com.co',
+                        'admin3@asonet.com.co',
+                        'admin4@asonet.com.co'
+                    ];
+
+                    if (!ADMINS_AUTORIZADOS.includes(email)) {
+                        await signOut(auth);
+                        showAlert('⚠️ Este email no está autorizado como administrador.');
+                        return;
+                    }
+                }
+
+                // 5. Guardar datos en sessionStorage
+                sessionStorage.setItem('user', JSON.stringify({
+                    uid: user.uid,
+                    email: userData.email,
+                    name: userData.name,
+                    role: userData.role,
+                    iniciales: userData.iniciales || getIniciales(userData.name)
+                }));
 
                 showAlert(`¡Bienvenido, ${userData.name}!`, 'success');
 
-                // Redirigir según rol
+                // 6. NUEVO: Redirigir según el rol
                 setTimeout(() => {
                     if (userData.role === 'ADMIN') {
+                        // Redirigir al dashboard admin
                         window.location.href = 'admin/dashboard.html';
+                    } else if (userData.role === 'ASESOR') {
+                        // Redirigir al dashboard de asesor
+                        window.location.href = 'dasboard.html';
                     } else {
-                        window.location.href = 'dasboard.html'; // Cambiado a dasboard.html para coincidir con tu archivo
+                        // Rol no reconocido
+                        showAlert('Rol de usuario no reconocido.');
                     }
                 }, 800);
 
             } catch (err) {
                 console.error('Login error:', err);
-                // Manejo de errores de Firebase
-                if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+
+                if (err.code === 'auth/invalid-credential' || 
+                    err.code === 'auth/user-not-found' || 
+                    err.code === 'auth/wrong-password') {
                     showAlert('Email o contraseña incorrectos.');
+                } else if (err.code === 'auth/too-many-requests') {
+                    showAlert('Demasiados intentos. Intenta más tarde.');
                 } else {
                     showAlert('Error al iniciar sesión: ' + err.message);
                 }
@@ -652,20 +643,69 @@
             }
         });
 
-        // ─── Si ya hay sesión activa, redirigir directo ───────
-        // Usamos un flag para no redirigir durante el proceso de login
+        // ───────────────────────────────────────────────────────────────────────────
+        // FUNCIONES AUXILIARES
+        // ───────────────────────────────────────────────────────────────────────────
+
+        function getIniciales(nombre) {
+            return (nombre || '').split(' ').slice(0, 2).map(p => p[0]).join('').toUpperCase();
+        }
+
+        function showAlert(msg, type = 'error') {
+            const el = document.getElementById('alert');
+            const icon = el.querySelector('i');
+            document.getElementById('alert-msg').textContent = msg;
+            el.className = 'alert show' + (type === 'success' ? ' success' : '');
+            icon.className = type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-exclamation';
+        }
+
+        function hideAlert() {
+            document.getElementById('alert').classList.remove('show');
+        }
+
+        function setLoading(loading) {
+            const btn = document.getElementById('login-btn');
+            btn.classList.toggle('loading', loading);
+            btn.disabled = loading;
+        }
+
+        // ───────────────────────────────────────────────────────────────────────────
+        // LOGOUT
+        // ───────────────────────────────────────────────────────────────────────────
+
+        async function logout() {
+            try {
+                await signOut(auth);
+            } catch (_) { }
+            sessionStorage.removeItem('user');
+            window.location.href = 'index.html';
+        }
+
+        // ───────────────────────────────────────────────────────────────────────────
+        // SI YA TIENE SESIÓN ACTIVA, REDIRIGIR
+        // Nota: solo redirige si hay datos válidos en sessionStorage (sesión previa real)
+        // Usamos isLoggingIn para no redirigir durante el proceso de login activo
+        // ───────────────────────────────────────────────────────────────────────────
+
         let isLoggingIn = false;
+
         onAuthStateChanged(auth, async (user) => {
-            if (user && !isLoggingIn) {
+            // Si estamos en medio del proceso de login, no hacemos nada
+            if (isLoggingIn) return;
+
+            if (user) {
+                // Solo redirigir si ya hay una sesión activa guardada en sessionStorage
+                // (es decir, el usuario ya inició sesión anteriormente y sigue en Firebase)
                 const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
-                if (sessionUser) {
-                    window.location.href = sessionUser.role === 'ADMIN'
-                        ? 'admin/dashboard.html'
-                        : 'dasboard.html';
+                if (sessionUser && sessionUser.uid === user.uid) {
+                    const url = sessionUser.role === 'ADMIN' ? 'admin/dashboard.html' : 'dasboard.html';
+                    window.location.href = url;
                 }
+                // Si no hay sesión en sessionStorage, el usuario debe logearse manualmente
             }
         });
 
+        // Marcar el inicio del proceso de login para bloquear la redirección automática
         document.getElementById('login-form').addEventListener('submit', () => {
             isLoggingIn = true;
         }, { capture: true });

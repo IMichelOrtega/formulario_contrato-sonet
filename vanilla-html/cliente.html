@@ -1156,7 +1156,10 @@
         <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
     </nav>
 
-    <script>
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
         /* ════════════════════════════════════════════════════
            CONFIGURACIÓN — AJUSTA ESTAS URLs A TU BACKEND
         ════════════════════════════════════════════════════ */
@@ -1168,44 +1171,11 @@
             logout: '/api/logout',
         };
 
-        /* Formato esperado de cada contrato desde el backend:
-        {
-          id:        "001",
-          nombre:    "Carlos Medina",
-          cc:        "12.345.678",
-          servicio:  "Internet + TV",
-          fecha:     "2025-05-15",    // ISO date YYYY-MM-DD
-          pdf_listo: true             // boolean
-        }
-        Asesor:
-        {
-          nombre:    "Juan Pérez",
-          rol:       "Asesor comercial",
-          iniciales: "JP"             // opcional
-        }
-        */
-
-        /* ════════════════════════════════════════════════════
-           DATOS DE EJEMPLO — eliminar cuando conectes el backend
-        ════════════════════════════════════════════════════ */
         const DEMO_DATA = {
-            asesor: { nombre: 'Juan Pérez', rol: 'Asesor comercial', iniciales: 'JP' },
             contratos: [
                 { id: '001', nombre: 'Carlos Medina', cc: '12.345.678', servicio: 'Internet + TV', fecha: '2025-05-15', pdf_listo: true },
                 { id: '002', nombre: 'María Torres', cc: '98.765.432', servicio: 'Internet fijo', fecha: '2025-05-19', pdf_listo: true },
-                { id: '003', nombre: 'Luis Gómez', cc: '45.123.900', servicio: 'Telefonía + Internet', fecha: '2025-05-20', pdf_listo: false },
-                { id: '004', nombre: 'Ana Rodríguez', cc: '71.456.012', servicio: 'Internet fijo', fecha: '2025-05-21', pdf_listo: false },
-                { id: '005', nombre: 'Ricardo Fuentes', cc: '10.234.567', servicio: 'Internet + TV', fecha: '2025-05-21', pdf_listo: false },
-                { id: '006', nombre: 'Sandra Vargas', cc: '52.874.190', servicio: 'Telefonía fija', fecha: '2025-04-10', pdf_listo: true },
-                { id: '007', nombre: 'Pedro Sánchez', cc: '80.341.229', servicio: 'Internet fijo', fecha: '2025-04-18', pdf_listo: true },
-                { id: '008', nombre: 'Laura Jiménez', cc: '63.907.441', servicio: 'Internet + TV', fecha: '2025-04-22', pdf_listo: true },
-                { id: '009', nombre: 'Manuel Castro', cc: '19.543.002', servicio: 'Telefonía + Internet', fecha: '2025-03-05', pdf_listo: true },
-                { id: '010', nombre: 'Claudia Ríos', cc: '44.218.763', servicio: 'Internet fijo', fecha: '2025-03-14', pdf_listo: true },
-                { id: '011', nombre: 'Héctor Morales', cc: '77.654.320', servicio: 'Internet + TV', fecha: '2025-03-29', pdf_listo: true },
-                { id: '012', nombre: 'Isabel Peña', cc: '33.109.874', servicio: 'Telefonía fija', fecha: '2025-02-07', pdf_listo: true },
-                { id: '013', nombre: 'Andrés Castellanos', cc: '56.432.187', servicio: 'Internet + TV', fecha: '2025-02-14', pdf_listo: true },
-                { id: '014', nombre: 'Patricia Herrera', cc: '29.876.543', servicio: 'Internet fijo', fecha: '2025-01-22', pdf_listo: true },
-                { id: '015', nombre: 'Camilo Ospina', cc: '66.321.098', servicio: 'Telefonía + Internet', fecha: '2025-01-30', pdf_listo: false },
+                { id: '003', nombre: 'Luis Gómez', cc: '45.123.900', servicio: 'Telefonía + Internet', fecha: '2025-05-20', pdf_listo: false }
             ]
         };
 
@@ -1250,22 +1220,34 @@
             setAsesor(asesorLocal);
 
             try {
-                /* ── BACKEND REAL ──────────────────────────────
-                const res = await fetch(API.clientes, { credentials: 'include' });
-                if (res.status === 401) { window.location.href = '/login'; return; }
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const data = await res.json();
-                setAsesor(data.asesor);
-                setContracts(data.contratos);
-                ─────────────────────────────────────────────── */
-
-                // ── DEMO (eliminar en producción) ──
-                setAsesor(DEMO_DATA.asesor);
-                setContracts(DEMO_DATA.contratos);
-
+                // Obtener datos desde Firebase Firestore
+                const qSnap = await getDocs(collection(db, 'contratos'));
+                const contratos = [];
+                qSnap.forEach(docSnap => {
+                    contratos.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                
+                if (contratos.length > 0) {
+                    setContracts(contratos);
+                    localStorage.setItem('sonet_contratos', JSON.stringify(contratos));
+                } else {
+                    // Fallback a localStorage o DEMO
+                    const savedContratos = localStorage.getItem('sonet_contratos');
+                    if (savedContratos) {
+                        setContracts(JSON.parse(savedContratos));
+                    } else {
+                        setContracts(DEMO_DATA.contratos);
+                        localStorage.setItem('sonet_contratos', JSON.stringify(DEMO_DATA.contratos));
+                    }
+                }
             } catch (err) {
-                console.error('Error cargando datos:', err);
-                showError('No se pudo conectar con el servidor.');
+                console.error('Error cargando datos de Firebase Firestore:', err);
+                const savedContratos = localStorage.getItem('sonet_contratos');
+                if (savedContratos) {
+                    setContracts(JSON.parse(savedContratos));
+                } else {
+                    showError('No se pudo conectar con el servidor.');
+                }
             }
         }
 
@@ -1317,6 +1299,7 @@
 
         function animNum(id, target) {
             const el = document.getElementById(id);
+            if (!el) return;
             let cur = 0;
             const step = Math.ceil(target / 20) || 1;
             const t = setInterval(() => {
@@ -1328,7 +1311,8 @@
 
         function filterTable() {
             const q = document.getElementById('search-input').value.toLowerCase().trim();
-            const pdf = document.getElementById('filter-pdf').value;
+            const filterPdfEl = document.getElementById('filter-pdf');
+            const pdf = filterPdfEl ? filterPdfEl.value : '';
             filtered = allContracts.filter(c => {
                 const matchQ = !q ||
                     c.nombre.toLowerCase().includes(q) ||
@@ -1461,19 +1445,16 @@
             const id = pendingDelete;
             cerrarModal();
             try {
-                /* ── BACKEND REAL ──────────────────────────────
-                const url = API.eliminar.replace('{id}', encodeURIComponent(id));
-                const res = await fetch(url, { method:'DELETE', credentials:'include' });
-                if(!res.ok) throw new Error(`HTTP ${res.status}`);
-                ─────────────────────────────────────────────── */
+                // Eliminar de Firebase Firestore
+                await deleteDoc(doc(db, 'contratos', id));
 
-                // ── DEMO: eliminar del array local ──
                 allContracts = allContracts.filter(c => c.id !== id);
+                localStorage.setItem('sonet_contratos', JSON.stringify(allContracts));
                 updateStats();
                 filterTable();
-
             } catch (err) {
-                alert('Error al eliminar: ' + err.message);
+                console.error('Error al eliminar en Firebase:', err);
+                alert('Error al eliminar en Firebase: ' + err.message);
             }
         }
 
@@ -1481,7 +1462,6 @@
            NAVEGACIÓN
         ════════════════════════════════════════════════════ */
         function verContrato(id) {
-            // Sin backend, mostramos el formulario del contrato
             window.location.href = 'contrato_internet.html';
         }
         function nuevoContrato() {
@@ -1510,6 +1490,18 @@
 
         /* Cerrar modal con Escape */
         document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
+
+        // Bindings de funciones al objeto window para el scope de module
+        window.closeSidebar = closeSidebar;
+        window.toggleSidebar = toggleSidebar;
+        window.abrirModal = abrirModal;
+        window.cerrarModal = cerrarModal;
+        window.confirmarEliminar = confirmarEliminar;
+        window.goPage = goPage;
+        window.filterTable = filterTable;
+        window.verContrato = verContrato;
+        window.nuevoContrato = nuevoContrato;
+        window.logout = logout;
     </script>
 </body>
 

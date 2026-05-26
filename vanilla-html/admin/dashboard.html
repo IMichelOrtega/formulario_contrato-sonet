@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@sonet — Panel Administrador</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --sb: #020617;
+            --sb2: #0f172a;
+            --sb3: #1e293b;
+            --surf: #1e293b;
+            --b: #2563eb;
+            --bd: #1d4ed8;
+            --or: #ea580c;
+            --t: #f8fafc;
+            --t2: #cbd5e1;
+            --t3: #94a3b8;
+            --bdr: rgba(255, 255, 255, 0.08);
+            --sidebar-w: 240px;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--sb);
+            color: var(--t);
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--sb2);
+            border-right: 1px solid var(--bdr);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 200;
+        }
+
+        .logo {
+            padding: 24px;
+            border-bottom: 1px solid var(--bdr);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            max-height: 50px;
+            object-fit: contain;
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--bdr)
+        }
+
+        .av {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ea580c, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+            font-family: 'Syne', sans-serif
+        }
+
+        .u-name {
+            font-size: 14px;
+            font-weight: 700
+        }
+
+        .u-role {
+            font-size: 12px;
+            color: #ea580c;
+            margin-top: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto
+        }
+
+        .ni {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--t2);
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            transition: .15s
+        }
+
+        .ni:hover {
+            background: var(--sb3);
+            color: var(--t)
+        }
+
+        .ni.act {
+            background: rgba(234, 88, 12, 0.15);
+            color: var(--or);
+            border: 1px solid rgba(234, 88, 12, 0.3);
+        }
+
+        .ni i {
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0
+        }
+
+        .sb-bot {
+            padding: 16px;
+            border-top: 1px solid var(--bdr)
+        }
+
+        /* ── MAIN ── */
+        .main {
+            margin-left: var(--sidebar-w);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background: var(--sb2);
+            border-bottom: 1px solid var(--bdr);
+            position: sticky;
+            top: 0;
+            z-index: 100
+        }
+
+        .tb-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 800
+        }
+
+        .tb-sub {
+            font-size: 14px;
+            color: var(--t3);
+            margin-top: 4px
+        }
+
+        /* ── CONTENT ── */
+        .content {
+            padding: 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px
+        }
+
+        .section-header {
+            margin-bottom: 8px;
+        }
+
+        .section-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            font-size: 14px;
+            color: var(--t3);
+        }
+
+        /* ── CREDENTIALS GRID ── */
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo"><img src="../logo-sonet-light.png" alt="Asonet Logo"></div>
+
+        <div class="user-pill">
+            <div class="av" id="sb-avatar">AD</div>
+            <div>
+                <div class="u-name" id="sb-name">Cargando...</div>
+                <div class="u-role">Administrador</div>
+            </div>
+        </div>
+
+        <nav>
+            <button class="ni act">
+                <i class="ti ti-shield-half" aria-hidden="true"></i>Credenciales Admin
+            </button>
+            <button class="ni" onclick="window.location.href='../dasboard.html'">
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Ir a Dashboard Asesor
+            </button>
+        </nav>
+
+        <div class="sb-bot">
+            <button class="ni" onclick="logout()">
+                <i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div>
+                <div class="tb-title">Consola de Administración</div>
+                <div class="tb-sub" id="today-date"></div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <main class="content">
+            <div class="section-header">
+                <h2>Cuentas y Credenciales de Administradores</h2>
+                <p>Lista de accesos autorizados en el sistema. Asegúrate de registrar estas cuentas en la consola de Firebase Authentication.</p>
+            </div>
+
+            <!-- CONTENEDOR DE CREDENCIALES -->
+            <div class="credentials-grid" id="admin-credentials-container">
+                <div style="color: var(--t3); grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <i class="ti ti-loader" style="font-size: 32px; animation: spin 1s linear infinite;"></i>
+                    <p style="margin-top: 8px;">Cargando credenciales desde Firebase Firestore...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { db, auth } from '../firebase-config.js';
+        import { collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const d = new Date();
+            document.getElementById('today-date').textContent =
+                d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
+            if (!sessionUser || sessionUser.role !== 'ADMIN') {
+                window.location.href = '../index.html';
+                return;
+            }
+
+            document.getElementById('sb-avatar').textContent = sessionUser.iniciales || 'AD';
+            document.getElementById('sb-name').textContent = sessionUser.name || 'Administrador';
+
+            mostrarCredencialesAdmin();
+        });
+
+        async function mostrarCredencialesAdmin() {
+            try {
+                const usuariosRef = collection(db, 'usuarios');
+                const q = query(usuariosRef, where('role', '==', 'ADMIN'));
+                const querySnapshot = await getDocs(q);
+
+                const admins = [];
+                querySnapshot.forEach((doc) => {
+                    admins.push({
+                        uid: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                if (admins.length === 0) {
+                    // Si no hay datos en Firestore aún, mostramos la lista predefinida
+                    const defaultAdmins = [
+                        { email: 'admin1@asonet.com.co', name: 'Administrador 1', role: 'ADMIN', iniciales: 'A1' },
+                        { email: 'admin2@asonet.com.co', name: 'Administrador 2', role: 'ADMIN', iniciales: 'A2' },
+                        { email: 'admin3@asonet.com.co', name: 'Administrador 3', role: 'ADMIN', iniciales: 'A3' },
+                        { email: 'admin4@asonet.com.co', name: 'Administrador 4', role: 'ADMIN', iniciales: 'A4' }
+                    ];
+                    mostrarTarjetasAdmin(defaultAdmins);
+                } else {
+                    mostrarTarjetasAdmin(admins);
+                }
+            } catch (err) {
+                console.error('Error al cargar admins:', err);
+                // Fallback en caso de error de conexión
+                const defaultAdmins = [
+                    { email: 'admin1@asonet.com.co', name: 'Administrador 1', role: 'ADMIN', iniciales: 'A1' },
+                    { email: 'admin2@asonet.com.co', name: 'Administrador 2', role: 'ADMIN', iniciales: 'A2' },
+                    { email: 'admin3@asonet.com.co', name: 'Administrador 3', role: 'ADMIN', iniciales: 'A3' },
+                    { email: 'admin4@asonet.com.co', name: 'Administrador 4', role: 'ADMIN', iniciales: 'A4' }
+                ];
+                mostrarTarjetasAdmin(defaultAdmins);
+            }
+        }
+
+        function mostrarTarjetasAdmin(admins) {
+            const contenedor = document.getElementById('admin-credentials-container');
+            if (!contenedor) return;
+
+            contenedor.innerHTML = admins.map(admin => `
+                <div style="
+                    background: var(--sb2);
+                    border: 1px solid var(--bdr);
+                    border-radius: 16px;
+                    padding: 24px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                ">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                        <div style="
+                            width: 52px;
+                            height: 52px;
+                            border-radius: 50%;
+                            background: linear-gradient(135deg, #ea580c, #7c3aed);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: white;
+                            font-weight: 800;
+                            font-size: 16px;
+                            font-family: 'Syne', sans-serif;
+                        ">
+                            ${admin.iniciales || 'AD'}
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--t); font-size: 18px;">
+                                ${admin.name}
+                            </div>
+                            <div style="color: var(--or); font-size: 13px; font-weight: 600; text-transform: uppercase;">
+                                Administrador
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--sb); border: 1px solid var(--bdr); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                        <div style="color: var(--t3); font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;">
+                            Email de Ingreso
+                        </div>
+                        <div style="
+                            font-family: monospace;
+                            background: rgba(0,0,0,0.2);
+                            border: 1px solid var(--bdr);
+                            border-radius: 8px;
+                            padding: 10px 14px;
+                            font-size: 14px;
+                            color: var(--t2);
+                            word-break: break-all;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            gap: 8px;
+                        ">
+                            <span>${admin.email}</span>
+                            <button onclick="copiarAlPortapapeles('${admin.email}')" style="
+                                background: var(--b);
+                                border: none;
+                                color: white;
+                                cursor: pointer;
+                                font-size: 12px;
+                                font-weight: 600;
+                                padding: 6px 10px;
+                                border-radius: 6px;
+                                transition: 0.2s;
+                            " onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">
+                                Copiar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 12px; color: var(--t3); line-height: 1.6;">
+                        <strong>Instrucciones:</strong><br>
+                        1. Usa el email para iniciar sesión.<br>
+                        2. Registra la cuenta en la consola de Firebase.<br>
+                        3. Crea el perfil en la colección <code>usuarios</code>.<br>
+                        <strong style="color: #ef4444;">⚠️ Credenciales confidenciales</strong>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function copiarAlPortapapeles(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✓ Email copiado al portapapeles');
+            }).catch(err => {
+                console.error('Error al copiar:', err);
+            });
+        }
+
+        async function logout() {
+            try {
+                await signOut(auth);
+            } catch (_) { }
+            sessionStorage.removeItem('user');
+            window.location.href = '../index.html';
+        }
+
+        window.copiarAlPortapapeles = copiarAlPortapapeles;
+        window.logout = logout;
+    </script>
+</body>
+
+</html>
