@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@sonet — Dashboard Asesor</title>
+    <title>@sonet — Panel Asesor</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
@@ -682,11 +682,6 @@
             cursor: not-allowed
         }
 
-        /* mobile bottom nav */
-        .mobile-nav {
-            display: none
-        }
-
         /* ── ANIMATIONS ── */
         @keyframes fadeUp {
             from {
@@ -734,7 +729,7 @@
             }
 
             .content {
-                padding: 18px 16px 90px
+                padding: 18px 16px 24px
             }
 
             .kpi-row {
@@ -750,42 +745,6 @@
                 width: 150px
             }
 
-            .mobile-nav {
-                display: flex;
-                justify-content: space-around;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: var(--sb2);
-                border-top: 1px solid var(--bdr);
-                padding: 10px 0 20px;
-                z-index: 150
-            }
-
-            .mnav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 3px;
-                font-size: 11px;
-                font-weight: 600;
-                color: var(--t3);
-                cursor: pointer;
-                border: none;
-                background: none;
-                text-decoration: none;
-                transition: color .15s;
-                padding: 0 10px
-            }
-
-            .mnav-item i {
-                font-size: 22px
-            }
-
-            .mnav-item.act {
-                color: var(--b)
-            }
         }
 
         @media(max-width:540px) {
@@ -1023,14 +982,14 @@
         <div class="user-pill">
             <div class="av" id="sb-avatar">JP</div>
             <div>
-                <div class="u-name" id="sb-name">Juan Pérez</div>
+                <div class="u-name" id="sb-name">Cargando...</div>
                 <div class="u-role" id="sb-role">Asesor comercial</div>
             </div>
         </div>
 
         <nav>
             <button class="ni act">
-                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Inicio
             </button>
             <button class="ni" onclick="window.location.href='contrato.html'">
                 <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
@@ -1042,10 +1001,6 @@
         </nav>
 
         <div class="sb-bot">
-            <button class="mnav-item" onclick="window.location.href='contrato.html'">
-            <i class="ti ti-file-text" aria-hidden="true"></i>
-            <span>Contratos</span>
-        </button>
             <button class="ni" onclick="logout()">
                 <i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión
             </button>
@@ -1231,212 +1186,32 @@
         </div>
     </div>
 
-    <!-- MOBILE BOTTOM NAV -->
-    <nav class="mobile-nav">
-        <a class="mnav-item act" href="dasboard.html"><i class="ti ti-layout-dashboard"></i>Inicio</a>
-        <a class="mnav-item" href="contrato.html"><i class="ti ti-file-text"></i>Contratos</a>
-        <a class="mnav-item" href="cliente.html"><i class="ti ti-users"></i>Clientes</a>
-        <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
-    </nav>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="pdf-generator.js"></script>
+
+    <script>
+        // Carga inmediata del nombre del asesor desde sessionStorage
+        (function () {
+            document.addEventListener('DOMContentLoaded', function () {
+                var user = null;
+                try { user = JSON.parse(sessionStorage.getItem('user') || 'null'); } catch (e) {}
+                if (!user) { window.location.href = 'index.html'; return; }
+                var name = user.name || 'Asesor';
+                var ini = user.iniciales || name.split(' ').slice(0, 2).map(function (p) { return p[0]; }).join('').toUpperCase() || 'U';
+                var sbName = document.getElementById('sb-name');
+                var sbAv = document.getElementById('sb-avatar');
+                var topAv = document.getElementById('topbar-avatar');
+                if (sbName) sbName.textContent = name;
+                if (sbAv) sbAv.textContent = ini;
+                if (topAv) topAv.textContent = ini;
+            });
+        })();
+    </script>
 
     <script type="module">
         import { db } from './firebase-config.js';
         import { collection, getDocs, addDoc, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-
-        // ──────────────────────────────────────────────────────────────
-        // FUNCIÓN GENERADORA DE PDF INLINE (sin archivo externo)
-        // ──────────────────────────────────────────────────────────────
-        function generarPDFContrato(datosContrato) {
-            if (typeof html2pdf === 'undefined') {
-                console.error('html2pdf no cargado.');
-                return;
-            }
-
-            // HTML del contrato (idéntico a contrato_internet.html)
-            const htmlContenido = `
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-      <meta charset="UTF-8">
-      <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: #fff; }
-        .page { font-size: 9px; color: #000; width: 100%; margin: 0; background: #fff; 
-                page-break-after: always; padding: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        td { border: 1px solid #000; vertical-align: top; padding: 0; }
-        .col { width: 50%; vertical-align: top; border-right: 1px solid #000; }
-        .col:last-child { border-right: none; }
-        .st { background: #000; color: #fff; font-weight: 700; font-size: 8.5px; 
-              padding: 2px 6px; text-transform: uppercase; }
-        .bd { padding: 5px 7px; font-size: 8.8px; line-height: 1.45; border-top: 1px solid #000; }
-        .sec { border-bottom: 1px solid #000; }
-        input { border: none; border-bottom: 1px solid #000; background: transparent; 
-                font-family: Arial; font-size: 9px; padding: 1px 2px; color: #000; }
-        input[type="checkbox"] { vertical-align: middle; }
-        ol { padding-left: 13px; }
-        ol li { margin-bottom: 2px; }
-        p { margin-bottom: 2px; }
-        table.inner { border-collapse: collapse; width: 100%; font-size: 8.5px; }
-        table.inner td { border: 1px solid #000; padding: 2px 4px; }
-        .num-circle { display: inline-flex; align-items: center; justify-content: center; 
-                      width: 14px; height: 14px; border: 1px solid #000; border-radius: 50%; 
-                      font-weight: 700; font-size: 8px; margin-right: 4px; }
-        .row-item { display: flex; align-items: flex-start; margin-bottom: 4px; }
-      </style>
-    </head>
-    <body>
-
-    <div class="page">
-      <table class="doc">
-        <tr>
-          <td class="col">
-
-            <table>
-              <tr>
-                <td style="border:none;padding:8px 8px 6px;">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                    <div>
-                      <div style="font-size:26px;font-weight:900;line-height:1.1;">@sonet</div>
-                      <div style="font-size:13px;">Colombia <strong>sas</strong></div>
-                      <div style="font-size:8.5px;margin-top:3px;">Nit: 900.669.038-6</div>
-                      <div style="font-size:8.5px;">Cra 7 # 7-84</div>
-                      <div style="font-size:8.5px;">barrio el centro Garzón - Huila</div>
-                    </div>
-                    <div style="border:1px solid #000;padding:4px 6px;font-size:8.5px;font-weight:700;text-align:center;">
-                      CONTRATO ÚNICO<br>DE SERVICIOS FIJOS</div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-
-            <table>
-              <tr>
-                <td class="bd" style="border-top:1px solid #000;">
-                  Este contrato explica las condiciones para la presentación de los servicios entre usted y @SONET
-                  COLOMBIA SAS, por el que pagará mínimo mensualmente $${datosContrato.valorMensual || '___________'}.<br>
-                  Este contrato tendrá vigencia de ${datosContrato.mesesVigencia || '___'} meses, contados a partir del ${datosContrato.fechaInicio || '_______________'}<br>
-                  El plazo máximo de instalación es de 15 días hábiles.<br>
-                  Acepto que mi contrato se renueve sucesiva y automáticamente por un plazo igual al inicial. 
-                  ${datosContrato.renovacionAuto ? '✓' : '☐'}
-                </td>
-              </tr>
-            </table>
-
-            <div class="sec">
-              <div class="st">EL SERVICIO</div>
-              <div class="bd">
-                <p>Con este contrato nos comprometemos a prestarle los servicios que usted elija*:</p>
-                <p>
-                  ${datosContrato.servicios?.telefoniaFija ? '✓' : '☐'} Telefonía fija &nbsp;&nbsp;
-                  ${datosContrato.servicios?.internetFijo ? '✓' : '☐'} Internet fijo &nbsp;&nbsp;
-                  ${datosContrato.servicios?.television ? '✓' : '☐'} Televisión
-                </p>
-                <p style="margin-top:3px;">Servicios adicionales: ${datosContrato.serviciosAdicionales || 'Ninguno'}</p>
-                <p>Usted se compromete a pagar oportunamente el precio acordado.</p>
-                <p>El servicio se activará a más tardar el día: ${datosContrato.fechaActivacion || '______________'}</p>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">INFORMACIÓN DEL SUSCRIPTOR</div>
-              <div class="bd">
-                <p>Contrato N° ${datosContrato.numeroContrato || '_______________'}</p>
-                <p>Nombre/Razón Social ${datosContrato.nombre || '_______________'}</p>
-                <p>Identificación ${datosContrato.identificacion || '_______________'}</p>
-                <p>Correo Electrónico ${datosContrato.email || '_______________'}</p>
-                <p>Teléfono de contacto ${datosContrato.telefono || '_______________'}</p>
-                <p>Dirección Servicio ${datosContrato.direccionServicio || '_______________'} Estrato ${datosContrato.estrato || '___'}</p>
-                <p>Departamento ${datosContrato.departamento || 'Huila'} Municipio ${datosContrato.municipio || 'Garzón'}</p>
-                <p>Dirección Suscriptor ${datosContrato.direccionSuscriptor || 'Misma del servicio'}</p>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">CONDICIONES COMERCIALES<br>CARACTERÍSTICAS DEL PLAN</div>
-              <div class="bd">
-                <p><strong>INTERNET FIJO.</strong> "Redes interconectadas" Unión de todas las redes y computadoras 
-                distribuidas en el mundo, creando una red global conjunta de equipos que trabajan sobre protocolos TCP/IP 
-                compatibles entre sí.</p>
-                <p style="margin-top:3px;">@SONET COLOMBIA SAS debe mantener en buen estado el funcionamiento de servicio 
-                contratado, solucionar los cortes o interferencia durante las siguientes 72 horas de reportada la falla.</p>
-              </div>
-            </div>
-
-          </td>
-
-          <td class="col" style="border-right:none;">
-
-            <div class="sec">
-              <div class="st">PRINCIPALES OBLIGACIONES DEL USUARIO</div>
-              <div class="bd">
-                <ol>
-                  <li>Pagar oportunamente los servicios prestados</li>
-                  <li>Suministrar información verdadera</li>
-                  <li>Hacer uso adecuado de los equipos y los servicios</li>
-                  <li>No divulgar ni acceder a pornografía infantil</li>
-                  <li>Avisar a las autoridades cualquier evento de robo o hurto</li>
-                  <li>No cometer o ser partícipe de actividades de fraude</li>
-                </ol>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">TERMINACIÓN</div>
-              <div class="bd">
-                <p>Usted puede terminar el contrato en cualquier momento sin penalidades. Para esto debe realizar 
-                una solicitud mínimo 3 días hábiles antes del corte de facturación (día ${datosContrato.diaCorte || '15'} 
-                de cada mes).</p>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">INFORMACIÓN ADICIONAL</div>
-              <div class="bd">
-                <p>Tipo de Vivienda: &nbsp;${datosContrato.tipoVivienda?.propia ? '✓' : '☐'} Propia 
-                &nbsp;${datosContrato.tipoVivienda?.arriendo ? '✓' : '☐'} Arriendo 
-                &nbsp;${datosContrato.tipoVivienda?.familiar ? '✓' : '☐'} Familiar</p>
-                <p style="margin-top:3px;">Persona: &nbsp;${datosContrato.personaJuridica ? '✓' : '☐'} Jurídica 
-                &nbsp;${datosContrato.personaNatural ? '✓' : '☐'} Natural</p>
-                <table class="inner" style="margin-top:4px;">
-                  <tr>
-                    <td style="width:50%;font-weight:700;">CC/CE</td>
-                    <td style="font-weight:700;">FECHA</td>
-                  </tr>
-                  <tr>
-                    <td style="height:20px;">${datosContrato.cedula || ''}</td>
-                    <td>${datosContrato.fechaFirma || ''}</td>
-                  </tr>
-                </table>
-                <p style="margin-top:5px;">Asesor: ${datosContrato.asesor || '_______________'}</p>
-              </div>
-            </div>
-
-            <div style="text-align:right;padding:4px 6px;font-size:8px;color:#555;">1 de 1</div>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    </body>
-    </html>
-            `;
-
-            const elemento = document.createElement('div');
-            elemento.innerHTML = htmlContenido;
-
-            const opciones = {
-                margin: 0,
-                filename: `contrato-${datosContrato.numeroContrato || datosContrato.id}-${datosContrato.nombre?.replace(/\s+/g, '-') || 'cliente'}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
-            };
-
-            html2pdf().set(opciones).from(elemento).save();
-        }
 
         // ──────────────────────────────────────────────────────────────
         // CONFIGURACIÓN Y DEMO DATA
@@ -1783,6 +1558,8 @@
         }
 
         function verContrato(id) {
+            const contrato = allContracts.find(c => c.id === id);
+            if (contrato) sessionStorage.setItem('contrato_ver', JSON.stringify(contrato));
             window.location.href = 'contrato_internet.html';
         }
 

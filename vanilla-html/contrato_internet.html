@@ -243,7 +243,7 @@
             <tr>
               <td class="bd" style="border-top:1px solid #000;">
                 Este contrato explica las condiciones para la presentación de los servicios entre usted y @SONET
-                COLOMBIA SAS, por el que pagará mínimo mensualmente $<input type="text" placeholder="Valor"
+                COLOMBIA SAS, por el que pagará mínimo mensualmente $<input id="ci-valor" type="text" placeholder="Valor"
                   style="width:70px; font-weight:bold;">.<br>
                 Este contrato tendrá vigencia de <input type="number" placeholder="Meses"
                   style="width:35px; text-align:center;"> meses, contados a partir del <input type="date"
@@ -274,16 +274,16 @@
           <div class="sec">
             <div class="st">INFORMACIÓN DEL SUSCRIPTOR</div>
             <div class="bd">
-              <p>Contrato N° <input type="text" style="width:230px;" placeholder="Ej: ONT-001"></p>
-              <p>Nombre/Razón Social <input type="text" style="width:190px;"></p>
-              <p>Identificación <input type="text" style="width:230px;" placeholder="C.C. / NIT"></p>
-              <p>Correo Electrónico <input type="text" style="width:210px;"></p>
-              <p>Teléfono de contacto <input type="text" style="width:200px;"></p>
-              <p>Dirección Servicio <input type="text" style="width:150px;"> Estrato <input type="number"
+              <p>Contrato N° <input id="ci-numero" type="text" style="width:230px;" placeholder="Ej: ONT-001"></p>
+              <p>Nombre/Razón Social <input id="ci-nombre" type="text" style="width:190px;"></p>
+              <p>Identificación <input id="ci-cc" type="text" style="width:230px;" placeholder="C.C. / NIT"></p>
+              <p>Correo Electrónico <input id="ci-email" type="text" style="width:210px;"></p>
+              <p>Teléfono de contacto <input id="ci-telefono" type="text" style="width:200px;"></p>
+              <p>Dirección Servicio <input id="ci-direccion" type="text" style="width:150px;"> Estrato <input id="ci-estrato" type="number"
                   style="width:30px; text-align:center;"></p>
-              <p>Departamento <input type="text" style="width:95px;" value="Huila"> Municipio <input type="text"
+              <p>Departamento <input id="ci-departamento" type="text" style="width:95px;" value="Huila"> Municipio <input id="ci-municipio" type="text"
                   style="width:110px;" value="Garzón"></p>
-              <p>Dirección Suscriptor <input type="text" style="width:200px;"
+              <p>Dirección Suscriptor <input id="ci-dir-suscriptor" type="text" style="width:200px;"
                   placeholder="Misma del servicio o alternativa"></p>
             </div>
           </div>
@@ -569,7 +569,7 @@
                   <td><input type="text" style="width:130px; border:none; background:transparent;"></td>
                 </tr>
               </table>
-              <p style="margin-top:5px;">Asesor: <input type="text" style="width:200px;"></p>
+              <p style="margin-top:5px;">Asesor: <input id="ci-asesor" type="text" style="width:200px;"></p>
               <p style="margin-top:4px;font-size:8px;">Consulte el régimen de protección de usuarios en www.crcom.gov.co
               </p>
             </div>
@@ -670,6 +670,31 @@
     </div>
   </div>
 
+  <script>
+    (function () {
+      var c;
+      try { c = JSON.parse(sessionStorage.getItem('contrato_ver') || 'null'); } catch (e) {}
+      if (!c) return;
+
+      function set(id, val) {
+        var el = document.getElementById(id);
+        if (el && val != null) el.value = val;
+      }
+
+      set('ci-numero',        c.id);
+      set('ci-nombre',        c.nombre);
+      set('ci-cc',            c.cc);
+      set('ci-email',         c.email);
+      set('ci-telefono',      c.telefono);
+      set('ci-estrato',       c.estrato);
+      set('ci-departamento',  c.departamento || 'Huila');
+      set('ci-municipio',     c.municipio || 'Garzón');
+      set('ci-valor',         c.valorMensual);
+      set('ci-asesor',        c.asesor);
+
+      document.title = 'Contrato — ' + (c.nombre || '');
+    })();
+  </script>
 </body>
 
 </html>

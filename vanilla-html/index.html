@@ -512,6 +512,23 @@
         let currentRole = 'ASESOR';
 
         // ───────────────────────────────────────────────────────────────────────────
+        // TOGGLE CONTRASEÑA
+        // ───────────────────────────────────────────────────────────────────────────
+
+        const togglePassBtn = document.getElementById('toggle-pass');
+        const passwordInput = document.getElementById('input-password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        if (togglePassBtn && passwordInput && eyeIcon) {
+            togglePassBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+                eyeIcon.className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+            });
+        }
+
+        // ───────────────────────────────────────────────────────────────────────────
         // CAMBIAR ENTRE TABS (ASESOR / ADMIN)
         // ───────────────────────────────────────────────────────────────────────────
 

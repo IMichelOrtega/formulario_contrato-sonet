@@ -155,20 +155,13 @@
             to { opacity: 1; transform: translateY(0) }
         }
 
-        /* MOBILE NAV */
-        .mobile-nav { display: none }
-
         @media(max-width:900px) {
             .sidebar { transform: translateX(-100%); box-shadow: 4px 0 40px rgba(0, 0, 0, .08) }
             .sidebar.open { transform: translateX(0) }
             .main { margin-left: 0 }
             .hamburger { display: flex }
             .topbar { padding: 14px 18px }
-            .content { padding: 18px 16px 90px }
-            .mobile-nav { display: flex; justify-content: space-around; position: fixed; bottom: 0; left: 0; right: 0; background: var(--sb2); border-top: 1px solid var(--bdr); padding: 10px 0 20px; z-index: 150 }
-            .mnav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; color: var(--t3); cursor: pointer; border: none; background: none; text-decoration: none; transition: color .15s; padding: 0 10px }
-            .mnav-item i { font-size: 22px }
-            .mnav-item.act { color: var(--b) }
+            .content { padding: 18px 16px 24px }
         }
     </style>
 </head>
@@ -202,7 +195,6 @@
             </button>
         </nav>
         <div class="sb-bot">
-            <button class="ni"><i class="ti ti-settings" aria-hidden="true"></i>Configuración</button>
             <button class="ni" onclick="logout()"><i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión</button>
         </div>
     </aside>
@@ -241,13 +233,6 @@
         </main>
     </div>
 
-    <!-- MOBILE NAV -->
-    <nav class="mobile-nav">
-        <a class="mnav-item" href="dasboard.html"><i class="ti ti-layout-dashboard"></i>Inicio</a>
-        <a class="mnav-item act" href="contrato.html"><i class="ti ti-file-text"></i>Contratos</a>
-        <a class="mnav-item" href="cliente.html"><i class="ti ti-users"></i>Clientes</a>
-        <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
-    </nav>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

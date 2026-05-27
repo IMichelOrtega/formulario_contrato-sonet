@@ -12,19 +12,19 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 
         :root {
-            --sb: #020617;
-            --sb2: #0f172a;
-            --sb3: #1e293b;
-            --surf: #1e293b;
-            --b: #2563eb;
-            --bd: #1d4ed8;
-            --or: #ea580c;
-            --t: #f8fafc;
-            --t2: #cbd5e1;
-            --t3: #94a3b8;
-            --bdr: rgba(255,255,255,0.08);
-            --red: #ef4444;
-            --green: #22c55e;
+            --sb: #f4f7fe;
+            --sb2: #ffffff;
+            --sb3: #f8fafc;
+            --surf: #f0f4fa;
+            --b: #1a56db;
+            --bd: #1044bb;
+            --or: #f04e00;
+            --t: #1e293b;
+            --t2: #475569;
+            --t3: #64748b;
+            --bdr: rgba(0, 0, 0, 0.08);
+            --red: #dc2626;
+            --green: #16a34a;
             --sidebar-w: 240px;
         }
 
@@ -265,11 +265,11 @@
             <button class="ni" id="nav-admins" onclick="showSection('admins')">
                 <i class="ti ti-shield-half"></i>Administradores
             </button>
+            <button class="ni" id="nav-desempeno" onclick="showSection('desempeno')">
+                <i class="ti ti-chart-bar"></i>Desempeño Asesores
+            </button>
         </nav>
         <div class="sb-bot">
-            <button class="ni" onclick="window.location.href='../dasboard.html'">
-                <i class="ti ti-layout-dashboard"></i>Dashboard Asesor
-            </button>
             <button class="ni" onclick="logout()">
                 <i class="ti ti-logout"></i>Cerrar sesión
             </button>
@@ -406,6 +406,41 @@
                 </div>
             </div>
 
+            <!-- ── DESEMPEÑO ASESORES ── -->
+            <div class="section" id="section-desempeno">
+                <div class="section-header">
+                    <h2>Desempeño de Asesores</h2>
+                    <p>Visualiza los contratos realizados por cada asesor con filtros por período.</p>
+                </div>
+                <div class="tbl-card">
+                    <div class="tbl-hd">
+                        <div style="display:flex;gap:12px;width:100%;flex-wrap:wrap;align-items:center">
+                            <div class="s-wrap">
+                                <i class="ti ti-search"></i>
+                                <input class="s-inp" id="search-desempeno" placeholder="Buscar asesor…" oninput="filtrarDesempeno()">
+                            </div>
+                            <select id="filtro-periodo" class="s-inp" onchange="filtrarDesempeno()" style="width:auto">
+                                <option value="total">Todos los tiempos</option>
+                                <option value="mes">Este mes</option>
+                                <option value="semana">Últimos 7 días</option>
+                                <option value="dias30">Últimos 30 días</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="tbl-wrap">
+                        <table>
+                            <thead><tr>
+                                <th>Asesor</th><th>Total Contratos</th><th>Contratos (Período)</th><th>% Rendimiento</th><th></th>
+                            </tr></thead>
+                            <tbody id="desempeno-tbody"></tbody>
+                        </table>
+                        <div class="empty-state" id="desempeno-empty" style="display:none">
+                            <i class="ti ti-users-off"></i><p>No hay datos para mostrar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
 
@@ -476,6 +511,10 @@
         let allAsesores = [];
         let filtAsesores = [];
 
+        let desempenoData = [];
+        let filtDesempeno = [];
+        let periodoActual = 'total';
+
         // ── Init ──
         document.addEventListener('DOMContentLoaded', () => {
             const d = new Date();
@@ -496,6 +535,8 @@
 
         async function cargarTodo() {
             await Promise.all([cargarContratos(), cargarAsesores(), cargarAdmins()]);
+            calcularDesempeno();
+            renderDesempeno();
         }
 
         // ── CONTRATOS ──
@@ -794,6 +835,96 @@
                 </div>`).join('');
         }
 
+        function calcularDesempeno() {
+            const hoy = new Date();
+            const hace7 = new Date(hoy.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const hace30 = new Date(hoy.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+            desempenoData = allAsesores.map(asesor => {
+                const contratosAsesor = allContratos.filter(c => c.asesor === asesor.name);
+                const totalContratos = contratosAsesor.length;
+                const contratosEnPeriodo = contratosAsesor.filter(c => {
+                    const fecha = new Date(c.fecha);
+                    switch (periodoActual) {
+                        case 'mes':   return fecha.getMonth() === hoy.getMonth() && fecha.getFullYear() === hoy.getFullYear();
+                        case 'semana': return fecha >= hace7 && fecha <= hoy;
+                        case 'dias30': return fecha >= hace30 && fecha <= hoy;
+                        default:       return true;
+                    }
+                }).length;
+                const porcentaje = totalContratos > 0 ? Math.round((contratosEnPeriodo / totalContratos) * 100) : 0;
+                return { ...asesor, totalContratos, contratosEnPeriodo, porcentaje };
+            }).sort((a, b) => b.totalContratos - a.totalContratos);
+
+            filtDesempeno = [...desempenoData];
+        }
+
+        window.filtrarDesempeno = function() {
+            const q = document.getElementById('search-desempeno').value.toLowerCase().trim();
+            periodoActual = document.getElementById('filtro-periodo').value;
+            calcularDesempeno();
+            if (q) filtDesempeno = desempenoData.filter(a =>
+                (a.name || '').toLowerCase().includes(q) ||
+                (a.email || '').toLowerCase().includes(q));
+            renderDesempeno();
+        };
+
+        function renderDesempeno() {
+            const tbody = document.getElementById('desempeno-tbody');
+            const empty = document.getElementById('desempeno-empty');
+
+            if (filtDesempeno.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'flex';
+                return;
+            }
+
+            empty.style.display = 'none';
+            tbody.innerHTML = filtDesempeno.map(a => {
+                    const color = a.porcentaje >= 75 ? 'var(--green)' : 
+                                  a.porcentaje >= 50 ? 'var(--or)' : 'var(--red)';
+                    return `
+                    <tr>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px">
+                                <div class="av" style="width:34px;height:34px;font-size:12px;flex-shrink:0">${esc(a.iniciales || '??')}</div>
+                                <div>
+                                    <strong>${esc(a.name)}</strong>
+                                    <div style="font-size:11px;color:var(--t3);margin-top:2px">${esc(a.email)}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <strong style="font-size:18px">${a.totalContratos}</strong>
+                            <div style="font-size:11px;color:var(--t3)">contratos</div>
+                        </td>
+                        <td>
+                            <strong style="font-size:18px">${a.contratosEnPeriodo}</strong>
+                            <div style="font-size:11px;color:var(--t3)">en período</div>
+                        </td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:8px">
+                                <div style="width:100px;background:var(--sb3);border-radius:6px;height:4px">
+                                    <div style="width:${a.porcentaje}%;height:100%;background:${color};border-radius:6px;transition:.3s"></div>
+                                </div>
+                                <strong style="color:${color};min-width:40px">${a.porcentaje}%</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <button class="btn-icon" title="Ver detalles" onclick="verDetallesAsesor('${esc(a.name)}')">
+                                <i class="ti ti-arrow-right"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+                }).join('');
+        }
+
+        window.verDetallesAsesor = function(nombreAsesor) {
+            document.getElementById('search-contratos').value = nombreAsesor;
+            showSection('contratos');
+            filtrarContratos();
+        };
+
         // ── HELPERS ──
         function animNum(id, target) {
             const el = document.getElementById(id);
@@ -848,7 +979,13 @@
             document.querySelectorAll('.ni').forEach(n => n.classList.remove('act'));
             document.getElementById('section-' + name).classList.add('active');
             document.getElementById('nav-' + name).classList.add('act');
-            const titles = { resumen: 'Resumen', contratos: 'Contratos', asesores: 'Asesores', admins: 'Administradores' };
+            const titles = { 
+                resumen: 'Resumen', 
+                contratos: 'Contratos', 
+                asesores: 'Asesores', 
+                admins: 'Administradores',
+                desempeno: 'Desempeño de Asesores'
+            };
             document.getElementById('page-title').textContent = titles[name] || name;
         };
     </script>
