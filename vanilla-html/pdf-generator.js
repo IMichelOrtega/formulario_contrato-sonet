@@ -479,7 +479,6 @@ function generarPDFContrato(datosContrato) {
 </html>
     `;
 
-    // Configuración para html2pdf
     const elemento = document.createElement('div');
     elemento.innerHTML = htmlContenido;
 

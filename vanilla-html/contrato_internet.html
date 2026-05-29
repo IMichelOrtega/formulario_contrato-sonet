@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contrato @SONET - Estructura de Columnas</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     /* Configuración de pantalla estilo lector PDF */
     body {
@@ -300,6 +299,7 @@
   <button class="btn-back" onclick="window.location.href='contrato.html'">← Atrás</button>
   <button class="btn-download-pdf" onclick="descargarPDF()">🖨️ Imprimir / Guardar PDF</button>
 
+  <div id="pdf-content">
   <div class="page">
     <div class="columns-container">
 
@@ -1183,6 +1183,7 @@
     </div>
 
   </div>
+  </div>
   <script>
     // Función para actualizar la tabla con descuento lineal uniforme
     function actualizarTablaPermanencia() {
@@ -1241,7 +1242,22 @@
     });
 
     function descargarPDF() {
-      window.print();
+      const btn = document.querySelector('.btn-download-pdf');
+      const btnBack = document.querySelector('.btn-back');
+      if (btn) btn.style.visibility = 'hidden';
+      if (btnBack) btnBack.style.visibility = 'hidden';
+
+      html2pdf().set({
+        margin: 0,
+        filename: 'contrato-asonet.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      }).from(document.getElementById('pdf-content')).save().then(() => {
+        if (btn) btn.style.visibility = '';
+        if (btnBack) btnBack.style.visibility = '';
+      });
     }
   </script>
 </body>
