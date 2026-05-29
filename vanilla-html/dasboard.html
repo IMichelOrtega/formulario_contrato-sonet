@@ -993,7 +993,6 @@
             </button>
             <button class="ni" onclick="window.location.href='contrato.html'">
                 <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
-                <span class="nbadge" id="sb-pending-badge">0</span>
             </button>
             <button class="ni" onclick="window.location.href='cliente.html'">
                 <i class="ti ti-users" aria-hidden="true"></i>Clientes
@@ -1017,7 +1016,7 @@
                     <i class="ti ti-menu-2" aria-hidden="true"></i>
                 </button>
                 <div>
-                    <div class="tb-title">Panel de control</div>
+                    <div class="tb-title" id="tb-welcome">Bienvenido, Asesor</div>
                     <div class="tb-sub" id="today-date"></div>
                 </div>
             </div>
@@ -1205,6 +1204,8 @@
                 if (sbName) sbName.textContent = name;
                 if (sbAv) sbAv.textContent = ini;
                 if (topAv) topAv.textContent = ini;
+                var welcomeEl = document.getElementById('tb-welcome');
+                if (welcomeEl) welcomeEl.textContent = 'Bienvenido, ' + name;
             });
         })();
     </script>
@@ -1244,7 +1245,7 @@
         function setTodayDate() {
             const d = new Date();
             document.getElementById('today-date').textContent =
-                d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                'Asesor Comercial · ' + d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
         }
 
         async function loadDashboard() {
@@ -1316,7 +1317,8 @@
             animateNum('stat-total', total);
             animateNum('stat-month', esteMes);
             animateNum('stat-pdf', conPdf);
-            document.getElementById('sb-pending-badge').textContent = pending;
+            const badgeEl = document.getElementById('sb-pending-badge');
+            if (badgeEl) badgeEl.textContent = pending;
         }
 
         function animateNum(id, target) {

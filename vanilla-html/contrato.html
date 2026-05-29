@@ -184,11 +184,10 @@
         </div>
         <nav>
             <button class="ni" onclick="window.location.href='dasboard.html'">
-                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Inicio
             </button>
             <button class="ni act">
                 <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
-                <span class="nbadge" id="sb-pending-badge">4</span>
             </button>
             <button class="ni" onclick="window.location.href='cliente.html'">
                 <i class="ti ti-users" aria-hidden="true"></i>Clientes
@@ -255,6 +254,15 @@
             document.getElementById('sb-avatar').textContent = iniciales;
             document.getElementById('sb-name').textContent = nombre;
             document.getElementById('sb-role').textContent = rol;
+
+            // Badge: total contratos del asesor desde localStorage
+            try {
+                const saved = JSON.parse(localStorage.getItem('sonet_contratos') || '[]');
+                const uid = sessionUser.uid;
+                const mine = saved.filter(c => c.uid === uid || c.asesorUid === uid);
+                const badge = document.getElementById('sb-pending-badge');
+                if (badge) badge.textContent = mine.length || saved.length;
+            } catch (_) {}
         });
 
         function toggleSidebar() {

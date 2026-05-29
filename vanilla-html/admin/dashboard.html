@@ -237,13 +237,47 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes spin { to { transform: rotate(360deg); } }
         .spin { animation: spin 1s linear infinite; display: inline-block; }
+
+        /* ── RESPONSIVE ── */
+        .sidebar { transition: transform .28s ease; }
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 199; }
+        .overlay.show { display: block; }
+        .tb-l { display: flex; align-items: center; }
+        .hamburger {
+            display: none; align-items: center; justify-content: center;
+            width: 36px; height: 36px; background: var(--sb3); border: 1px solid var(--bdr);
+            border-radius: 8px; cursor: pointer; color: var(--t2); margin-right: 14px; flex-shrink: 0;
+        }
+        .hamburger i { font-size: 18px; }
+
+        @media(max-width: 960px) {
+            .sidebar { transform: translateX(-100%); box-shadow: 4px 0 40px rgba(0,0,0,.12); }
+            .sidebar.open { transform: translateX(0); }
+            .main { margin-left: 0; }
+            .hamburger { display: flex; }
+            .topbar { padding: 14px 20px; }
+            .content { padding: 20px 16px 28px; }
+            .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .credentials-grid { grid-template-columns: 1fr; }
+        }
+
+        @media(max-width: 540px) {
+            .kpi-row { grid-template-columns: 1fr; }
+            .s-inp { width: 140px; }
+            .tbl-hd { padding: 14px 16px; flex-direction: column; align-items: flex-start; }
+            .tbl-ctrl { width: 100%; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-group.full { grid-column: 1; }
+        }
     </style>
 </head>
 
 <body>
 
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
         <div class="logo"><img src="../logo-sonet-light.png" alt="SONET Logo"></div>
         <div class="user-pill">
             <div class="av" id="sb-avatar">AD</div>
@@ -279,9 +313,14 @@
     <!-- MAIN -->
     <div class="main">
         <header class="topbar">
-            <div>
-                <div class="tb-title" id="page-title">Resumen</div>
-                <div class="tb-sub" id="today-date"></div>
+            <div class="tb-l">
+                <button class="hamburger" onclick="toggleSidebar()" aria-label="Menú">
+                    <i class="ti ti-menu-2"></i>
+                </button>
+                <div>
+                    <div class="tb-title" id="page-title">Resumen</div>
+                    <div class="tb-sub"><span id="welcome-admin">Bienvenido, Admin</span> · <span id="today-date"></span></div>
+                </div>
             </div>
         </header>
 
@@ -486,7 +525,7 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
         import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword }
             from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-        import { getFirestore, collection, getDocs, deleteDoc, doc, addDoc, setDoc, query, where }
+        import { getFirestore, collection, getDocs, onSnapshot, deleteDoc, doc, addDoc, setDoc, query, where }
             from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
         import { db, auth } from '../firebase-config.js';
 
@@ -529,6 +568,7 @@
 
             document.getElementById('sb-avatar').textContent = sessionUser.iniciales || 'AD';
             document.getElementById('sb-name').textContent = sessionUser.name || 'Administrador';
+            document.getElementById('welcome-admin').textContent = 'Bienvenido, ' + (sessionUser.name || 'Admin');
 
             cargarTodo();
         });
@@ -539,19 +579,36 @@
             renderDesempeno();
         }
 
-        // ── CONTRATOS ──
-        async function cargarContratos() {
-            try {
-                const snap = await getDocs(collection(db, 'contratos'));
-                allContratos = [];
-                snap.forEach(d => allContratos.push({ id: d.id, ...d.data() }));
-                allContratos.sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''));
-            } catch (e) {
-                console.error('Error cargando contratos:', e);
-            }
-            renderResumen();
-            filtContratos = [...allContratos];
-            renderTablaContratos();
+        // ── CONTRATOS (tiempo real) ──
+        function cargarContratos() {
+            return new Promise((resolve) => {
+                let resolved = false;
+                onSnapshot(collection(db, 'contratos'), (snap) => {
+                    allContratos = [];
+                    snap.forEach(d => allContratos.push({ id: d.id, ...d.data() }));
+                    allContratos.sort((a, b) => (b.fecha || '').localeCompare(a.fecha || ''));
+
+                    renderResumen();
+
+                    // Re-aplica el filtro de búsqueda activo
+                    const q = document.getElementById('search-contratos')?.value.toLowerCase().trim() || '';
+                    filtContratos = q
+                        ? allContratos.filter(c =>
+                            (c.nombre || '').toLowerCase().includes(q) ||
+                            (c.cc || '').replace(/\./g, '').includes(q.replace(/\./g, '')) ||
+                            (c.asesor || '').toLowerCase().includes(q) ||
+                            (c.servicio || '').toLowerCase().includes(q))
+                        : [...allContratos];
+                    renderTablaContratos();
+
+                    if (allAsesores.length > 0) { calcularDesempeno(); renderDesempeno(); }
+
+                    if (!resolved) { resolved = true; resolve(); }
+                }, (e) => {
+                    console.error('Error cargando contratos:', e);
+                    if (!resolved) { resolved = true; resolve(); }
+                });
+            });
         }
 
         function renderResumen() {
@@ -663,11 +720,8 @@
             if (!confirm('¿Eliminar este contrato? Esta acción no se puede deshacer.')) return;
             try {
                 await deleteDoc(doc(db, 'contratos', id));
-                allContratos = allContratos.filter(c => c.id !== id);
-                filtContratos = filtContratos.filter(c => c.id !== id);
-                renderResumen();
-                renderTablaContratos();
                 toast('Contrato eliminado', 'ok');
+                // onSnapshot actualiza automáticamente los KPIs y la tabla
             } catch (e) {
                 toast('Error al eliminar: ' + e.message, 'err');
             }
@@ -971,6 +1025,16 @@
             try { await signOut(auth); } catch (_) {}
             sessionStorage.removeItem('user');
             window.location.href = '../index.html';
+        };
+
+        window.toggleSidebar = function() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        };
+
+        window.closeSidebar = function() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('show');
         };
 
         // ── NAVEGACIÓN ──

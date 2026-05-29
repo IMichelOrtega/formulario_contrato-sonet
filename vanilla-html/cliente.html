@@ -7,7 +7,7 @@
     <title>@sonet — Clientes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
     <style>
@@ -44,7 +44,7 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: #f3f4f8;
             color: var(--t);
             min-height: 100vh;
@@ -106,7 +106,7 @@
             font-weight: 800;
             color: #fff;
             flex-shrink: 0;
-            font-family: 'Outfit', sans-serif
+            font-family: 'Syne', sans-serif
         }
 
         .u-name {
@@ -987,18 +987,18 @@
             <div>
                 <div class="u-name" id="sb-name">Juan Pérez</div>
                 <div class="u-role" id="sb-role">Asesor comercial</div>
+                <div class="online"><div class="dot-g"></div>En línea</div>
             </div>
         </div>
 
         <nav>
             <a class="ni" href="dasboard.html">
-                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Inicio
             </a>
-            <a class="ni" href="#">
+            <a class="ni" href="contrato.html">
                 <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
-                <span class="nbadge" id="sb-pending-badge">0</span>
             </a>
-            <a class="ni act" href="#">
+            <a class="ni act" href="cliente.html">
                 <i class="ti ti-users" aria-hidden="true"></i>Clientes
             </a>
         </nav>
@@ -1244,7 +1244,8 @@
             animNum('stat-total', total);
             animNum('stat-pdf', pdf);
             animNum('stat-month', month);
-            document.getElementById('sb-pending-badge').textContent = pending;
+            const badge = document.getElementById('sb-pending-badge');
+            if (badge) badge.textContent = total;
         }
 
         function animNum(id, target) {
