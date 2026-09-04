@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla Contrato Único de Servicios Fijos - Sección Superior</title>
+    <link rel="icon" type="image/png" href="asonet-removebg-preview.png">
+    <style>
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            color: #000000;
+            line-height: 1.3;
+            font-size: 11px;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        /* Contenedor de la página con estructura de dos columnas generales */
+        .page-container {
+            width: 210mm;
+            height: 297mm;
+            padding: 15mm;
+            box-sizing: border-box;
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Definición de las dos columnas principales del contrato */
+        .main-column {
+            width: 48%;
+            /* Deja un margen intermedio del 4% */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- COMPONENTES DE LA COLUMNA SUPERIOR IZQUIERDA (SEGÚN LA IMAGEN) --- */
+
+        /* 1. Encabezado Institucional Azul */
+        .crc-blue-header {
+            background-color: #0056b3;
+            /* Azul institucional oscuro */
+            color: #ffffff;
+            padding: 12px 15px;
+            border: 1px solid #004085;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .header-top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .logo-placeholder {
+            display: flex;
+            align-items: center;
+            font-size: 9px;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 65%;
+        }
+
+        /* Icono simulado de la CRC */
+        .logo-circle {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .qr-placeholder {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #ffffff;
+            background-color: #ffffff;
+            /* Simulación visual de un patrón QR con líneas */
+            background: repeating-linear-gradient(45deg, #000, #000 2px, #fff 2px, #fff 7px);
+        }
+
+        .header-title-text {
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+        }
+
+        /* 2. Caja Gris de Condiciones Iniciales */
+        .conditions-gray-box {
+            background-color: #e2e5e8;
+            /* Gris claro de fondo */
+            border: 1px solid #222222;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 10.5px;
+        }
+
+        /* Líneas para rellenar a mano o digitalmente */
+        .line-input {
+            display: inline-block;
+            border-bottom: 1px solid #000000;
+            padding-left: 4px;
+            padding-right: 4px;
+            text-align: center;
+        }
+
+        /* 3. Barra Negra de Sección "EL SERVICIO" */
+        .black-section-bar {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 3px 8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Elementos de formulario inferiores */
+        .service-selection-text {
+            font-size: 10.5px;
+            margin-bottom: 6px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .inline-checkbox {
+            display: inline-flex;
+            align-items: center;
+            font-size: 10.5px;
+        }
+
+        .square-box {
+            width: 12px;
+            height: 12px;
+            border: 1px solid #000000;
+            background-color: #ffffff;
+            margin-left: 4px;
+            display: inline-block;
+        }
+
+        /* =============================================
+           RESPONSIVE CONTRACT VIEWER
+           Mobile-first: escala páginas A4 al ancho
+           del viewport. Print: formato A4 exacto.
+        ============================================= */
+
+        @media screen {
+
+            html,
+            body {
+                background: #c8c8c8;
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+            }
+
+            /* Contenedor scrollable que centra las páginas */
+            .contract-scroll {
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 16px 0 32px;
+                box-sizing: border-box;
+                gap: 20px;
+            }
+
+            /* Cada página A4 se escala para caber en la pantalla */
+            .page-wrapper {
+                transform-origin: top center;
+                /* JS ajustará el scale dinámicamente */
+            }
+
+            /* Página A4 base */
+            .page-container,
+            .page-sheet {
+                width: 794px !important;
+                /* 210mm a 96dpi */
+                box-sizing: border-box !important;
+                background: #fff;
+                box-shadow: 0 3px 18px rgba(0, 0, 0, 0.25);
+                position: relative;
+            }
+
+            /* Saltos de página: ocultar en pantalla */
+            .page-break {
+                display: none;
+            }
+        }
+
+        @media print {
+
+            html,
+            body {
+                background: #fff;
+                margin: 0;
+                padding: 0;
+            }
+
+            .contract-scroll {
+                display: block;
+                padding: 0;
+                gap: 0;
+            }
+
+            .page-wrapper {
+                transform: none !important;
+                margin: 0 !important;
+                height: auto !important;
+            }
+
+            .page-container,
+            .page-sheet {
+                width: 210mm !important;
+                box-shadow: none !important;
+            }
+
+            .page-break {
+                page-break-before: always;
+                break-before: page;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contract-scroll">
+
+        <!-- ========== HOJA 1 ========== -->
+        <div class="page-wrapper">
+            <div class="page-container">
+
+                <div class="main-column">
+
+                    <div class="crc-blue-header">
+                        <div class="header-top-row">
+                            <div class="logo-placeholder">
+                                <div class="logo-circle">C</div>
+                                COMISIÓN DE REGULACIÓN<br>DE COMUNICACIONES
+                            </div>
+                            <div class="qr-placeholder"></div>
+                        </div>
+                        <div class="header-title-text">
+                            CONTRATO ÚNICO DE<br>SERVICIOS FIJOS
+                        </div>
+                    </div>
+
+                    <div class="conditions-gray-box">
+                        Este contrato explica las condiciones para la prestación de los servicios entre usted y
+                        <strong>CENETWORK S.A.S</strong>, por que pagará mínimo mensual $<input type="text"
+                            id="input-valor-mensual" maxlength="5" inputmode="numeric" placeholder="00000"
+                            style="width:60px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10.5px; text-align:center; outline:none; padding:0 2px;"
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,5)">. Este contrato tendrá
+                        vigencia de <input type="number" id="input-vigencia" min="1" max="12" placeholder="1"
+                            style="width:34px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10.5px; text-align:center; outline:none; padding:0 2px;"
+                            oninput="if(this.value>12)this.value=12; if(this.value<1&&this.value!='')this.value=1;"
+                            onblur="if(this.value<1&&this.value!='')this.value=1;"> meses, contados a partir del <input
+                            type="date" id="input-fecha-inicio"
+                            style="width:108px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10px; outline:none; padding:0 2px; color:#000;">.
+                        El plazo máximo de instalación es de 15 días hábiles. Acepto
+                        que mi
+                        contrato se renueve sucesiva y automáticamente por un plazo igual al inicial<span
+                            class="square-box" style="vertical-align: middle; margin-left: 5px;"></span>*
+                    </div>
+
+                    <div class="black-section-bar">EL SERVICIO</div>
+
+                    <div class="service-selection-text">
+                        Con este contrato nos comprometemos a prestarle los servicios que usted elija*:
+                    </div>
+
+                    <div class="checkbox-group">
+                        <span class="inline-checkbox">Telefonía Fija <span class="square-box"></span></span>
+                        <span class="inline-checkbox">Internet fijo <span class="square-box"></span></span>
+                        <span class="inline-checkbox">Televisión <span class="square-box"
+                                style="display:inline-flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold; line-height:1;">✓</span></span>
+                    </div>
+
+                    <div style="font-size: 10.5px; margin-top: 5px;">
+                        Servicios adicionales <input type="text" id="input-servicios-adicionales" placeholder=""
+                            style="width:70%; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10.5px; outline:none; padding:0 2px;">
+                    </div>
+                    <div style="font-size: 10.5px; margin-top: 8px;">
+                        El servicio se activará a más tardar el día <input type="date" id="input-fecha-activacion"
+                            style="width:110px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10px; outline:none; padding:0 2px; color:#000;">.
+                    </div>
+                    <div class="black-section-bar" style="margin-top: 15px;">INFORMACION DEL SUSCRIPTOR</div>
+
+                    <div
+                        style="border: 1px solid #1a1a1a; padding: 12px 10px; font-size: 11px; box-sizing:border-box; overflow:hidden;">
+
+                        <div
+                            style="margin-bottom:4px; display:flex; align-items:flex-end; width:100%; box-sizing:border-box;">
+                            <span style="white-space:nowrap; flex-shrink:0;">Nombre / Razón social:</span>
+                            <input type="text" id="input-nombre"
+                                style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                oninput="this.value=this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g,'')">
+                        </div>
+                        <div style="border-bottom:1px solid #000; margin-bottom:12px; margin-top:2px;"></div>
+
+                        <div style="margin-bottom:12px; display:flex; width:100%; box-sizing:border-box;">
+                            <div
+                                style="flex:0 0 60%; display:flex; align-items:flex-end; box-sizing:border-box; min-width:0;">
+                                <span style="white-space:nowrap; flex-shrink:0;">Identificación:</span>
+                                <input type="text" id="input-identificacion" maxlength="10" inputmode="numeric"
+                                    style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                    oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
+                            </div>
+                            <div
+                                style="flex:0 0 40%; display:flex; align-items:flex-end; padding-left:15px; box-sizing:border-box; min-width:0;">
+                                <span style="white-space:nowrap; flex-shrink:0;">de:</span>
+                                <input type="text" id="input-ciudad-id"
+                                    style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                    oninput="this.value=this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g,'')">
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin-bottom:4px; display:flex; align-items:flex-end; width:100%; box-sizing:border-box;">
+                            <span style="white-space:nowrap; flex-shrink:0;">Correo electrónico:</span>
+                            <input type="email" id="input-correo" placeholder="ejemplo@correo.com"
+                                style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                onblur="if(this.value && !/\.com$/.test(this.value)){ this.style.borderBottomColor='red'; this.title='El correo debe terminar en .com'; } else { this.style.borderBottomColor='#000'; this.title=''; }">
+                        </div>
+                        <div style="border-bottom:1px solid #000; margin-bottom:12px; margin-top:2px;"></div>
+
+                        <div
+                            style="margin-bottom:4px; display:flex; align-items:flex-end; width:100%; box-sizing:border-box;">
+                            <span style="white-space:nowrap; flex-shrink:0;">Teléfono de contacto:</span>
+                            <input type="text" id="input-telefono" maxlength="21" inputmode="numeric"
+                                style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                oninput="this.value=this.value.replace(/[^0-9-]/g,'').slice(0,21)">
+                        </div>
+                        <div style="border-bottom:1px solid #000; margin-bottom:12px; margin-top:2px;"></div>
+
+                        <div
+                            style="margin-bottom:4px; display:flex; align-items:flex-end; width:100%; box-sizing:border-box;">
+                            <span style="white-space:nowrap; flex-shrink:0;">Dirección Servicio:</span>
+                            <input type="text" id="input-direccion-servicio"
+                                style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;">
+                        </div>
+                        <div style="border-bottom:1px solid #000; margin-bottom:12px; margin-top:2px;"></div>
+
+                        <div style="margin-bottom:12px; display:flex; width:100%; box-sizing:border-box;">
+                            <div
+                                style="flex:0 0 35%; display:flex; align-items:flex-end; box-sizing:border-box; min-width:0;">
+                                <span style="white-space:nowrap; flex-shrink:0;">Estrato:</span>
+                                <input type="number" id="input-estrato" min="1" max="6" placeholder="1"
+                                    style="width:36px; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; text-align:center; box-sizing:border-box;"
+                                    oninput="if(this.value>6)this.value=6; if(this.value<1&&this.value!='')this.value=1;"
+                                    onblur="if(this.value<1&&this.value!='')this.value=1;">
+                            </div>
+                            <div
+                                style="flex:0 0 65%; display:flex; align-items:flex-end; padding-left:10px; box-sizing:border-box; min-width:0;">
+                                <span style="white-space:nowrap; flex-shrink:0;">Departamento:</span>
+                                <input type="text" id="input-departamento" value="Huila" readonly
+                                    style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; color:#000; box-sizing:border-box;">
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin-bottom:12px; display:flex; align-items:flex-end; width:100%; box-sizing:border-box;">
+                            <span style="white-space:nowrap; flex-shrink:0;">Municipio:</span>
+                            <input type="text" id="input-municipio"
+                                style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                oninput="this.value=this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g,'')">
+                        </div>
+
+                        <div
+                            style="margin-bottom:4px; display:flex; align-items:flex-end; width:100%; box-sizing:border-box;">
+                            <span style="white-space:nowrap; flex-shrink:0;">Dirección Suscriptor:</span>
+                            <input type="text" id="input-direccion-suscriptor"
+                                style="min-width:0; flex:1; margin-left:5px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                oninput="this.value=this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g,'')">
+                        </div>
+                        <div style="border-bottom:1px solid #000; margin-top:2px;"></div>
+
+                    </div>
+                    <div class="black-section-bar" style="margin-top: 15px; line-height: 1.2; padding: 4px 8px;">
+                        CONDICIONES COMERCIALES<br>CARACTERÍSTICAS DEL PLAN
+                    </div>
+
+                    <div style="border: 1px solid #1a1a1a; padding: 10px 0px 5px 0px; background-color: #ffffff;">
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px;"></div>
+                        <div
+                            style="border-bottom: 1px solid #d3d3d3; height: 20px; margin: 0 10px; border-bottom-color: transparent;">
+                        </div>
+                    </div>
+
+                    <div
+                        style="border: 1px solid #1a1a1a; margin-top: 5px; display: flex; height: 24px; align-items: center;">
+                        <div
+                            style="width: 70%; text-align: center; font-weight: bold; font-size: 11px; color: #555555; letter-spacing: 0.5px;">
+                            VALOR TOTAL
+                        </div>
+                        <div
+                            style="width: 30%; background-color: #cbdcefaa; height: 100%; border-left: 1px solid #1a1a1a; display: flex; align-items: center; justify-content: center;">
+                            <input type="text" id="input-valor-total" readonly
+                                style="width: 100%; background: transparent; border: none; outline: none; font-family: Arial, Helvetica, sans-serif; font-size: 10.5px; font-weight: bold; text-align: center; color: #000; padding: 0 4px; cursor: default;">
+                        </div>
+                    </div>
+
+                    <div
+                        style="text-align: center; color: #0056b3; font-size: 8.5px; font-weight: bold; margin-top: 4px; text-transform: uppercase;">
+                        * Espacio diligenciado por el usuario
+                    </div>
+                </div>
+
+                <div class="main-column">
+
+                    <div class="black-section-bar" style="padding: 4px 8px;">
+                        PRINCIPALES OBLIGACIONES DEL USUARIO
+                    </div>
+                    <div style="text-align: justify; font-size: 10px; line-height: 1.3; margin-bottom: 12px;">
+                        1) Pagar oportunamente los servicios prestados, incluyendo los intereses de mora cuando haya
+                        incumplido;
+                        2) Suministrar información verdadera; 3) Hacer uso adecuado de los equipos y los servicios;
+                        4) No divulgar ni acceder a pornografía infantil (Consultar anexo); 5) Avisar a las autoridades
+                        cualquier evento de robo o hurto de elementos de la red, como el cable; 6) No cometer o ser
+                        partícipe de actividades de fraude.
+                    </div>
+
+                    <div class="black-section-bar" style="padding: 4px 8px;">
+                        CALIDAD Y COMPENSACIÓN
+                    </div>
+                    <div style="text-align: justify; font-size: 10px; line-height: 1.3; margin-bottom: 12px;">
+                        Cuando se presenta indisponibilidad del servicio o este se suspenda a pesar de su pago oportuno,
+                        lo compensaremos en su próxima factura. Debemos cumplir con las condiciones de calidad definidas
+                        por la CRC. Consúltelas en la página: <span
+                            style="font-weight: bold;">www.operador.com/indicadoresdecalidad</span>
+                    </div>
+
+                    <div class="black-section-bar" style="padding: 4px 8px;">
+                        CESIÓN
+                    </div>
+                    <div style="text-align: justify; font-size: 10px; line-height: 1.3; margin-bottom: 12px;">
+                        Si quiere ceder este contrato a otra persona, debe presentar una solicitud por escrito a través
+                        de nuestros Medios de Atención, acompañada de la aceptación por escrito de la persona a la que
+                        se hará la cesión. Dentro de los 15 días hábiles siguientes, analizaremos su solicitud y le
+                        daremos
+                        una respuesta. Si se acepta la cesión queda liberado de cualquier responsabilidad con nosotros.
+                    </div>
+
+                    <div class="black-section-bar" style="padding: 4px 8px;">
+                        MODIFICACIÓN
+                    </div>
+                    <div style="text-align: justify; font-size: 10px; line-height: 1.3; margin-bottom: 5px;">
+                        Nosotros no podemos modificar el contrato sin su autorización. Esto incluye que no podemos
+                        cobrarle
+                        servicios que no haya aceptado expresamente. Si esto ocurre tiene derecho a terminar el
+                        contrato,
+                        incluso estando vigente la cláusula de permanencia mínima, sin la obligación de pagar suma
+                        alguna
+                        por este concepto. No obstante, usted puede en cualquier momento modificar los servicios
+                        contratados.
+                        Dicha modificación se hará efectiva en el periodo de facturación siguiente, para lo menos con 3
+                        días
+                        hábiles de anterioridad al corte de facturación.
+                    </div>
+                    <div class="black-section-bar" style="padding: 4px 8px;">TERMINACIÓN</div>
+                    <div style="text-align: justify; font-size: 9.2px; line-height: 1.25;">
+                        Usted puede terminar el contrato en cualquier momento sin penalidades. Para esto debe realizar
+                        una
+                        solicitud a través de cualquiera de nuestros Medios de Atención mínimo 3 días hábiles antes del
+                        corte de
+                        facturación (su corte de facturación es el día de cada mes). Si presenta la solicitud con una
+                        anticipación menor, la terminación del servicio se dará en el siguiente periodo de facturación.
+                        <br><br>
+                        Así mismo, usted puede cancelar cualquiera de los servicios contratados, para lo que le
+                        informaremos las
+                        condiciones en las que serán prestados los servicios no cancelados y actualizaremos el contrato.
+                        Así
+                        mismo, si el operador no inicia la prestación del servicio en el plazo acordado, usted puede
+                        pedir la
+                        restitución de su dinero y la terminación del contrato.
+                    </div>
+
+                </div>
+            </div>
+            <div
+                style="border: 1px solid #1a1a1a; display: flex; width: 100%; height: 48px; box-sizing: border-box; margin-top: auto; background-color: #ffffff;">
+                <div
+                    style="width: 72%; padding: 5px 10px; font-size: 8.5px; line-height: 1.2; text-align: center; font-weight: bold; display: flex; flex-direction: column; justify-content: center;">
+                    Edificio Space Sibelius, Piso 2 Oficina 2024 Chía, Cundinamarca • CEL. 3208125562<br>
+                    www.cenetwork.com.co • Vigilado y regulado por Ministerio Tics y CRC habilitación general del<br>
+                    servicio de televisión por suscripción nacional.
+                </div>
+                <div
+                    style="width: 28%; border-left: 1px solid #1a1a1a; padding: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span
+                        style="font-weight: bold; font-size: 11px; letter-spacing: 1px; color: #0056b3;">CENETWORK</span>
+                    <span style="font-size: 8px; color: #444444; margin-top: 2px;">NIT. 901.721.689-6</span>
+                </div>
+            </div>
+
+        </div><!-- /page-container -->
+    </div><!-- /page-wrapper -->
+
+    <div class="page-break"></div>
+
+    <!-- ========== HOJA 2 ========== -->
+    <div class="page-wrapper">
+        <div class="page-sheet"
+            style="padding: 18mm 15mm 15mm 15mm; display: flex; flex-direction: column; justify-content: space-between;">
+
+            <!-- CUERPO DE TEXTO LEGAL GENERADO EN BLOQUES EQUILIBRADOS -->
+            <div
+                style="text-align: justify; font-size: 9.5px; line-height: 1.42; color: #000000; letter-spacing: -0.02px;">
+
+                <p style="margin-top: 0; margin-bottom: 16px;">
+                    <strong>ANEXOS LEGALES: HÁBEAS DATA Y AUTORIZACIÓN DE INFORMACIONES Y REFERENCIAS:</strong> Con la
+                    suscripción del Contrato de prestación de servicios de telecomunicaciones en los términos de las
+                    leyes
+                    1266 de 2008 y 1581 de 2012 EL USUARIO autoriza a CENETWORK S.A.S en adelante CENETWORK para que
+                    consulte de cualquier fuente y/o reporte y/o actualice a cualquier operador de información, y sea
+                    fuente
+                    de información respecto a los datos sobre su persona, nombre, apellidos y documento de
+                    identificación,
+                    su comportamiento y crédito comercial, hábitos de pago, manejo de su(s) cuenta(s) corriente(s)
+                    bancaria(s) y en general el cumplimiento de sus obligaciones comerciales y pecuniarias, con el fin
+                    de
+                    verificar sus condiciones para acceder y/o modificar productos o servicios en CENETWORK . Así mismo,
+                    de
+                    conformidad con lo dispuesto en el artículo 6 del Decreto 1377 de 2013, y sin perjuicio del derecho
+                    que
+                    le asiste al usuario de abstenerse de autorizar el tratamiento de datos sensibles, el usuario
+                    manifiesta
+                    que autoriza de manera libre, previa, informada, voluntaria y expresa al tratamiento de datos
+                    sensibles
+                    (huella dactilar), con la finalidad de validar su identidad. Para esta última finalidad, también
+                    autoriza a CENETWORK de manera libre, previa, informada, voluntaria y expresa el tratamiento del
+                    dato
+                    sensible de voz y para que valide la identidad en los contactos telefónicos que realice con
+                    CENETWORK .
+                    A estos efectos la autorización otorgada resulta irrevocable mientras existan obligaciones
+                    contractuales
+                    entre las partes. Del mismo modo, el USUARIO, otorga a CENETWORK expresa autorización para llevar a
+                    cabo
+                    el tratamiento de sus datos personales. La política de tratamiento de datos de CENETWORK , se
+                    encuentra
+                    disponible para consulta en www.cenetwork.com.co Así mismo autorizo de manera expresa a CENETWORK
+                    para
+                    que puedan comunicarse conmigo a través de WhatsApp a la línea móvil suministrada.
+                </p>
+
+                <p style="margin-bottom: 16px;">
+                    <strong>PARÁGRAFO PRIMERO.</strong> Previa la realización de eventuales reportes a las centrales de
+                    información sobre comportamiento crediticio del USUARIO, CENETWORK le remitirá comunicación con una
+                    antelación de por lo menos veinte (20) días calendario a la fecha en que se produjo el reporte,
+                    indicando la obligación en mora que generó el reporte, el monto y el fundamento de la misma.
+                </p>
+
+                <p style="margin-bottom: 16px;">
+                    <strong>PARÁGRAFO SEGUNDO.</strong> CENETWORK informa al USUARIO que sus datos personales
+                    suministrados
+                    en virtud de la suscripción del contrato de prestación de servicios de telecomunicaciones serán
+                    objeto
+                    de tratamiento únicamente para los siguientes propósitos: para consulta y reporte de información
+                    ante
+                    operadores de bancos de datos de contenido crediticio y financiero, para fines comerciales y
+                    publicitarios relacionados con opciones y productos ofrecidos al público llevada a cabo por
+                    CENETWORK o
+                    por terceros, esta información será conservada por CENETWORK con la debida diligencia. EL USUARIO
+                    puede
+                    en cualquier momento ejercer los derechos previstos en el artículo 8 de la Ley 1581 de 2012;en
+                    especial:
+                    a) Conocer, actualizar y rectificar sus datos personales frente a los Responsables del Tratamiento o
+                    Encargados del Tratamiento. Este derecho se podrá ejercer, entre otros frente a datos parciales,
+                    inexactos, incompletos, fraccionados, que induzcan a error, o aquellos cuyo Tratamiento esté
+                    expresamente prohibido o no haya sido autorizado; b) Solicitar prueba de la autorización otorgada al
+                    Responsable del Tratamiento salvo cuando expresamente se exceptúe como requisito para el
+                    Tratamiento, de
+                    conformidad con lo previsto en el artículo 10 de la mencionada ley; c) Ser informado por el
+                    Responsable
+                    del Tratamiento o el Encargado del Tratamiento, previa solicitud, respecto del uso que le ha dado a
+                    sus
+                    datos personales; d) Presentar ante la Superintendencia de Industria y Comercio quejas por
+                    infracciones
+                    a lo dispuesto en la referida ley y las demás normas que la modifiquen, adicionen o complementen; e)
+                    Revocar la autorización y/o solicitar la supresión del dato cuando en el Tratamiento no se respeten
+                    los
+                    principios, derechos y garantías constitucionales y legales. La revocatoria y/o supresión procederá
+                    cuando la Superintendencia de Industria y Comercio haya determinado que en el Tratamiento el
+                    Responsable
+                    o Encargado han incurrido en conductas contrarias a la Ley y a la Constitución. Sin perjuicio del
+                    derecho que asiste a los titulares de la información de solicitar revocatoria o supresión de la
+                    información, con los siguientes datos: nombre y apellidos, domicilio a efectos de notificaciones,
+                    petición en que se concreta la solicitud, fecha, firma de la persona interesada, éstas medidas no
+                    procederán cuando exista una obligación legal o contractual que imponga al usuario el deber de
+                    permanecer en nuestras bases de datos; f) Acceder en forma gratuita a sus datos personales que hayan
+                    sido objeto de Tratamiento.
+                </p>
+
+                <p style="margin-bottom: 16px;">
+                    <strong>PARÁGRAFO TERCERO.</strong> El responsable de tratamiento de la información es CENETWORK
+                    S.A.S.
+                    con NIT 901.721.689-6, dirección principal Carrera 10 No. 14 - 21 y teléfono 601-863 5935 en Chía -
+                    Cundinamarca.
+                </p>
+
+                <p style="margin-bottom: 16px;">
+                    <strong>PORNOGRAFÍA INFANTIL:</strong> EL USUARIO declara expresamente que conoce y acata las normas
+                    legales que prohíben contenidos perjudiciales para menores de edad en cualquier modalidad de
+                    información
+                    en las redes globales, como por ejemplo pornografía, explotación sexual u ofrecimiento de servicios
+                    comerciales que impliquen abuso sexual, incluida la Ley 679 de Agosto 3 de 2001, Decreto 1524 de
+                    2002 y
+                    Código Penal arts. 218 y 219A y normas que los modifiquen y/o adicionen; además, se obliga a
+                    prevenir y
+                    no permitir el acceso desde su terminal a los menores de edad a dichos contenidos, en especial EL
+                    USUARIO no podrá alojar en su propio sitio a) Imágenes, textos, documentos o archivos audiovisuales
+                    que
+                    impliquen directa o indirectamente actividades sexuales de menores de edad, b) Material
+                    pornográfico, en
+                    modo de imágenes o videos, si existen indicios que las personas fotografiadas o filmadas son menores
+                    de
+                    edad c) Vínculos o “Links”, sobre sitios telemáticos que contengan o distribuyan material
+                    pornográfico
+                    relativo a menores de edad. EL USUARIO deberá: a) Denunciar ante las autoridades competentes
+                    cualquier
+                    acto criminal contra menores de edad que tengan conocimiento, incluso de la difusión de material
+                    pornográfico asociado a menores. b) Combatir con todos los medios técnicos a su alcance, la difusión
+                    de
+                    material pornográfico de menores de edad, c) Abstenerse de usar las redes globales de información
+                    para
+                    divulgación de material ilegal con menores de edad y d) Establecer mecanismos técnicos de bloqueo
+                    por
+                    medio de las cuales los usuarios puedan proteger a sí mismos o a sus hijos de material ilegal,
+                    ofensivo
+                    o indeseable en relación con menores de edad.
+                </p>
+
+                <p style="margin-bottom: 0;">
+                    <strong>SARLAFT.</strong> EL USUARIO: a) Acepta la terminación automática de la relación contractual
+                    en
+                    caso de encontrarse relacionado negativamente en listas o noticias por temas asociados al lavado de
+                    activos o financiación del terrorismo. b) Autoriza a revelar su información personal y de los
+                    negocios,
+                    en caso de ser requerida por una autoridad competente en Colombia. c) Se compromete a actualizar
+                    anualmente la información o en un tiempo menor en caso de que ocurran cambios en la información
+                    suministrada. EL USUARIO declara que no se encuentra en ninguna lista de las establecidas a nivel
+                    nacional o internacional para el control de lavado de activos y financiamiento del terrorismo; así
+                    mismo
+                    se responsabiliza ante CENETWORK S.A.S porque sus empleados, accionistas, miembros de la junta
+                    directiva
+                    o junta de socios, sus representantes legales y su revisor fiscal, tampoco se encuentren en dichas
+                    listas y se compromete a actualizar anualmente la información o en un tiempo menor en caso de que
+                    ocurran cambios en la información suministrada a . CENETWORK podrá terminar de manera unilateral e
+                    inmediata el presente contrato en caso que EL USUARIO, sus socios o accionistas y/o sus
+                    administradores
+                    llegaren a ser: a) vinculados por parte de las autoridades competentes a cualquier tipo de
+                    investigación
+                    por delitos de narcotráfico, terrorismo, lavado de activos, financiación del terrorismo,
+                    testaferrato,
+                    tráfico de estupefacientes o cualquier delito contra el orden constitucional b) ser incluido en
+                    listas
+                    para el control de lavado de activos y financiación del terrorismo administradas por cualquier
+                    autoridad
+                    nacional o extranjera, tales como la lista de la Oficina de Control de Activos en el Exterior OFAC
+                    emitida por la Oficina del Tesoro de los Estados Unidos de Norte América, la lista de la
+                    Organización de
+                    las Naciones Unidas y otras listas públicas relacionadas con el tema del lavado de activos y
+                    financiación del terrorismo, o c) condenado por parte de las autoridades competentes en cualquier
+                    tipo
+                    de proceso judicial relacionado con la comisión de delitos de igual o similar naturaleza a los
+                    indicados
+                    en esta cláusula. EL USUARIO, indemnizará y mantendrá libre de cualquier daño a CENETWORK por
+                    cualquier
+                    multa o perjuicio que fueran probados y que sufra CENETWORK S.A.S., por o con ocasión del
+                    incumplimiento
+                    por parte de EL USUARIO de las obligaciones que le apliquen en materia de prevención del riesgo de
+                    lavado de activos y financiación del terrorismo, así como cualquier reclamo judicial, extrajudicial
+                    y/o
+                    administrativo que autoridades competentes inicien en contra de CENETWORK por o con ocasión de dicho
+                    incumplimiento.
+                </p>
+
+            </div>
+
+            <!-- RECUADRO DE PIE DE PÁGINA DE LA HOJA 2 (ORGANIZADO ABAJO) -->
+            <div
+                style="border: 1px solid #1a1a1a; display: flex; width: 100%; height: 48px; box-sizing: border-box; background-color: #ffffff; margin-top: 15px;">
+                <div
+                    style="width: 72%; padding: 5px 10px; font-size: 8.5px; line-height: 1.2; text-align: center; font-weight: bold; display: flex; flex-direction: column; justify-content: center;">
+                    Edificio Space Sibelius, Piso 2 Oficina 2024 Chía, Cundinamarca • CEL. 3208125562<br>
+                    www.cenetwork.com.co • Vigilado y regulado por Ministerio Tics y CRC habilitación general del<br>
+                    servicio de televisión por suscripción nacional.
+                </div>
+                <div
+                    style="width: 28%; border-left: 1px solid #1a1a1a; padding: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span
+                        style="font-weight: bold; font-size: 11px; letter-spacing: 1px; color: #0056b3;">CENETWORK</span>
+                    <span style="font-size: 8px; color: #444444; margin-top: 2px;">NIT. 901.721.689-6</span>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- /page-sheet -->
+    </div><!-- /page-wrapper -->
+
+    <div class="page-break"></div>
+
+    <!-- ========== HOJA 3 ========== -->
+    <div class="page-wrapper">
+        <div class="page-sheet"
+            style="padding: 15mm; display: flex; flex-direction: column; justify-content: space-between;">
+
+            <!-- CONTENEDOR PRINCIPAL DE DOS COLUMNAS DE LA HOJA 3 -->
+            <div style="display: flex; justify-content: space-between; width: 100%; flex-grow: 1;">
+
+                <!-- ========================================================= -->
+                <!-- COLUMNA IZQUIERDA (image_77571e.png) -->
+                <!-- ========================================================= -->
+                <div style="width: 48%; display: flex; flex-direction: column;">
+
+                    <!-- SECCIÓN: PAGO Y FACTURACIÓN -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-weight: bold; font-size: 11px; padding: 4px 8px; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;">
+                        PAGO Y FACTURACION
+                    </div>
+
+                    <div
+                        style="font-size: 9px; line-height: 1.35; text-align: justify; color: #000000; margin-bottom: 10px;">
+                        La facturación le debe llegar como mínimo 5 días hábiles antes de la fecha de pago. Si no llega,
+                        puede solicitarla a través de nuestros Medios de Atención y debe pagarla oportunamente.
+                    </div>
+
+                    <div
+                        style="font-size: 9px; line-height: 1.35; text-align: justify; color: #000000; margin-bottom: 10px;">
+                        Si no paga a tiempo, previo aviso, suspenderemos su servicio hasta que pague sus saldos
+                        pendientes.
+                        Contamos con 3 días hábiles luego de su pago para reconectarle el servicio. Si no paga a tiempo,
+                        también podemos reportar su deuda a las centrales de riesgo. Para esto tenemos que avisarle por
+                        lo
+                        menos con 20 días calendario de anticipación. Si paga luego de este reporte tenemos la
+                        obligación
+                        dentro del mes de seguimiento de informar su pago para que ya no aparezca reportado.
+                    </div>
+
+                    <div
+                        style="font-size: 9px; line-height: 1.35; text-align: justify; color: #000000; margin-bottom: 8px;">
+                        Si tiene un reclamo sobre su factura, puede presentarlo antes de la fecha de pago y en ese caso
+                        no
+                        debe pagar las sumas reclamadas hasta que resolvamos su solicitud. Si ya pagó, tiene 6 meses
+                        para
+                        presentar la reclamación.
+                    </div>
+
+                    <!-- RECUADRO DE FIRMA FACTURA ELECTRÓNICA -->
+                    <div
+                        style="border: 1px solid #1a1a1a; height: 55px; position: relative; margin-bottom: 12px; display: flex; align-items: flex-end; padding: 4px 6px;">
+                        <div style="font-size: 7.5px; color: #333333; line-height: 1.1; text-align: left;">
+                            Con esta firma aceptará recibir la factura solamente por medios electrónicos.
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN: CÓMO COMUNICARSE CON NOSOTROS -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-weight: bold; font-size: 10.5px; padding: 4px 8px; text-transform: uppercase; margin-bottom: 12px; line-height: 1.2;">
+                        COMO COMUNICARSE CON NOSOTROS<br>(MEDIOS DE ATENCIÓN)
+                    </div>
+
+                    <!-- BLOQUE MEDIO 1 -->
+                    <div
+                        style="border: 1px solid #1a1a1a; display: flex; margin-bottom: 8px; min-height: 42px; box-sizing: border-box;">
+                        <div
+                            style="background-color: #1a1a1a; color: #ffffff; width: 24px; font-weight: bold; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            1
+                        </div>
+                        <div
+                            style="font-size: 8.8px; line-height: 1.3; color: #000000; padding: 5px 8px; display: flex; align-items: center; text-align: justify;">
+                            Nuestros medios de atención son: oficinas físicas, página web, redes sociales y líneas
+                            telefónicas gratuitas.
+                        </div>
+                    </div>
+
+                    <!-- BLOQUE MEDIO 2 -->
+                    <div
+                        style="border: 1px solid #1a1a1a; display: flex; margin-bottom: 8px; min-height: 42px; box-sizing: border-box;">
+                        <div
+                            style="background-color: #1a1a1a; color: #ffffff; width: 24px; font-weight: bold; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            2
+                        </div>
+                        <div
+                            style="font-size: 8.8px; line-height: 1.3; color: #000000; padding: 5px 8px; display: flex; align-items: center; text-align: justify;">
+                            Presente cualquier queja, petición/reclamo o recurso a través de estos medios y le
+                            responderemos
+                            en máximo 15 días hábiles.
+                        </div>
+                    </div>
+
+                    <!-- BLOQUE MEDIO 3 -->
+                    <div
+                        style="border: 1px solid #1a1a1a; display: flex; margin-bottom: 8px; min-height: 42px; box-sizing: border-box;">
+                        <div
+                            style="background-color: #1a1a1a; color: #ffffff; width: 24px; font-weight: bold; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            3
+                        </div>
+                        <div
+                            style="font-size: 8.8px; line-height: 1.3; color: #000000; padding: 5px 8px; display: flex; align-items: center; text-align: justify;">
+                            Si no respondemos es porque aceptamos su petición o reclamo. Esto se llama silencio
+                            administrativo positivo y aplica para internet y telefonía.
+                        </div>
+                    </div>
+
+                    <!-- TEXTO FINAL DE LA COLUMNA DE PASO A LA SIGUIENTE SECCIÓN -->
+                    <div
+                        style="font-size: 9px; font-weight: bold; text-align: center; color: #000000; margin-top: 2px;">
+                        Si no está de acuerdo con nuestra respuesta
+                    </div>
+                    <!-- BLOQUE MEDIO 4 (CONTINUACIÓN LARGA) -->
+                    <div style="border: 1px solid #1a1a1a; display: flex; margin-bottom: 8px; box-sizing: border-box;">
+                        <div
+                            style="background-color: #1a1a1a; color: #ffffff; width: 20px; font-weight: bold; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            4</div>
+                        <div
+                            style="font-size: 7.8px; line-height: 1.25; color: #000000; padding: 5px 6px; text-align: justify;">
+                            Cuando su queja o petición sea por los servicios de telefonía y/o internet, y esté
+                            relacionado
+                            con actos de negativa del contrato, suspensión del servicio, terminación del contrato, corte
+                            y
+                            facturación; usted puede insistir en su solicitud ante nosotros, dentro de los 10 días
+                            hábiles
+                            siguientes a la respuesta, y pedir que si no llegamos a una solución satisfactoria para
+                            usted,
+                            enviemos su reclamo directamente a la SIC (Superintendencia de Industria y Comercio) quien
+                            resolverá de manera definitiva su solicitud. Esto se llama recurso de reposición y en
+                            subsidio
+                            apelación.
+                            <br><br>
+                            Cuando su queja o petición sea por el servicio de televisión, puede enviar la misma a la
+                            Autoridad Nacional de Televisión para que esta Entidad resuelva su solicitud.
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN: ACEPTO CLÁUSULA DE PERMANENCIA MÍNIMA -->
+                    <div style="background-color: #1a1a1a; color: #ffffff; font-weight: bold; font-size: 9.5px; padding: 3px 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; cursor: pointer;"
+                        onclick="togglePermanenciaTV()">
+                        <span>ACEPTO CLÁUSULA DE PERMANENCIA MÍNIMA</span>
+                        <input type="checkbox" id="acepto_permanencia_tv" onclick="event.stopPropagation();"
+                            onchange="syncPermanenciaTV();"
+                            style="width:13px; height:13px; accent-color:#ffffff; cursor:pointer; flex-shrink:0;">
+                    </div>
+                    <div style="font-size: 8px; line-height: 1.25; text-align: justify; color: #000000;">
+                        En consideración a que le estamos otorgando un descuento respecto del valor del cargo por
+                        conexión,
+                        o le diferimos el pago del mismo, se incluye la presente cláusula de permanencia mínima. En la
+                        factura encontrará el valor a pagar si decide terminar el contrato anticipadamente.
+                    </div>
+
+
+                </div> <!-- FIN COLUMNA IZQUIERDA -->
+                <!-- ========================================================= -->
+                <!-- COLUMNA DERCH (RECIÉN AGREGADA - image_77d2ff_2.png) -->
+                <!-- ========================================================= -->
+                <div style="width: 48%; display: flex; flex-direction: column; justify-content: space-between;">
+                    <!-- Fila 1: Valor total del cargo por conexión -->
+                    <div style="display:flex; margin-bottom:6px; border:1px solid #000; box-sizing:border-box;">
+                        <div
+                            style="background:#1a1a1a; color:#fff; font-weight:bold; font-size:9.5px; padding:6px 8px; width:70%; box-sizing:border-box; display:flex; align-items:center;">
+                            VALOR TOTAL DEL CARGO POR CONEXIÓN
+                        </div>
+                        <div
+                            style="width:30%; border-left:1px solid #000; padding:6px 8px; display:flex; align-items:center; box-sizing:border-box;">
+                            $ <input type="text" id="input-cargo-conexion" maxlength="6" inputmode="numeric" value=""
+                                style="min-width:0; flex:1; margin-left:4px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,6); document.getElementById('input-suma-descontada').value=this.value;">
+                        </div>
+                    </div>
+
+                    <div style="display:flex; margin-bottom:6px; border:1px solid #000; box-sizing:border-box;">
+                        <div
+                            style="background:#1a1a1a; color:#fff; font-weight:bold; font-size:9.5px; padding:6px 8px; width:70%; box-sizing:border-box; display:flex; align-items:center;">
+                            SUMA QUE LE FUE DESCONTADA O DIFERIDA DEL VALOR TOTAL DEL CARGO POR CONEXIÓN
+                        </div>
+                        <div
+                            style="width:30%; border-left:1px solid #000; padding:6px 8px; display:flex; align-items:center; box-sizing:border-box;">
+                            $ <input type="text" id="input-suma-descontada" readonly value=""
+                                style="min-width:0; flex:1; margin-left:4px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box; color:#000;">
+                        </div>
+                    </div>
+
+                    <div style="display:flex; margin-bottom:6px; border:1px solid #000; box-sizing:border-box;">
+                        <div
+                            style="background:#1a1a1a; color:#fff; font-weight:bold; font-size:9.5px; padding:6px 8px; width:70%; box-sizing:border-box; display:flex; align-items:center;">
+                            FECHA DE INICIO DE LA PERMANENCIA MÍNIMA
+                        </div>
+                        <div
+                            style="width:30%; border-left:1px solid #000; padding:6px 8px; display:flex; align-items:center; box-sizing:border-box;">
+                            <input type="date" id="input-fecha-inicio-permanencia"
+                                style="min-width:0; flex:1; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10px; outline:none; padding:0 2px; color:#000; box-sizing:border-box;">
+                        </div>
+                    </div>
+
+                    <div style="display:flex; margin-bottom:6px; border:1px solid #000; box-sizing:border-box;">
+                        <div
+                            style="background:#1a1a1a; color:#fff; font-weight:bold; font-size:9.5px; padding:6px 8px; width:70%; box-sizing:border-box; display:flex; align-items:center;">
+                            FECHA DE FINALIZACIÓN DE LA PERMANENCIA MÍNIMA
+                        </div>
+                        <div
+                            style="width:30%; border-left:1px solid #000; padding:6px 8px; display:flex; align-items:center; box-sizing:border-box;">
+                            <input type="date" id="input-fecha-fin-permanencia"
+                                style="min-width:0; flex:1; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:10px; outline:none; padding:0 2px; color:#000; box-sizing:border-box;">
+                        </div>
+                    </div>
+
+                    <!-- Tabla cláusula de permanencia -->
+                    <div style="border:1px solid #000; box-sizing:border-box;">
+                        <div
+                            style="background:#1a1a1a; color:#fff; font-weight:bold; font-size:9.5px; padding:6px 8px;">
+                            VALOR A PAGAR SI TERMINA EL CONTRATO ANTICIPADAMENTE SEGÚN EL MES
+                        </div>
+                        <div
+                            style="display:grid; grid-template-columns:repeat(6,1fr); border-top:1px solid #000; box-sizing:border-box;">
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 1<br>$ <input type="text" id="tv-mes1" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 2<br>$ <input type="text" id="tv-mes2" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 3<br>$ <input type="text" id="tv-mes3" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 4<br>$ <input type="text" id="tv-mes4" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 5<br>$ <input type="text" id="tv-mes5" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div style="padding:4px 4px; font-size:9.5px; box-sizing:border-box; overflow:hidden;">Mes
+                                6<br>$ <input type="text" id="tv-mes6" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                        </div>
+                        <div
+                            style="display:grid; grid-template-columns:repeat(6,1fr); border-top:1px solid #000; box-sizing:border-box;">
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 7<br>$ <input type="text" id="tv-mes7" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 8<br>$ <input type="text" id="tv-mes8" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 9<br>$ <input type="text" id="tv-mes9" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 10<br>$ <input type="text" id="tv-mes10" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div
+                                style="padding:4px 4px; border-right:1px solid #000; font-size:9.5px; box-sizing:border-box; overflow:hidden;">
+                                Mes 11<br>$ <input type="text" id="tv-mes11" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                            <div style="padding:4px 4px; font-size:9.5px; box-sizing:border-box; overflow:hidden;">Mes
+                                12<br>$ <input type="text" id="tv-mes12" readonly value="0"
+                                    style="width:calc(100% - 10px); border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:9px; outline:none; padding:0; box-sizing:border-box;">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sección: CAMBIO DE DOMICILIO -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-weight: bold; font-size: 10px; padding: 3px 6px; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.3px;">
+                        CAMBIO DE DOMICILIO
+                    </div>
+                    <div
+                        style="font-size: 8.5px; line-height: 1.3; text-align: justify; color: #000000; margin-bottom: 10px;">
+                        Usted puede cambiar de domicilio y continuar con el servicio siempre que sea técnicamente
+                        posible.
+                        Si desde el punto de vista técnico no es viable el traslado del servicio, usted puede ceder su
+                        contrato a un tercero o terminarlo pagando el valor de la cláusula de permanencia mínima si está
+                        vigente.
+                    </div>
+
+                    <!-- Sección: LARGA DISTANCIA (TELEFONÍA) -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-weight: bold; font-size: 10px; padding: 3px 6px; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.3px;">
+                        LARGA DISTANCIA (TELEFONÍA)
+                    </div>
+                    <div
+                        style="font-size: 8.5px; line-height: 1.3; text-align: justify; color: #000000; margin-bottom: 10px;">
+                        Nos comprometemos a usar el operador de larga distancia que usted nos indique, para lo cual debe
+                        marcar el código de larga distancia del operador que elija.
+                    </div>
+
+                    <!-- Sección: COBRO POR RECONEXION DEL SERVICIO -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-weight: bold; font-size: 10px; padding: 3px 6px; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.3px;">
+                        COBRO POR RECONEXION DEL SERVICIO
+                    </div>
+                    <div
+                        style="font-size: 8.5px; line-height: 1.3; text-align: justify; color: #000000; margin-bottom: 6px;">
+                        En caso de suspensión del servicio por mora en el pago, podremos cobrarle un valor por
+                        reconexión
+                        que corresponderá estrictamente a los costos asociados a la operación de reconexión. En caso de
+                        servicios empaquetados procede máximo un cobro de reconexión por cada tipo de conexión empleado
+                        en
+                        la prestación de los servicios.<br>
+                        <strong>Costo reconexión: $15.000</strong>
+                    </div>
+
+                    <!-- Bloque Informativo Responsabilidad de Red -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-size: 8.5px; line-height: 1.3; padding: 6px 8px; text-align: justify; margin-bottom: 12px; box-sizing: border-box;">
+                        El usuario es el <strong>ÚNICO</strong> responsable por el contenido y la información que se
+                        curse a
+                        través de la red y del uso que se haga de los equipos o de los servicios.
+                    </div>
+
+                    <!-- Bloque Informativo Recolección de Aparatos -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-size: 8.5px; line-height: 1.3; padding: 6px 8px; text-align: justify; box-sizing: border-box;">
+                        Los equipos de comunicación que ya no use son desechos que no deben ser botados a la caneca,
+                        consulte nuestra política de recolección de aparatos en desuso.
+                    </div>
+                    <!-- Bloque Informativo Recolección de Aparatos -->
+                    <div
+                        style="background-color: #1a1a1a; color: #ffffff; font-size: 8.5px; line-height: 1.3; padding: 6px 8px; text-align: justify; box-sizing: border-box; margin-bottom: 12px;">
+                        Los equipos de comunicación que ya no use son desechos que no deben ser botados a la caneca,
+                        consulte nuestra política de recolección de aparatos en desuso.
+                    </div>
+
+                    <!-- NUEVO: Recuadro de Aceptación/Firma del Contrato (image_81bc7e.png) -->
+                    <div
+                        style="border: 1px solid #1a1a1a; height: 95px; position: relative; margin-bottom: 15px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; box-sizing: border-box;">
+                        <div
+                            style="font-size: 9px; font-weight: bold; color: #000000; text-align: center; max-width: 90%; line-height: 1.2;">
+                            Aceptación contrato mediante firma o cualquier<br>otro medio válido
+                        </div>
+                    </div>
+
+                    <!-- NUEVO: Texto Legal CRC (image_81bc7e.png) -->
+                    <div
+                        style="font-size: 9px; color: #000000; text-align: center; line-height: 1.3; margin-top: 5px; padding: 0 5px;">
+                        <strong>Consulte el régimen de protección de usuario en</strong><br>
+                        <a href="https://www.crcom.gov.co" target="_blank"
+                            style="color: #000000; text-decoration: none; font-weight: bold;">www.crcom.gov.co</a>
+                    </div>
+
+                </div>
+                <!-- FIN COLUMNA DERECHA -->
+
+            </div>
+            <!-- FIN COLUMNA DERECHA -->
+
+        </div>
+
+        <!-- RECUADRO DE PIE DE PÁGINA DE LA HOJA 3 -->
+        <div
+            style="border: 1px solid #1a1a1a; display: flex; width: 100%; height: 48px; box-sizing: border-box; background-color: #ffffff; margin-top: 15px;">
+            <div
+                style="width: 72%; padding: 5px 10px; font-size: 8.5px; line-height: 1.2; text-align: center; font-weight: bold; display: flex; flex-direction: column; justify-content: center;">
+                Edificio Space Sibelius, Piso 2 Oficina 2024 Chía, Cundinamarca • CEL. 3208125562<br>
+                www.cenetwork.com.co • Vigilado y regulado por Ministerio Tics y CRC habilitación general del<br>
+                servicio de televisión por suscripción nacional.
+            </div>
+            <div
+                style="width: 28%; border-left: 1px solid #1a1a1a; padding: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <span style="font-weight: bold; font-size: 11px; letter-spacing: 1px; color: #0056b3;">CENETWORK</span>
+                <span style="font-size: 8px; color: #444444; margin-top: 2px;">NIT. 901.721.689-6</span>
+            </div>
+        </div>
+
+    </div>
+
+    </div><!-- /page-sheet -->
+    </div><!-- /page-wrapper -->
+
+    <div class="page-break"></div>
+
+    <!-- ========== HOJA 4 ========== -->
+    <div class="page-wrapper">
+        <div class="page-sheet"
+            style="padding: 10mm 15mm; display: flex; flex-direction: column; justify-content: space-between;">
+
+            <!-- CABECERA DE LA HOJA 3: ESPACIO PARA LOS OPERADORES -->
+            <div class="black-section-bar"
+                style="background-color: #000000; color: #ffffff; font-weight: bold; font-size: 11px; text-align: center; padding: 5px; margin-bottom: 15px; letter-spacing: 1px;">
+                ESPACIO PARA LOS OPERADORES
+            </div>
+
+            <!-- ESTRUCTURA DE DOS COLUMNAS -->
+            <div
+                style="display: flex; justify-content: space-between; width: 100%; flex-grow: 1; margin-bottom: 15px; min-height: 0;">
+
+                <!-- ========================================================= -->
+                <!-- COLUMNA IZQUIERDA (image_2b2f03.png e image_2b2ecb.png)   -->
+                <!-- ========================================================= -->
+                <div class="main-column"
+                    style="width: 48%; text-align: justify; font-size: 9px; line-height: 1.35; display: flex; flex-direction: column;">
+
+                    <p style="margin-top: 0; margin-bottom: 12px; text-indent: 0;">
+                        <strong>INSTALACIÓN, OPERACIÓN Y MANTENIMIENTO DE ELEMENTOS NECESARIOS:</strong>
+                        CENETWORK S.A.S se ocupará, directa o indirectamente, de las acciones referidas en el asunto de
+                        esta
+                        cláusula, para la recepción del servicio contratado. EL SUSCRIPTOR acepta expresamente las
+                        condiciones estándar de cableado usado por CENETWORK S.AS SAS En sus instalaciones y acepta
+                        cancelar
+                        el valor del material adicional en los casos excepcionales que se requieran, aclarando que la
+                        instalación de la red para el servicio incluye un largo total de hasta 30 metros sin que esto
+                        incluya el material decorativo el cual se facturará adicionalmente y por separado. La
+                        instalación se
+                        realizará máximo a un receptor de televisión que tengan entrada de RF y para los puntos
+                        adicionales
+                        se facturará el valor de la derivación correspondiente. Para el internet CENETWORK S.A.S entrega
+                        un
+                        equipo tipo Modem el cuál se entrega en calidad de comodato, y el suscriptor deberá devolverlo
+                        al
+                        Operador una vez se de por terminado el contrato actual. De No devolver el modem o si el equipo
+                        sufre algún daño a causa del suscriptor o lo extravía, pagará al Operador la suma de $150.000.
+                        El
+                        suscriptor no manipulará, alterará, modificará la red, los equipos y accesorios de su
+                        instalación,
+                        dado que ésto puede generar interrupciones del servicio, lo cual en el caso que ocurra se
+                        faculta al
+                        operador a facturar el costo de las reparaciones y nuevos materiales empleados en la atención de
+                        la
+                        falla a cargo del Suscriptor. CENETWORK S.A.S no realiza ninguna devolución en efectivo de los
+                        dineros recibidos por la suscripción o por las mensualidades canceladas por los servicios
+                        contratados. El suscriptor ha recibido el listado de canales elegidos, así como copia del
+                        presente
+                        contrato.
+                    </p>
+
+                    <p style="margin-bottom: 0; text-indent: 0;">
+                        <strong>ANEXO.</strong> EL suscriptor se compromete a no dar al servicio de acceso a internet un
+                        uso
+                        inadecuado o contrario a las normas legales, el orden público o las buenas costumbres y en
+                        especial
+                        acatar las normas establecidas en la ley 679 de 2001 y sus decretos reglamentarios, teniendo en
+                        cuenta que su cumplimiento acarreará las sanciones administrativas y penales allí contempladas
+                        que a
+                        bien tuviere imponerle la autoridad competente. En tal medida, deberá abstenerse de: Alojar en
+                        su
+                        propio sitio imágenes, textos, documentos o archivos audiovisuales que impliquen directa o
+                        indirectamente actividades sexuales con menores de edad; Material pornográfico en especial en
+                        modo
+                        de imágenes o video cuando existan indicios de que las personas fotografiadas o filmadas son
+                        menores
+                        de edad; Vínculos o links sobre sitios temáticos que contengan o distribuyan material relativo a
+                        menores de edad. CENETWORK S.A.S durante la vigencia del presente contrato, podrá verificar el
+                        cumplimiento, podrá retirar del servicio aquella información que estime pertinente y/o suspender
+                        la
+                        prestación del servicio. Sin perjuicio de lo anterior CENETWORK S.A.S no será responsable ante
+                        EL
+                        SUSCRIPTOR o terceros por el contenido de la información recibida a través del servicio de
+                        acceso a
+                        internet. 1. Atender las instrucciones de CENETWORK S.A.S, para el uso adecuado del servicio.
+                        1.1.
+                        Informar a CENETWORK S.A.S cualquier irregularidad que se presente en la prestación del
+                        servicio. 2.
+                        DEBERES. 2.1. anunciar ante las autoridades
+                    </p>
+
+                </div>
+
+                <!-- ========================================================= -->
+                <!-- COLUMNA DERECHA (CONTRATO_UNICO_DE_SERVICIOS_FIJOS...)   -->
+                <!-- ========================================================= -->
+                <div class="main-column"
+                    style="width: 48%; text-align: justify; font-size: 9px; line-height: 1.35; display: flex; flex-direction: column; justify-content: space-between;">
+
+                    <div style="flex-grow: 1;">
+                        <p style="margin-top: 0; margin-bottom: 12px; text-indent: 0;">
+                            competentes cualquier acto criminal, que tenga conocimiento, En contra de los menores de
+                            edad,
+                            incluso de la difusión de material pornográfico asociado a menores. 2.2. Combatir con todos
+                            los
+                            medios técnicos a su alcance la difusión de material pornográfico con menores de edad. 2.3.
+                            Abstenerse de usar redes globales de información para la divulgación de material ilegal con
+                            menores de edad. 2.4. Establecer mecanismos técnicos de bloqueo por medio de los cuales se
+                            puedan proteger a sí mismo o a sus hijos del material ilegal, ofensivo o indeseable en
+                            relación
+                            con menores de edad..pdf]
+                        </p>
+
+                        <p style="margin-bottom: 12px; text-indent: 0;">
+                            <strong>Obligaciones servicio de internet.</strong> Con relación al servicio de internet por
+                            la
+                            red de alta velocidad, CENETWORK S.A.S se reserva la potestad de elegir la tecnología (FTTH
+                            o
+                            HFC o EOC) por medio de la cual técnicamente se prestará el servicio. Por tratarse de una
+                            obligación de medio y no de resultado CENETWORK S.A.S no garantiza la continuidad del
+                            servicio
+                            ni será responsable por los perjuicios que se causen con ocasión de la interrupción del
+                            mismo.
+                            Sin perjuicio de lo anterior CENETWORK S.A.S será responsable de las fallas que les sean
+                            imputables..pdf]
+                        </p>
+
+                        <p style="margin-bottom: 12px; text-indent: 0;">
+                            3. Se garantiza el ancho de banda contratado mediante conexiones Físicas entre el computador
+                            y
+                            el equipo terminal suministrado por CENETWORK S.A.S y no por conexiones wifi..pdf]
+                        </p>
+
+                        <p style="margin-bottom: 12px; text-indent: 0;">
+                            Para la suspensión definitiva del servicio, se radica dentro de las fechas estipuladas
+                            anteriormente, estar a paz y salvo en cartera y hacer entrega en la oficina de los equipos
+                            instalados; con el cumplimiento del proceso anterior se da por terminado el contrato único
+                            de
+                            prestación de servicios..pdf]
+                        </p>
+
+                        <p style="margin-bottom: 12px; text-indent: 0;">
+                            El cableado utilizado en el momento de la instalación, CENETWORK no lo retira en la
+                            terminación
+                            del contrato, es un cableado que fue autorizado instalar por su parte..pdf]
+                        </p>
+
+                        <p style="margin-bottom: 20px; text-indent: 0;">
+                            <strong>MERITO EJECUTIVO.</strong> El presente documento presta mérito ejecutivo en caso de
+                            incumplimiento total o parcial de alguna de las partes en sus obligaciones, facultando a la
+                            parte cumplida a iniciar el cobro respectivo de la obligación incumplida, sin perjuicios de
+                            las
+                            demás acciones que pueda que pueda adelantar en contra del usuario..pdf]
+                        </p>
+                    </div>
+
+                    <!-- SECCIÓN DE FIRMA EXACTA (image_2b2b21.png) -->
+                    <div style="margin-top: auto; padding-bottom: 5px;">
+
+                        <!-- Gran recuadro para la Firma -->
+                        <div
+                            style="border: 1px solid #000000; height: 110px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; margin-bottom: 8px; box-sizing: border-box;">
+                            <span style="font-size: 9.5px; font-weight: bold; color: #000000;">
+                                Aceptación contrato mediante firma o cualquier otro medio válido.pdf]
+                            </span>
+                        </div>
+
+                        <!-- Recuadro CC/CE -->
+                        <div
+                            style="border:1px solid #000; padding:6px 8px; font-size:11px; box-sizing:border-box; display:flex; align-items:center; margin-bottom:4px;">
+                            <span style="white-space:nowrap; flex-shrink:0;">CC/CE</span>
+                            <input type="text" id="input-cc-ce" maxlength="10" inputmode="numeric"
+                                style="min-width:0; flex:1; margin-left:8px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box;"
+                                oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
+                        </div>
+                        <!-- Recuadro FECHA -->
+                        <div
+                            style="border:1px solid #000; padding:6px 8px; font-size:11px; box-sizing:border-box; display:flex; align-items:center;">
+                            <span style="white-space:nowrap; flex-shrink:0;">FECHA</span>
+                            <input type="text" id="input-fecha-auto" readonly
+                                style="min-width:0; flex:1; margin-left:8px; border:none; border-bottom:1px solid #000; background:transparent; font-family:Arial,Helvetica,sans-serif; font-size:11px; outline:none; padding:0 2px; box-sizing:border-box; color:#000;">
+                        </div>
+
+                        <!-- Texto de la CRC de protección al usuario -->
+                        <div
+                            style="font-size: 9.5px; font-weight: bold; text-align: center; line-height: 1.4; color: #000000;">
+                            Consulte el régimen de protección de usuario en<br>
+                            <span style="text-decoration: underline;">www.crcom.gov.co</span>.pdf]
+                        </div>
+                    </div>
+
+                </div> <!-- FIN COLUMNA DERECHA -->
+
+            </div>
+
+            <!-- RECUADRO DE PIE DE PÁGINA DE LA HOJA 4 -->
+            <div
+                style="border: 1px solid #1a1a1a; display: flex; width: 100%; box-sizing: border-box; background-color: #ffffff; margin-top: auto;">
+                <div
+                    style="width: 72%; padding: 5px 10px; font-size: 8.5px; line-height: 1.4; text-align: center; font-weight: bold; display: flex; flex-direction: column; justify-content: center;">
+                    Edificio Space Sibelius, Piso 2 Oficina 2024 Chía, Cundinamarca • CEL. 3208125562<br>
+                    www.cenetwork.com.co • Vigilado y regulado por Ministerio Tics y CRC habilitación general del
+                    servicio de televisión por suscripción nacional.
+                </div>
+                <div
+                    style="width: 28%; border-left: 1px solid #1a1a1a; padding: 4px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span
+                        style="font-weight: bold; font-size: 11px; letter-spacing: 1px; color: #0056b3;">CENETWORK</span>
+                    <span style="font-size: 8px; color: #444444; margin-top: 2px;">NIT. 901.721.689-6</span>
+                </div>
+            </div>
+
+        </div><!-- /page-sheet -->
+    </div><!-- /page-wrapper -->
+
+    </div><!-- /contract-scroll -->
+
+    <!-- ===== BARRA DE ACCIONES ===== -->
+    <style>
+        .action-bar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 9999;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 22px;
+            border: none;
+            border-radius: 6px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            text-decoration: none;
+            transition: opacity 0.15s, transform 0.1s;
+            white-space: nowrap;
+        }
+
+        .btn-action:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        .btn-action:active {
+            transform: translateY(0);
+        }
+
+        .btn-volver {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .btn-pdf {
+            background: #0056b3;
+            color: #ffffff;
+        }
+
+        /* No mostrar botones en impresión */
+        @media print {
+            .action-bar {
+                display: none !important;
+            }
+        }
+    </style>
+
+    <div class="action-bar">
+        <a href="dasboard.html" class="btn-action btn-volver">
+            &#8592; Volver
+        </a>
+        <button class="btn-action btn-pdf" onclick="descargarPDF()">
+            &#8595; Descargar PDF
+        </button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        const VALORES_TV = [120000, 110000, 100000, 90000, 80000, 70000, 60000, 50000, 40000, 30000, 20000, 10000];
+
+        function togglePermanenciaTV() {
+            const cb = document.getElementById('acepto_permanencia_tv');
+            cb.checked = !cb.checked;
+            syncPermanenciaTV();
+        }
+
+        function syncPermanenciaTV() {
+            const activo = document.getElementById('acepto_permanencia_tv').checked;
+            document.getElementById('input-cargo-conexion').value = activo ? '120000' : '';
+            document.getElementById('input-suma-descontada').value = activo ? '120000' : '';
+            for (let i = 1; i <= 12; i++) {
+                const el = document.getElementById('tv-mes' + i);
+                if (el) el.value = activo ? VALORES_TV[i - 1].toLocaleString('es-CO') : '0';
+            }
+        }
+
+        async function descargarPDF() {
+            const btn = document.querySelector('.btn-pdf');
+            const origHTML = btn.innerHTML;
+            btn.innerHTML = '&#9203; Generando...';
+            btn.disabled = true;
+
+            // Overlay de carga
+            const ov = document.createElement('div');
+            ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;font-family:Arial,sans-serif;font-size:15px;';
+            ov.innerHTML = '<div style="width:44px;height:44px;border:4px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;"></div><span>Generando PDF, espere...</span><style>@keyframes spin{to{transform:rotate(360deg)}}</style>';
+            document.body.appendChild(ov);
+
+            try {
+                const scroll = document.querySelector('.contract-scroll');
+                const wrappers = Array.from(document.querySelectorAll('.page-wrapper'));
+
+                // Guardar estilos originales
+                const origScroll = { overflow: scroll.style.overflow, height: scroll.style.height, display: scroll.style.display, alignItems: scroll.style.alignItems };
+                const wStyles = wrappers.map(w => {
+                    const inner = w.firstElementChild;
+                    return {
+                        transform: w.style.transform,
+                        height: w.style.height,
+                        width: w.style.width,
+                        marginLeft: w.style.marginLeft,
+                        marginRight: w.style.marginRight,
+                        innerTransform: inner ? inner.style.transform : '',
+                        innerOrigin: inner ? inner.style.transformOrigin : '',
+                    };
+                });
+
+                // Expandir el scroll para que todas las páginas estén en el flujo del documento
+                scroll.style.overflow = 'visible';
+                scroll.style.height = 'auto';
+                scroll.style.alignItems = 'flex-start';
+
+                // Quitar transforms para que html2canvas capture a tamaño real
+                wrappers.forEach(w => {
+                    w.style.transform = 'none';
+                    w.style.overflow = 'visible';
+                    w.style.height = 'auto';
+                    w.style.width = '794px';
+                    w.style.marginLeft = '0';
+                    w.style.marginRight = '0';
+                    if (w.firstElementChild) {
+                        w.firstElementChild.style.transform = 'none';
+                        w.firstElementChild.style.transformOrigin = '';
+                    }
+                });
+
+                // Esperar repintado del navegador
+                await new Promise(r => setTimeout(r, 250));
+
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+                const pdfW = pdf.internal.pageSize.getWidth();
+                const pdfH = pdf.internal.pageSize.getHeight();
+
+                for (let i = 0; i < wrappers.length; i++) {
+                    const inner = wrappers[i].firstElementChild;
+
+                    // Ocultar overlay para que no interfiera con html2canvas
+                    ov.style.display = 'none';
+                    wrappers[i].scrollIntoView({ block: 'start' });
+                    await new Promise(r => setTimeout(r, 120));
+                    inner.querySelectorAll('*').forEach(el => {
+                        try {
+                            const s = getComputedStyle(el);
+
+                            if (s.color && s.color.includes('color(')) {
+                                el.style.color = '#555555';
+                            }
+
+                            if (s.backgroundColor && s.backgroundColor.includes('color(')) {
+                                el.style.backgroundColor = '#ffffff';
+                            }
+
+                            if (s.borderColor && s.borderColor.includes('color(')) {
+                                el.style.borderColor = '#555555';
+                            }
+                        } catch (e) { }
+                    });
+                    const canvas = await html2canvas(inner, {
+                        scale: 1.5,
+                        useCORS: true,
+                        allowTaint: true,
+                        logging: false,
+                        backgroundColor: '#ffffff',
+                        windowWidth: 1200,
+                        ignoreElements: el => el === ov || el.classList.contains('action-bar'),
+                    });
+
+                    ov.style.display = 'flex';
+
+                    if (i > 0) pdf.addPage();
+                    const imgData = canvas.toDataURL('image/jpeg', 0.92);
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfW, pdfH);
+                }
+
+                // Restaurar estilos
+                scroll.style.overflow = origScroll.overflow;
+                scroll.style.height = origScroll.height;
+                scroll.style.display = origScroll.display;
+                scroll.style.alignItems = origScroll.alignItems;
+                wrappers.forEach((w, i) => {
+                    w.style.transform = wStyles[i].transform;
+                    w.style.overflow = wStyles[i].overflow || 'hidden';
+                    w.style.height = wStyles[i].height;
+                    w.style.width = wStyles[i].width;
+                    w.style.marginLeft = wStyles[i].marginLeft;
+                    w.style.marginRight = wStyles[i].marginRight;
+                    if (w.firstElementChild) {
+                        w.firstElementChild.style.transform = wStyles[i].innerTransform;
+                        w.firstElementChild.style.transformOrigin = wStyles[i].innerOrigin;
+                    }
+                });
+
+                // Nombre del archivo
+                const nombreEl = document.getElementById('input-nombre');
+                const nombreCliente = (nombreEl && nombreEl.value) ? nombreEl.value.trim() : '';
+                const nombre = nombreCliente.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]/g, '').trim() || 'contrato';
+                pdf.save('contrato-tv-' + nombre + '.pdf');
+
+                // Guardar en Firestore
+                try {
+                    const sesion = JSON.parse(sessionStorage.getItem('user') || 'null');
+                    const hoy2 = new Date();
+                    const fechaISO = hoy2.getFullYear() + '-' + String(hoy2.getMonth() + 1).padStart(2, '0') + '-' + String(hoy2.getDate()).padStart(2, '0');
+                    const ccVal = (document.getElementById('input-identificacion')?.value || '').trim();
+                    if (typeof window._guardarContrato === 'function') {
+                        const serviciosAdic = (document.getElementById('input-servicios-adicionales')?.value || '').trim();
+                        await window._guardarContrato({
+                            nombre: nombreCliente || 'Sin nombre',
+                            cc: ccVal,
+                            servicio: 'Televisión',
+                            asesor: sesion?.name || 'Asesor',
+                            asesorUid: sesion?.uid || '',
+                            fecha: fechaISO,
+                            ...(serviciosAdic && { serviciosAdicionales: serviciosAdic })
+                        });
+                    }
+                } catch (_) { }
+
+            } catch (err) {
+                console.error('PDF error:', err);
+
+                alert(
+                    'ERROR TV:\n' +
+                    (err?.message || err)
+                );
+            }
+            document.body.removeChild(ov);
+            btn.innerHTML = origHTML;
+            btn.disabled = false;
+        }
+    </script>
+
+    <script>
+        (function () {
+            function scalePage(wrapper) {
+                var vw = window.innerWidth;
+                var pageW = 794;
+                var padding = 8;
+                var available = vw - padding * 2;
+                var scale = available < pageW ? available / pageW : 1;
+                var inner = wrapper.firstElementChild;
+                if (inner) {
+                    // Aplicar transform al inner (no al wrapper) para que los eventos
+                    // de toque/clic coincidan con la posición visual en móvil
+                    inner.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
+                    inner.style.transformOrigin = 'top left';
+                    wrapper.style.transform = 'none';
+                    wrapper.style.width = (pageW * scale) + 'px';
+                    wrapper.style.height = (inner.offsetHeight * scale) + 'px';
+                    wrapper.style.overflow = 'hidden';
+                    wrapper.style.marginLeft = 'auto';
+                    wrapper.style.marginRight = 'auto';
+                }
+            }
+
+            function scaleAll() {
+                if (window.matchMedia('print').matches) return;
+                var wrappers = document.querySelectorAll('.page-wrapper');
+                wrappers.forEach(function (w) { scalePage(w); });
+            }
+
+            document.addEventListener('DOMContentLoaded', scaleAll);
+            window.addEventListener('resize', scaleAll);
+        })();
+    </script>
+    <script>
+        (function () {
+            const hoy = new Date();
+            const dd = String(hoy.getDate()).padStart(2, '0');
+            const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+            const aaaa = hoy.getFullYear();
+            document.getElementById('input-fecha-auto').value = dd + '/' + mm + '/' + aaaa;
+        })();
+    </script>
+
+    <script>
+        // Auth check y pre-llenado de campos desde sessionStorage
+        (function () {
+            // Verificar sesión
+            var user = null;
+            try { user = JSON.parse(sessionStorage.getItem('user') || 'null'); } catch (e) { }
+            if (!user) { window.location.href = 'index.html'; return; }
+
+            var contrato = null;
+            try { contrato = JSON.parse(sessionStorage.getItem('contrato_ver') || 'null'); } catch (e) { }
+            if (!contrato) return;
+
+            function setVal(id, val) {
+                var el = document.getElementById(id);
+                if (el && val !== undefined && val !== null && val !== '') el.value = val;
+            }
+
+            // Limpiar valor mensual (quitar $, puntos, comas, espacios)
+            var valorLimpio = (contrato.valorMensual || '').toString()
+                .replace(/\$/g, '').replace(/\./g, '').replace(/,/g, '').trim().slice(0, 5);
+
+            setVal('input-contrato-no', contrato.id || '');
+            setVal('input-nombre', contrato.nombre || '');
+            setVal('input-identificacion', contrato.cc || '');
+            setVal('input-cc-ce', contrato.cc || '');
+            setVal('input-valor-mensual', valorLimpio);
+            setVal('input-vigencia', contrato.mesesVigencia || '12');
+            setVal('input-fecha-inicio', contrato.fecha || '');
+            setVal('input-correo', contrato.email || '');
+            setVal('input-telefono', (contrato.telefono || '').replace(/[^0-9-]/g, '').slice(0, 21));
+            setVal('input-estrato', contrato.estrato || '');
+            setVal('input-departamento', contrato.departamento || 'Huila');
+            setVal('input-municipio', contrato.municipio || '');
+            setVal('input-ciudad-id', contrato.municipio || '');
+            setVal('input-direccion-servicio', contrato.direccion || '');
+            setVal('input-direccion-suscriptor', contrato.direccion || '');
+            setVal('input-fecha-inicio-permanencia', contrato.fecha || '');
+        })();
+    </script>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        window._guardarContrato = async function (datos) {
+            await addDoc(collection(db, 'contratos'), datos);
+        };
+    </script>
+
+    <script>
+        const inputMensual = document.getElementById('input-valor-mensual');
+        const inputTotal = document.getElementById('input-valor-total');
+
+        function sincronizarTotal() {
+            inputTotal.value = inputMensual.value ? '$' + inputMensual.value : '';
+        }
+
+        inputMensual.addEventListener('input', sincronizarTotal);
+    </script>
+
+</body>
+
+</html>

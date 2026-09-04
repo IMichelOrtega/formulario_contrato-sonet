@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contrato Único - Página 1</title>
+
+    <style>
+        /* =========================================================
+           CONFIGURACIÓN GENERAL
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #222;
+        }
+
+        .pagina {
+            width: 210mm;
+            height: 297mm;
+            padding: 12mm 11mm 10mm 11mm;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* =========================================================
+           CONTENEDOR PRINCIPAL - DOS COLUMNAS
+        ========================================================= */
+
+        .contenido {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 47.5% 52.5%;
+            column-gap: 6mm;
+        }
+
+        .columna {
+            min-width: 0;
+        }
+
+        /* =========================================================
+           LOGO + TÍTULO
+        ========================================================= */
+
+        .encabezado {
+            height: 23mm;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5mm;
+        }
+
+        .logo {
+            width: 43mm;
+            height: auto;
+            object-fit: contain;
+            margin-right: 3mm;
+        }
+
+        .titulo-principal {
+            font-size: 14px;
+            line-height: 1.12;
+            font-weight: 700;
+            color: #303030;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           BARRAS DE TÍTULO
+        ========================================================= */
+
+        .barra-titulo {
+            background: #707070;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1;
+            min-height: 6mm;
+            padding: 1.3mm 1.5mm;
+            text-transform: uppercase;
+            letter-spacing: 0;
+        }
+
+        /* =========================================================
+           BLOQUE INFORMATIVO
+        ========================================================= */
+
+        .bloque-gris {
+            background: #707070;
+            color: #ffffff;
+            font-size: 12px;
+            line-height: 1.35;
+            margin-bottom: 1.5mm;
+        }
+
+        .bloque-gris p {
+            margin: 0;
+            padding: 1.1mm 1.3mm;
+        }
+
+        .bloque-gris .separador {
+            border-top: 1px solid #8e8e8e;
+        }
+
+        .renovacion {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .cuadro-pequeno {
+            display: inline-block;
+            width: 4mm;
+            height: 4mm;
+            background: #ffffff;
+            border: 1px solid #c9c9c9;
+            vertical-align: middle;
+        }
+
+        .asterisco {
+            margin-left: 1mm;
+        }
+
+        .nota-azul {
+            color: #4d91d3;
+            font-size: 10px;
+            margin-top: -1mm;
+            margin-bottom: 2mm;
+        }
+
+        /* =========================================================
+           SECCIÓN LOS SERVICIOS
+        ========================================================= */
+
+        .seccion {
+            margin-top: 2mm;
+        }
+
+        .texto-normal {
+            font-size: 12px;
+            line-height: 1.35;
+        }
+
+        .texto-normal p {
+            margin: 1.2mm 0;
+        }
+
+        .servicio {
+            display: flex;
+            align-items: center;
+            margin-top: 5mm;
+            margin-left: 0.5mm;
+            font-size: 12px;
+        }
+
+        .checkbox {
+            width: 5mm;
+            height: 5mm;
+            border: 1px solid #777;
+            background: white;
+            display: inline-block;
+            margin-left: 3mm;
+        }
+
+        .texto-azul {
+            color: #4d91d3;
+            font-size: 12px;
+            line-height: 1.35;
+            margin: 5mm 0;
+        }
+
+        .campo-linea {
+            border: none;
+            border-bottom: 1px solid #333;
+            outline: none;
+            background: transparent;
+            height: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+        .campo-productos {
+            width: 38mm;
+        }
+
+        .fecha-linea {
+            width: 15mm;
+            border: none;
+            border-bottom: 1px solid #999;
+            color: #999;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* =========================================================
+           TABLAS
+        ========================================================= */
+
+        .tabla {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #777;
+            font-size: 11.5px;
+        }
+
+        .tabla td {
+            border: none;
+            padding: 0.55mm 2mm;
+            height: 4.8mm;
+            vertical-align: middle;
+        }
+
+        .tabla .campo {
+            border-bottom: 1px solid #333;
+            height: 3.8mm;
+        }
+
+        .tabla .campo-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #333;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11.5px;
+            background: transparent;
+        }
+
+        /* =========================================================
+           INFORMACIÓN DEL USUARIO
+        ========================================================= */
+
+        .info-usuario {
+            margin-top: 2mm;
+        }
+
+        .info-usuario .barra-titulo {
+            font-size: 13px;
+        }
+
+        /* =========================================================
+           CONDICIONES COMERCIALES
+        ========================================================= */
+
+        .condiciones {
+            margin-top: 2.5mm;
+        }
+
+        .condiciones .barra-titulo {
+            font-size: 13px;
+            line-height: 1.05;
+        }
+
+        .tabla-condiciones {
+            width: 100%;
+            border-collapse: collapse;
+            border-left: 1px solid #777;
+            border-right: 1px solid #777;
+            border-bottom: 1px solid #777;
+            font-size: 11.5px;
+        }
+
+        .tabla-condiciones td {
+            padding: 1.5mm 2mm;
+            border-bottom: 1px solid #777;
+        }
+
+        .tabla-condiciones .descripcion {
+            color: #b8b8b8;
+            height: 9mm;
+            vertical-align: top;
+        }
+
+        /* =========================================================
+           COLUMNA DERECHA
+        ========================================================= */
+
+        .bloque-derecho {
+            margin-top: 1mm;
+        }
+
+        /* VALOR DE LOS SERVICIOS */
+
+        .tabla-valor {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #777;
+            font-size: 11.5px;
+        }
+
+        .tabla-valor td {
+            border: none;
+            padding: 1mm 2mm;
+            height: 7mm;
+        }
+
+        .tabla-valor .valor-label {
+            text-align: center;
+            width: 60%;
+            border-right: 1px solid #777;
+        }
+
+        .tabla-valor .valor {
+            width: 40%;
+            font-weight: bold;
+        }
+
+        /* =========================================================
+           INCREMENTOS TARIFARIOS
+        ========================================================= */
+
+        .texto-derecho {
+            font-size: 12px;
+            line-height: 1.38;
+            text-align: justify;
+        }
+
+        .texto-derecho p {
+            margin: 1.8mm 0 4mm 0;
+        }
+
+        /* =========================================================
+           OBLIGACIONES
+        ========================================================= */
+
+        .obligaciones {
+            margin-top: 1mm;
+        }
+
+        .obligacion {
+            display: grid;
+            grid-template-columns: 7mm 1fr;
+            column-gap: 1mm;
+            font-size: 12px;
+            line-height: 1.2;
+            text-align: justify;
+            margin-top: 3.2mm;
+        }
+
+        .numero {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* =========================================================
+           PIE DE PÁGINA
+        ========================================================= */
+
+        .pie-pagina {
+            position: absolute;
+            bottom: 10mm;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #a6a6a6;
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           IMPRESIÓN
+        ========================================================= */
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            .pagina {
+                margin: 0;
+                width: 210mm;
+                height: 297mm;
+                page-break-after: always;
+            }
+
+            input {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="pagina">
+
+        <div class="contenido">
+
+            <!-- =====================================================
+             COLUMNA IZQUIERDA
+        ====================================================== -->
+
+            <div class="columna izquierda">
+
+                <!-- ENCABEZADO -->
+                <div class="encabezado">
+
+                    <img src="logo-asonet.png" alt="Asonet Colombia" class="logo">
+
+                    <div class="titulo-principal">
+                        CONTRATO ÚNICO<br>
+                        CONVERGENTE SERVICIOS<br>
+                        FIJOS Y MÓVILES EN LA<br>
+                        MODALIDAD POSPAGO
+                    </div>
+
+                </div>
+
+
+                <!-- TEXTO INICIAL -->
+                <div class="bloque-gris">
+
+                    <p>
+                        Este contrato explica las condiciones para la prestación de
+                        los servicios entre usted y @sonet, por el que pagará
+                        mínimo mensualmente valor señalado en la sección
+                        «Valor de los servicios contratados». Este contrato tendrá
+                        vigencia de
+                        <span>___</span>
+                        meses, contados a partir de la fecha de
+                        suscripción de este contrato.
+                    </p>
+
+                    <div class="separador"></div>
+
+                    <p class="renovacion">
+                        Acepto que mi contrato se renueve sucesiva y
+                        automáticamente por un plazo igual al inicial
+                        <span class="cuadro-pequeno"></span>
+                        <span class="asterisco">*</span>
+                    </p>
+
+                </div>
+
+                <div class="nota-azul">
+                    * Espacio diligenciado por el usuario
+                </div>
+
+
+                <!-- LOS SERVICIOS -->
+                <div class="seccion">
+
+                    <div class="barra-titulo">
+                        LOS SERVICIOS
+                    </div>
+
+                    <div class="texto-normal">
+
+                        <p>
+                            Con este contrato nos comprometemos a prestarle los
+                            servicios que usted elija*:
+                        </p>
+
+                    </div>
+
+
+                    <div class="servicio">
+                        <span>Internet fijo</span>
+                        <span class="checkbox"></span>
+                    </div>
+
+
+                    <div class="texto-azul">
+                        El cobro por la efectiva prestación de los servicios fijos se
+                        realizará a partir de su instalación.
+                    </div>
+
+
+                    <div class="texto-normal">
+
+                        <p>
+                            Productos o servicios adicionales
+                            <input type="text" class="campo-linea campo-productos">
+                        </p>
+
+                    </div>
+
+
+                    <div class="texto-azul">
+                        El cobro por la efectiva prestación de los productos o
+                        servicios adicionales se realizará a partir de
+                        <input type="text" class="fecha-linea" placeholder="dd/mm/aaaa">
+                    </div>
+
+
+                    <div class="texto-normal">
+
+                        <p>
+                            Usted se compromete a pagar oportunamente el (los)
+                            precio(s) acordado(s).
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================================
+     INFORMACIÓN DEL SUSCRIPTOR
+========================================================= -->
+
+                <div class="seccion-suscriptor">
+
+                    <div class="barra-titulo">
+                        INFORMACIÓN DEL SUSCRIPTOR
+                    </div>
+
+                    <div class="datos-suscriptor">
+
+                        <div class="fila-dato">
+                            <span class="etiqueta">Contrato.</span>
+                            <span class="linea linea-contrato"></span>
+                        </div>
+
+                        <div class="fila-dato">
+                            <span class="etiqueta">Nombre/Razón Social.</span>
+                            <span class="linea linea-nombre"></span>
+                        </div>
+
+                        <div class="fila-dato">
+                            <span class="etiqueta">Identificación.</span>
+                            <span class="linea linea-identificacion"></span>
+                        </div>
+
+                        <div class="fila-dato">
+                            <span class="etiqueta">Correo Electrónico.</span>
+                            <span class="valor-linea">
+                                <span class="valor">ejemplo@correo.com</span>
+                            </span>
+                        </div>
+
+                        <div class="fila-dato">
+                            <span class="etiqueta">Teléfono de contacto.</span>
+                            <span class="linea linea-telefono"></span>
+                        </div>
+
+                        <div class="fila-dato fila-direccion">
+
+                            <span class="etiqueta">
+                                Dirección Servicio.
+                            </span>
+
+                            <span class="linea linea-direccion"></span>
+
+                            <span class="etiqueta estrato">
+                                Estrato.
+                            </span>
+
+                            <span class="linea linea-estrato"></span>
+
+                        </div>
+
+                        <div class="fila-dato fila-municipio">
+
+                            <span class="etiqueta">
+                                Departamento.
+                            </span>
+
+                            <span class="valor-linea linea-departamento">
+                                <span class="valor">Huila</span>
+                            </span>
+
+                            <span class="etiqueta municipio">
+                                Municipio.
+                            </span>
+
+                            <span class="linea linea-municipio"></span>
+
+                        </div>
+
+                        <div class="fila-dato direccion-suscriptor">
+
+                            <span class="etiqueta">
+                                Dirección Suscriptor.
+                            </span>
+
+                            <span class="linea linea-direccion-suscriptor"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONDICIONES COMERCIALES -->
+                <div class="condiciones">
+
+                    <div class="barra-titulo">
+                        CONDICIONES COMERCIALES PLAN SERVICIOS FIJOS
+                    </div>
+
+                    <table class="tabla-condiciones">
+
+                        <tr>
+                            <td>
+                                Internet fijo
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="descripcion">
+                                Descripción
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+             COLUMNA DERECHA
+        ====================================================== -->
+
+            <div class="columna derecha">
+
+                <!-- VALOR DE LOS SERVICIOS -->
+                <div class="bloque-derecho">
+
+                    <div class="barra-titulo">
+                        VALOR DE LOS SERVICIOS CONTRATADOS
+                    </div>
+
+                    <table class="tabla-valor">
+
+                        <tr>
+
+                            <td class="valor-label">
+                                VALOR MENSUAL PLAN<br>
+                                SERVICIOS FIJOS
+                            </td>
+
+                            <td class="valor">
+                                $
+                                <input type="text" style="
+                                    width:28mm;
+                                    border:none;
+                                    outline:none;
+                                    font-weight:bold;
+                                    font-size:12px;
+                                ">
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+
+
+                <!-- INCREMENTOS TARIFARIOS -->
+
+                <div style="margin-top: 4mm;">
+
+                    <div class="barra-titulo">
+                        INCREMENTOS TARIFARIOS
+                    </div>
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            @sonet podrá incrementar anualmente el valor de su
+                            plan hasta un máximo de ___ % del precio vigente. El
+                            cambio solo regirá en el periodo siguiente al aviso del
+                            incremento, que se enviará por el mismo canal de la
+                            factura al menos cinco (5) días hábiles antes de que
+                            termine el ciclo de facturación en curso.
+                        </p>
+
+                        <p>
+                            Si la nueva tarifa no le conviene, podrá terminar el
+                            contrato pagando solo lo adeudado hasta la fecha.
+                            Además, cualquier aumento fuera de lo pactado o sin su
+                            autorización le permite dar por terminado el contrato sin
+                            penalidades, incluso si existe cláusula de permanencia
+                            mínima.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRINCIPALES OBLIGACIONES -->
+
+                <div class="obligaciones">
+
+                    <div class="barra-titulo">
+                        PRINCIPALES OBLIGACIONES DEL USUARIO
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">1.</div>
+                        <div>
+                            Informarse, antes de celebrar el contrato o aceptar un
+                            nuevo servicio, acerca de las condiciones del servicio.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">2.</div>
+                        <div>
+                            Cumplir los términos y condiciones pactados en el
+                            contrato.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">3.</div>
+                        <div>
+                            Pagar las obligaciones contraídas con el operador en las
+                            fechas acordadas.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">4.</div>
+                        <div>
+                            No cometer o ser partícipe de actividades de fraude
+                            haciendo uso de un servicio de comunicaciones.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">5.</div>
+                        <div>
+                            Hacer uso adecuado y de forma respetuosa de los medios
+                            de atención dispuestos por el operador.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">6.</div>
+                        <div>
+                            Hacer uso adecuado de las redes, de los servicios y de los
+                            equipos necesarios para su prestación.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">7.</div>
+                        <div>
+                            Informar al operador ante cualquier falla en la prestación
+                            del servicio.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">8.</div>
+                        <div>
+                            Actuar de buena fe durante toda la relación contractual.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">9.</div>
+                        <div>
+                            Hacer uso adecuado de su derecho a presentar PQR y en
+                            consecuencia abstenerse de presentar solicitudes
+                            reincidentes, por hechos que ya han sido objeto de decisión
+                            por el operador, excepto cuando correspondan a la
+                            presentación de un recurso.
+                        </div>
+                    </div>
+
+
+                    <div class="obligacion">
+                        <div class="numero">10.</div>
+                        <div>
+                            Permitir que el operador ejecute labores tendientes a
+                            revisar el funcionamiento de los servicios, y en especial
+                            permitir la realización de revisiones o visitas técnicas
+                            previamente programadas y aceptadas.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PIE DE PÁGINA -->
+
+        <div class="pie-pagina">
+            Página 1 de 6
+        </div>
+
+    </div>
+
+</body>
+
+</html>

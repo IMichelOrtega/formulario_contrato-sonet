@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "asonet-comercial",
+    "public": "vanilla-html",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

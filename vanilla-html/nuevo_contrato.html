@@ -1,0 +1,4191 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contrato Asonet 2026</title>
+
+
+    <style>
+        /* --- Cumplimiento CRC: Calibri, títulos 13pt, textos 11pt, interlineado y espaciado automáticos --- */
+        * {
+            font-family: Calibri, Carlito, Arial, sans-serif !important;
+            line-height: normal !important;
+            letter-spacing: normal !important;
+        }
+
+        .barra,
+        .titulo {
+            font-size: 13pt !important;
+        }
+
+        body,
+        p,
+        li,
+        td,
+        span,
+        div,
+        input,
+        label,
+        .texto,
+        .texto-derecho,
+        .texto-azul,
+        .obligacion,
+        .numero,
+        .contenido-obligacion,
+        .introduccion,
+        .introduccion-texto,
+        .introduccion-renovacion,
+        .nota,
+        .campo-valor,
+        .tabla-valor .valor,
+        .servicio-seleccion {
+            font-size: 11pt !important;
+        }
+
+        /* --- Recuperar espacio vertical (sin agregar hojas) --- */
+        .hoja,
+        .pagina-2,
+        .pagina-3,
+        .pagina-6 {
+            padding-top: 4mm !important;
+            padding-bottom: 3mm !important;
+        }
+
+        .pie,
+        .pagina-2 .pie,
+        .pagina-3 .pie,
+        .pagina-5 .pie,
+        .pagina-6 .pie {
+            bottom: 2mm !important;
+        }
+
+        .encabezado {
+            margin-bottom: 1mm !important;
+        }
+
+        .incrementos,
+        .pagina-2 .incrementos,
+        .pagina-3 .incrementos {
+            margin-top: 0.5mm !important;
+            margin-bottom: 2mm !important;
+        }
+
+        .obligacion {
+            margin-top: 1mm !important;
+        }
+
+        .texto-derecho p,
+        .pagina-2 .texto-derecho p,
+        .pagina-5 .texto-derecho p {
+            margin: 0.8mm 0 2mm 0 !important;
+        }
+
+        .pagina-3 .texto-derecho p {
+            margin: 0.4mm 0 1.2mm 0 !important;
+        }
+
+        .introduccion-texto,
+        .introduccion-renovacion {
+            padding: 1mm 1.5mm !important;
+        }
+
+        .barra,
+        .pagina-2 .barra,
+        .pagina-3 .barra,
+        .pagina-5 .barra,
+        .pagina-6 .barra {
+            padding: 0.8mm 1.5mm !important;
+            min-height: 0 !important;
+        }
+
+        .medios-atencion {
+            padding: 2mm !important;
+        }
+
+        .paso {
+            margin-bottom: 2mm !important;
+        }
+
+        .subheading-medios {
+            margin: 0.5mm 0 1.5mm 0 !important;
+        }
+
+        .acepto-clausula {
+            margin-top: 1mm !important;
+        }
+
+        .tabla-permanencia {
+            margin-bottom: 2mm !important;
+        }
+
+        .tabla-permanencia td {
+            padding: 1.2mm 2mm !important;
+        }
+
+        .tabla-meses {
+            margin-bottom: 2mm !important;
+        }
+
+        .tabla-meses td {
+            padding: 2mm 0.5mm !important;
+        }
+
+        .pagina-4 .texto-derecho p {
+            margin: 0.5mm 0 1.2mm 0 !important;
+        }
+
+        .condiciones {
+            margin-top: 1mm !important;
+        }
+
+        .tabla-condiciones .descripcion {
+            height: 5mm !important;
+        }
+
+        .tabla-condiciones td {
+            padding: 0.8mm 2mm !important;
+        }
+
+        /* =========================================================
+           CONFIGURACIÓN DEL DOCUMENTO
+        ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            background: #eeeeee;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #111111;
+        }
+
+
+        .hoja {
+            position: relative;
+
+            width: 210mm;
+            height: 297mm;
+
+            margin: 10mm auto 0;
+
+            background: #ffffff;
+
+            padding: 10mm 10mm 9mm 10mm;
+
+            overflow: hidden;
+
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.20);
+        }
+
+
+
+        /* =========================================================
+           CONTENEDOR DE LAS DOS COLUMNAS
+        ========================================================= */
+
+        .columnas {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                48.5% 48.5%;
+
+            column-gap: 3%;
+        }
+
+
+        .columna {
+            width: 100%;
+            min-width: 0;
+        }
+
+
+        /* =========================================================
+           COLORES DEL CONTRATO
+        ========================================================= */
+
+        :root {
+
+            --gris-contrato: #6d6d6d;
+            --gris-texto: #707070;
+            --gris-claro: #d0d0d0;
+            --azul: #4b8dcc;
+
+        }
+
+
+        /* =========================================================
+           BARRAS DE TÍTULO
+        ========================================================= */
+
+        .barra {
+
+            width: 100%;
+
+            background: var(--gris-contrato);
+
+            color: #ffffff;
+
+            font-size: 12.75px;
+
+            font-weight: bold;
+
+            line-height: 1.05;
+
+            padding:
+                1.1mm 1.5mm;
+
+            min-height: 5.5mm;
+
+            display: flex;
+
+            align-items: center;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           ENCABEZADO
+        ========================================================= */
+
+        .encabezado {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            margin-bottom: 3.5mm;
+        }
+
+
+        .logo {
+
+            width: 40mm;
+
+            height: auto;
+
+            display: block;
+
+            object-fit: contain;
+
+            flex-shrink: 0;
+        }
+
+
+        .titulo {
+
+            margin-left: 3mm;
+
+            font-size: 13.25px;
+
+            line-height: 1.08;
+
+            font-weight: 700;
+
+            color: #333333;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================================
+           BLOQUE INICIAL
+        ========================================================= */
+
+        .introduccion {
+
+            width: 100%;
+
+            background: var(--gris-contrato);
+
+            color: #ffffff;
+
+            font-size: 11.75px;
+
+            line-height: 1.4;
+
+            text-align: justify;
+        }
+
+
+        .introduccion-texto {
+
+            padding:
+                1.8mm 1.5mm 1.5mm 1.5mm;
+        }
+
+
+        .introduccion-renovacion {
+
+            border-top: 1px solid #888888;
+
+            padding:
+                1.5mm 1.5mm 1.5mm 1.5mm;
+
+            line-height: 1.35;
+        }
+
+
+        .cuadro-check {
+
+            display: inline-block;
+
+            width: 4mm;
+            height: 4mm;
+
+            background: #ffffff;
+
+            border: 1px solid #777777;
+
+            vertical-align: middle;
+
+            margin-left: 1mm;
+
+            margin-right: 1mm;
+        }
+
+
+        .asterisco {
+            font-weight: bold;
+        }
+
+
+        .nota {
+
+            color: var(--azul);
+
+            font-size: 10.25px;
+
+            margin-top: 0.8mm;
+
+            margin-left: 0.5mm;
+
+            margin-bottom: 2.5mm;
+        }
+
+
+        /* =========================================================
+           SECCIÓN LOS SERVICIOS
+        ========================================================= */
+
+        .servicios {
+
+            margin-top: 1mm;
+        }
+
+
+        .texto {
+
+            font-size: 11.75px;
+
+            line-height: 1.5;
+
+            text-align: left;
+        }
+
+
+        .texto p {
+
+            margin:
+                1.2mm 0;
+        }
+
+
+        .servicio-seleccion {
+
+            margin-top: 5mm;
+
+            display: flex;
+
+            align-items: center;
+
+            font-size: 11.25px;
+        }
+
+
+        .servicio-seleccion .nombre-servicio {
+
+            margin-right: 3mm;
+        }
+
+
+        .checkbox {
+
+            width: 5mm;
+            height: 5mm;
+
+            border: 1px solid #777777;
+
+            background: #ffffff;
+
+            display: inline-block;
+        }
+
+
+        .texto-azul {
+
+            color: var(--azul);
+
+            font-size: 11.75px;
+
+            line-height: 1.55;
+
+            text-align: left;
+
+            margin:
+                5mm 0;
+        }
+
+
+        /* =========================================================
+           CAMPOS CON LÍNEA
+        ========================================================= */
+
+        .linea {
+
+            display: inline-block;
+
+            height: 4mm;
+
+            border-bottom:
+                1px solid #222222;
+
+            vertical-align: bottom;
+        }
+
+        input.linea {
+
+            border: none !important;
+
+            border-bottom: 1px solid #222222 !important;
+
+            border-radius: 0 !important;
+
+            outline: none !important;
+
+            background: transparent !important;
+
+            box-shadow: none !important;
+
+            padding: 0 !important;
+
+        }
+
+        /* =========================================================
+           PRODUCTOS ADICIONALES
+        ========================================================= */
+
+        .campo-productos {
+
+            width: 40mm;
+        }
+
+
+        /* =========================================================
+           FECHA
+        ========================================================= */
+
+        .campo-fecha {
+
+            width: 20mm;
+
+            height: 4mm;
+
+            border: none;
+
+            border-bottom:
+                1px solid #999999;
+
+            outline: none;
+
+            background: transparent;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 10.75px;
+
+            color: #999999;
+
+            text-align: center;
+
+            padding: 0;
+        }
+
+
+        /* =========================================================
+           INFORMACIÓN DEL USUARIO
+        ========================================================= */
+
+        .informacion {
+
+            margin-top: 3mm;
+
+            border:
+                1px solid #777777;
+        }
+
+
+        .informacion .barra {
+
+            margin:
+                -1px -1px 0 -1px;
+
+            width:
+                calc(100% + 2px);
+        }
+
+
+        .datos {
+
+            padding:
+                1.5mm 2mm 1.2mm 2mm;
+        }
+
+
+        /* Cada fila es una línea */
+        .fila {
+
+            width: 100%;
+
+            height: 5.7mm;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            white-space: nowrap;
+
+            font-size: 10.75px;
+
+            line-height: 1;
+        }
+
+
+        .etiqueta {
+
+            display: inline-block;
+
+            flex-shrink: 0;
+
+            margin-right: 1mm;
+        }
+
+
+        /* Línea después de la etiqueta */
+
+        .linea-contrato {
+            width: 60mm;
+        }
+
+
+        .linea-nombre {
+            width: 51mm;
+        }
+
+
+        .linea-identificacion {
+            width: 54mm;
+        }
+
+
+        .linea-correo {
+            width: 52mm;
+        }
+
+
+        .linea-telefono {
+            width: 54mm;
+        }
+
+
+        .linea-direccion {
+            width: 46mm;
+        }
+
+
+        .etiqueta-estrato {
+
+            margin-left: 1.5mm;
+
+            margin-right: 1mm;
+        }
+
+
+        .linea-estrato {
+            width: 8mm;
+        }
+
+
+        .etiqueta-municipio {
+
+            margin-left: 2mm;
+
+            margin-right: 1mm;
+        }
+
+
+        .linea-departamento {
+            width: 25mm;
+        }
+
+
+        .linea-municipio {
+            width: 27mm;
+        }
+
+
+        .linea-linea {
+
+            width: 17mm;
+
+            margin-left: 1mm;
+        }
+
+
+        .etiqueta-numero {
+
+            margin-left: 2mm;
+
+            margin-right: 1mm;
+        }
+
+
+        .linea-numero-movil {
+            width: 27mm;
+        }
+
+
+        .linea-direccion-usuario {
+            width: 49mm;
+        }
+
+
+        /* =========================================================
+           CAMPOS DINÁMICOS
+        ========================================================= */
+
+        .dato-dinamico {
+
+            position: relative;
+
+            display: inline-flex;
+
+            align-items: flex-end;
+
+            height: 4mm;
+
+            border-bottom:
+                1px solid #222222;
+
+            vertical-align: bottom;
+
+            padding:
+                0 1mm 0.3mm 1mm;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+        }
+
+
+        .dato-dinamico.contrato {
+            width: 60mm;
+        }
+
+
+        .dato-dinamico.nombre {
+            width: 51mm;
+        }
+
+
+        .dato-dinamico.identificacion {
+            width: 54mm;
+        }
+
+
+        .dato-dinamico.correo {
+            width: 52mm;
+        }
+
+
+        .dato-dinamico.telefono {
+            width: 54mm;
+        }
+
+
+        /* =========================================================
+           CAMPOS DE FORMULARIO - REGLAS VISUALES
+        ========================================================= */
+
+        .campo-vigencia {
+            width: 13mm;
+            height: 4mm;
+            border: none;
+            border-bottom: 1px solid #ffffff;
+            outline: none;
+            background: transparent;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11.25px;
+            text-align: center;
+            padding: 0;
+        }
+
+        /* Todos los campos se ven como líneas, no como cuadros */
+        .informacion input.linea,
+        .informacion select.linea {
+            display: inline-block;
+            height: 4mm;
+            border: none;
+            border-bottom: 1px solid #222222;
+            border-radius: 0;
+            outline: none;
+            background: transparent;
+            box-shadow: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10.75px;
+            padding: 0 1mm 0.3mm 1mm;
+            vertical-align: bottom;
+        }
+
+        .informacion input.linea:focus,
+        .informacion select.linea:focus {
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid #222222;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .informacion .linea-direccion {
+            width: 46mm;
+        }
+
+        .informacion .linea-municipio {
+            width: 27mm;
+        }
+
+        .informacion .linea-numero-movil {
+            width: 27mm;
+        }
+
+        .informacion .linea-direccion-usuario {
+            width: 49mm;
+        }
+
+        .informacion .estrato-select {
+            width: 19mm;
+            height: 4mm;
+            padding: 0 0.5mm;
+            font-size: 9.75px;
+            cursor: pointer;
+        }
+
+        .informacion .fila-estrato {
+            height: 5.7mm;
+            align-items: flex-end;
+        }
+
+        .checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .checkbox:checked::after {
+            content: "✓";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -52%);
+            font-size: 4.3mm;
+            line-height: 1;
+            color: #111111;
+        }
+
+        .campo-productos {
+            border: none !important;
+            border-bottom: 1px solid #222222 !important;
+            border-radius: 0 !important;
+            outline: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        .campo-valor {
+            border: none !important;
+            border-bottom: 1px solid #222222 !important;
+            border-radius: 0 !important;
+            outline: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        .informacion input:not(.checkbox) {
+            border-radius: 0;
+        }
+
+        select {
+            outline: none;
+        }
+
+        /* =========================================================
+           FIN CAMPOS DE FORMULARIO - REGLAS VISUALES
+        ========================================================= */
+
+
+        /* =========================================================
+           CONDICIONES COMERCIALES
+        ========================================================= */
+
+        .condiciones {
+
+            margin-top: 3mm;
+
+            width: 100%;
+        }
+
+
+        .condiciones .barra {
+
+            line-height: 1.05;
+
+            min-height: 8mm;
+
+            font-size: 11.75px;
+        }
+
+
+        .tabla-condiciones {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            border-left:
+                1px solid #777777;
+
+            border-right:
+                1px solid #777777;
+
+            border-bottom:
+                1px solid #777777;
+
+            font-size: 10.75px;
+        }
+
+
+        .tabla-condiciones td {
+
+            padding:
+                1.3mm 2mm;
+
+            border-bottom:
+                1px solid #777777;
+        }
+
+
+        .tabla-condiciones .descripcion {
+
+            height: 9mm;
+
+            color: #b4b4b4;
+
+            vertical-align: top;
+        }
+
+
+        /* =========================================================
+           COLUMNA DERECHA
+        ========================================================= */
+
+        .columna-derecha {
+            padding-top: 0;
+        }
+
+
+        /* =========================================================
+           VALOR DE LOS SERVICIOS
+        ========================================================= */
+
+        .valor-servicios {
+
+            width: 100%;
+
+            margin-bottom: 3.5mm;
+        }
+
+
+        .tabla-valor {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            border:
+                1px solid #777777;
+
+            font-size: 10.75px;
+        }
+
+
+        .tabla-valor td {
+
+            height: 8.5mm;
+
+            padding:
+                1mm 2mm;
+        }
+
+
+        .tabla-valor .descripcion-valor {
+
+            width: 60%;
+
+            text-align: right;
+
+            border-right:
+                1px solid #777777;
+
+            line-height: 1.1;
+        }
+
+
+        .tabla-valor .valor {
+
+            width: 40%;
+
+            text-align: left;
+
+            font-size: 11.75px;
+        }
+
+
+        .campo-valor {
+
+            width: 25mm;
+
+            height: 5mm;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            font-size: 11.75px;
+
+            font-weight: bold;
+
+            border-bottom:
+                1px solid transparent;
+        }
+
+
+        /* =========================================================
+           INCREMENTOS TARIFARIOS
+        ========================================================= */
+
+        .incrementos {
+
+            margin-top: 1mm;
+        }
+
+
+        .texto-derecho {
+
+            font-size: 11.75px;
+
+            line-height: 1.5;
+
+            text-align: justify;
+
+            padding-top: 0.5mm;
+        }
+
+
+        .texto-derecho p {
+
+            margin:
+                1.8mm 0 4mm 0;
+        }
+
+
+        /* =========================================================
+           OBLIGACIONES DEL USUARIO
+        ========================================================= */
+
+        .obligaciones {
+
+            margin-top: 1mm;
+        }
+
+
+        .obligacion {
+
+            display: grid;
+
+            grid-template-columns:
+                7mm 1fr;
+
+            column-gap: 1mm;
+
+            width: 100%;
+
+            margin-top: 3.1mm;
+
+            font-size: 11.75px;
+
+            line-height: 1.42;
+
+            text-align: justify;
+        }
+
+
+        .numero {
+
+            font-weight: bold;
+
+            text-align: right;
+        }
+
+
+        .contenido-obligacion {
+
+            padding-right: 0.5mm;
+        }
+
+
+        /* =========================================================
+           PIE DE PÁGINA
+        ========================================================= */
+
+        .pie {
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: 8mm;
+
+            width: 100%;
+
+            text-align: center;
+
+            color: #aaaaaa;
+
+            font-size: 10.25px;
+        }
+
+
+        /* =========================================================
+   IMPRESIÓN
+========================================================= */
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm;
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+            }
+
+            .hoja {
+                position: relative;
+
+                width: 210mm;
+                height: 297mm;
+
+                margin: 0;
+
+                padding: 10mm;
+
+                background: #ffffff;
+
+                box-shadow: none;
+
+                overflow: hidden;
+
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .hoja:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+
+        }
+
+
+
+
+        /* =========================================================
+   PÁGINA 2
+========================================================= */
+
+        .pagina-2 {
+            padding: 10mm 11mm 9mm 11mm;
+        }
+
+
+        /* DOS COLUMNAS */
+
+        .pagina-2 .columnas {
+            width: 100%;
+            height: auto;
+
+            align-items: start;
+        }
+
+
+        /* COLUMNAS */
+
+        .pagina-2 .columna {
+            width: 100%;
+            height: auto;
+
+            display: block;
+        }
+
+
+        /* SECCIONES */
+
+        .pagina-2 .incrementos {
+            width: 100%;
+            margin: 0 0 7mm 0;
+        }
+
+
+        /* BARRAS */
+
+        .pagina-2 .barra {
+            width: 100%;
+
+            min-height: 7mm;
+
+            padding:
+                1.25mm 1.7mm;
+
+            font-size: 12px;
+
+            line-height: 1.1;
+        }
+
+
+        /* TEXTO */
+
+        .pagina-2 .texto-derecho {
+            width: 100%;
+
+            padding-top: 1.5mm;
+
+            font-size: 12px;
+
+            line-height: 1.48;
+
+            text-align: justify;
+        }
+
+
+        /* PÁRRAFOS */
+
+        .pagina-2 .texto-derecho p {
+            margin:
+                0 0 4.2mm 0;
+        }
+
+        .pagina-2 .texto-derecho p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* PIE */
+
+        .pagina-2 .pie {
+            bottom: 7mm;
+        }
+
+
+        /* =========================================================
+   PÁGINA 3
+========================================================= */
+
+        :root {
+            --rojo: #c0392b;
+        }
+
+        .pagina-3 {
+            padding: 10mm 11mm 9mm 11mm;
+        }
+
+        .pagina-3 .columnas {
+            width: 100%;
+            height: auto;
+            align-items: start;
+        }
+
+        .pagina-3 .columna {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .pagina-3 .incrementos {
+            width: 100%;
+            margin: 0 0 7mm 0;
+        }
+
+        .pagina-3 .incrementos.gap-reducido {
+            margin-bottom: 3mm;
+        }
+
+        .pagina-3 .cuadro-check {
+            width: 5.5mm;
+            height: 5.5mm;
+        }
+
+        .pagina-3 .barra {
+            width: 100%;
+            min-height: 8mm;
+            padding: 1.6mm 1.7mm;
+            font-size: 13px;
+            line-height: 1.2;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .pagina-3 .barra-roja {
+            background: var(--rojo);
+        }
+
+        .pagina-3 .texto-derecho {
+            width: 100%;
+            padding-top: 1.5mm;
+            font-size: 11.75px;
+            line-height: 1.55;
+            text-align: justify;
+        }
+
+        .pagina-3 .texto-derecho p {
+            margin: 0 0 4.5mm 0;
+        }
+
+        .pagina-3 .texto-derecho p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pagina-3 .pie {
+            bottom: 6mm;
+        }
+
+
+        /* COSTO DE RECONEXIÓN */
+
+        .campo-reconexion {
+            display: flex;
+            align-items: center;
+            margin-top: 3.5mm;
+            font-size: 11.75px;
+            font-weight: bold;
+        }
+
+        .campo-reconexion .signo-peso {
+            margin-left: 2mm;
+            margin-right: 1mm;
+        }
+
+        .campo-reconexion input {
+            flex: 1;
+            max-width: 30mm;
+            border: none;
+            border-bottom: 1px solid #222222;
+            outline: none;
+            background: transparent;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11.75px;
+            font-weight: bold;
+        }
+
+
+        /* MEDIOS DE ATENCIÓN */
+
+        .medios-atencion {
+            border: 1.5px solid var(--rojo);
+            border-radius: 1.5mm;
+            padding: 4mm;
+        }
+
+        .paso {
+            display: grid;
+            grid-template-columns: 7mm 1fr;
+            column-gap: 2.2mm;
+            margin-bottom: 4mm;
+            font-size: 11px;
+            line-height: 1.55;
+            text-align: justify;
+        }
+
+        .paso:last-child {
+            margin-bottom: 0;
+        }
+
+        .paso .numero-circulo {
+            width: 6.5mm;
+            height: 6.5mm;
+            border-radius: 50%;
+            background: var(--rojo);
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .subheading-medios {
+            font-weight: bold;
+            font-size: 11px;
+            margin: 1mm 0 3.5mm 0;
+        }
+
+
+        /* CLÁUSULA DE PERMANENCIA MÍNIMA */
+
+        .acepto-clausula {
+            font-weight: bold;
+            font-size: 11.75px;
+            margin-top: 2.5mm;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+
+        /* TABLA PERMANENCIA (arriba derecha) */
+
+        .tabla-permanencia {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #777777;
+            font-size: 10.75px;
+            margin-bottom: 5mm;
+        }
+
+        .tabla-permanencia td {
+            padding: 2.4mm 2mm;
+            border-bottom: 1px solid #777777;
+            vertical-align: middle;
+        }
+
+        .tabla-permanencia tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tabla-permanencia .descripcion-permanencia {
+            width: 68%;
+            text-align: left;
+            border-right: 1px solid #777777;
+        }
+
+        .tabla-permanencia .valor-permanencia {
+            width: 32%;
+            text-align: left;
+            font-weight: bold;
+        }
+
+
+        /* TABLA VALOR POR MES */
+
+        .tabla-meses {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #777777;
+            font-size: 12.5px;
+            text-align: center;
+            margin-bottom: 4.5mm;
+        }
+
+        .tabla-meses td {
+            border: 1px solid #777777;
+            padding: 5mm 0.5mm;
+            width: 16.66%;
+        }
+
+        .tabla-meses .mes-nombre {
+            background: #ededed;
+            font-weight: bold;
+            padding-top: 1mm;
+            padding-bottom: 0.6mm;
+        }
+
+        .tabla-meses .mes-valor {
+            color: #707070;
+            padding-top: 0.6mm;
+            padding-bottom: 1.3mm;
+        }
+
+        .valor-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5mm;
+            width: 100%;
+        }
+
+
+        /* TABLA EQUIPOS */
+
+        .tabla-equipos {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #777777;
+            font-size: 10.75px;
+            margin-top: 3mm;
+        }
+
+        .tabla-equipos th {
+            background: var(--gris-contrato);
+            color: #ffffff;
+            font-size: 10.75px;
+            text-transform: uppercase;
+            padding: 2mm 2mm;
+            border: 1px solid #777777;
+        }
+
+        .tabla-equipos td {
+            border: 1px solid #777777;
+            padding: 4mm 2mm;
+        }
+
+
+        /* CAMPOS EDITABLES DENTRO DE TABLAS */
+
+        .campo-tabla {
+            border: none;
+            outline: none;
+            background: transparent;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+
+            width: 100%;
+            min-width: 0;
+            flex: 1;
+            box-sizing: border-box;
+        }
+
+        .campo-mes {
+            text-align: left;
+        }
+
+        .pagina-3 .checkbox {
+            width: 5.5mm;
+            height: 5.5mm;
+        }
+
+        .hoja {
+            position: relative;
+
+            width: 210mm;
+            height: 297mm;
+
+            margin: 10mm auto;
+
+            background: #ffffff;
+
+            padding: 10mm;
+
+            overflow: hidden;
+
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.20);
+        }
+
+        /* =========================================================
+   PÁGINA 4
+========================================================= */
+
+        .pagina-4 {
+            position: relative;
+        }
+
+
+        /* =========================================================
+   TEXTO DE OTRAS CONDICIONES
+========================================================= */
+
+        .pagina-4 .texto-derecho {
+            font-size: 10.75px;
+            line-height: 1.42;
+            text-align: justify;
+            padding-top: 1.5mm;
+        }
+
+        .pagina-4 .texto-derecho p {
+            margin: 0 0 2.2mm 0;
+        }
+
+        .pagina-4 .texto-derecho p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* =========================================================
+   INFORMACIÓN ADICIONAL
+========================================================= */
+
+        .pagina-4 .informacion-adicional {
+            border: 1.5px solid #111111;
+            padding: 2.5mm 2.5mm 2mm 2.5mm;
+            margin-top: 2.5mm;
+            font-size: 10.75px;
+            line-height: 1.35;
+        }
+
+        .pagina-4 .informacion-adicional-titulo {
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 2mm;
+        }
+
+        .pagina-4 .fila-vivienda {
+            display: flex;
+            align-items: center;
+            gap: 1.5mm;
+            margin-bottom: 1.8mm;
+            white-space: nowrap;
+        }
+
+        .pagina-4 .fila-referencia {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 1.2mm;
+        }
+
+        .pagina-4 .fila-referencia.celular {
+            margin-bottom: 1.8mm;
+        }
+
+        .pagina-4 .etiqueta-referencia {
+            width: 16mm;
+        }
+
+        .pagina-4 .referencia-titulo {
+            margin-bottom: 1mm;
+        }
+
+        .pagina-4 .referencia-familiar-celular {
+            margin-bottom: 2mm;
+        }
+
+        .pagina-4 .fila-persona {
+            display: flex;
+            align-items: center;
+            gap: 2mm;
+            margin-bottom: 2mm;
+            white-space: nowrap;
+        }
+
+        .pagina-4 .fila-representante {
+            display: flex;
+            align-items: flex-end;
+        }
+
+
+        /* =========================================================
+   CAMPOS
+========================================================= */
+
+        .pagina-4 .campo-referencia-nombre {
+            flex: 1;
+            height: 4.5mm;
+            font-size: 10.5px;
+        }
+
+        .pagina-4 .campo-referencia-celular {
+            width: 43mm;
+            height: 4.5mm;
+            font-size: 10.5px;
+        }
+
+        .pagina-4 .campo-representante {
+            flex: 1;
+            height: 4.5mm;
+            font-size: 10.5px;
+        }
+
+        .pagina-4 .etiqueta-representante {
+            width: 29mm;
+        }
+
+
+        /* =========================================================
+   CHECKBOX
+========================================================= */
+
+        .pagina-4 .checkbox {
+            width: 4mm;
+            height: 4mm;
+            vertical-align: middle;
+        }
+
+
+        /* =========================================================
+   ACEPTACIÓN DEL CONTRATO
+========================================================= */
+
+        .pagina-4 .aceptacion-contrato {
+            border: 1px solid #777777;
+            margin-top: 5mm;
+            height: 58.5mm;
+            padding: 7mm 4mm 4mm 4mm;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .pagina-4 .linea-aceptacion {
+            width: 100%;
+            border-bottom: 1px solid #222222;
+            margin-bottom: 2.5mm;
+        }
+
+        .pagina-4 .texto-aceptacion {
+            font-weight: bold;
+            line-height: 1.35;
+            margin-bottom: 5mm;
+        }
+
+        .pagina-4 .fila-fecha-aceptacion {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2mm;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .pagina-4 .fecha-aceptacion {
+            width: 28mm;
+            color: #aaaaaa;
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+   ASESOR
+========================================================= */
+
+        .pagina-4 .asesor-contrato {
+            margin-top: 7mm;
+            font-size: 11px;
+
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .pagina-4 .asesor-contrato strong {
+            margin-right: 2mm;
+        }
+
+        .pagina-4 .campo-asesor {
+            flex: 1;
+            height: 5mm;
+            font-size: 10.75px;
+        }
+
+
+        /* =========================================================
+   NOTA FINAL
+========================================================= */
+
+        .pagina-4 .nota-final {
+            margin-top: 7mm;
+            color: #aaaaaa;
+            font-size: 9.5px;
+            line-height: 1.35;
+            text-align: left;
+        }
+
+
+        /* =========================================================
+   CONTINUACIÓN DEL PUNTO 7 EN COLUMNA DERECHA
+========================================================= */
+
+        .pagina-4 .continuacion-punto-7 {
+            font-size: 10.75px;
+            line-height: 1.42;
+            text-align: justify;
+            padding-top: 0;
+            margin-bottom: 2.5mm;
+        }
+
+        .pagina-4 .continuacion-punto-7 p {
+            margin: 0 0 2.2mm 0;
+        }
+
+        .pagina-4 .continuacion-punto-7 p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* =========================================================
+   IMPRESIÓN / PDF
+========================================================= */
+
+        @media print {
+
+            .pagina-4 {
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .pagina-4 input {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .pagina-4 .informacion-adicional,
+            .pagina-4 .aceptacion-contrato {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+        }
+
+        /* =========================================================
+   AUMENTAR LETRA — PÁGINA 4 COMPLETA
+========================================================= */
+
+        .pagina-4 {
+            font-size: 13px;
+        }
+
+        .pagina-4 .texto-derecho {
+            font-size: 12.5px;
+        }
+
+        .pagina-4 .continuacion-punto-7 {
+            font-size: 13px;
+        }
+
+        .pagina-4 .informacion-adicional {
+            font-size: 12px;
+        }
+
+        .pagina-4 .informacion-adicional-titulo {
+            font-size: 15px;
+        }
+
+        .pagina-4 .aceptacion-contrato {
+            font-size: 12px;
+        }
+
+        .pagina-4 .asesor-contrato {
+            font-size: 13px;
+        }
+
+        .pagina-4 .nota-final {
+            font-size: 12px;
+        }
+
+        /* =========================================================
+   PÁGINA 5
+========================================================= */
+
+        .pagina-5 .encabezado {
+            margin-bottom: 6mm;
+        }
+
+        .pagina-5 .columnas {
+            width: 100%;
+            height: auto;
+            align-items: start;
+        }
+
+        .pagina-5 .columna {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .pagina-5 .barra {
+            width: 100%;
+            min-height: 8mm;
+            padding: 1.6mm 1.7mm;
+            font-size: 12.5px;
+            line-height: 1.25;
+        }
+
+        .pagina-5 .texto-derecho {
+            width: 100%;
+            padding-top: 3.5mm;
+            font-size: 11.75px;
+            line-height: 1.72;
+            text-align: justify;
+        }
+
+        .pagina-5 .texto-derecho p {
+            margin: 0 0 5mm 0;
+        }
+
+        .pagina-5 .texto-derecho p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pagina-5 .pie {
+            bottom: 6mm;
+        }
+
+        /* =========================================================
+   PÁGINA 6
+========================================================= */
+
+        .pagina-6 {
+            padding: 10mm 11mm 9mm 11mm;
+        }
+
+        .pagina-6 .barra {
+            width: 100%;
+            min-height: 8mm;
+            padding: 1.6mm 1.7mm;
+            font-size: 12.5px;
+            line-height: 1.25;
+        }
+
+        .pagina-6 .texto-derecho {
+            width: 100%;
+            padding-top: 3.5mm;
+            font-size: 11.75px;
+            line-height: 1.72;
+            text-align: justify;
+        }
+
+        .pagina-6 .texto-derecho p {
+            margin: 0 0 5mm 0;
+        }
+
+        .pagina-6 .texto-derecho p:last-child {
+            margin-bottom: 0;
+        }
+
+        .pagina-6 .linea-divisoria {
+            width: 100%;
+            border: none;
+            border-top: 1px solid #222222;
+            margin: 10mm 0 4mm 0;
+        }
+
+        .pagina-6 .firma-titulo {
+            text-align: center;
+            font-weight: bold;
+            font-size: 11.5px;
+            margin-bottom: 3mm;
+        }
+
+        .pagina-6 .caja-documento {
+            width: 100%;
+        }
+
+        .pagina-6 .fila-documento {
+            display: flex;
+            align-items: center;
+            border: 1px solid #777777;
+            padding: 2mm 3mm;
+            font-size: 10.5px;
+            color: #555555;
+            gap: 2mm;
+        }
+
+        .pagina-6 .fila-documento+.fila-documento {
+            border-top: none;
+        }
+
+        .pagina-6 .fila-documento .etiqueta-documento {
+            flex-shrink: 0;
+            font-weight: normal;
+        }
+
+        .pagina-6 .campo-documento {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10.5px;
+            color: #222222;
+        }
+
+        .pagina-6 .nota-legal {
+            font-size: 8.5px;
+            color: #8a8a8a;
+            margin-top: 3mm;
+            line-height: 1.35;
+        }
+
+        .pagina-6 .pie {
+            bottom: 6mm;
+        }
+
+        .pagina-6 .columna-unica {
+            width: 47%;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+
+
+    <div class="hoja">
+        <br />
+        <br />
+
+        <!-- =====================================================
+             DOS COLUMNAS
+        ====================================================== -->
+
+        <div class="columnas">
+
+
+            <!-- =================================================
+                 COLUMNA IZQUIERDA
+            ================================================== -->
+
+            <div class="columna">
+
+
+                <!-- =================================================
+                     ENCABEZADO
+                ================================================== -->
+
+                <div class="encabezado">
+
+                    <img src="logo-sonet-light.png" alt="Asonet Colombia" class="logo">
+
+                    <div class="titulo">
+
+                        CONTRATO ÚNICO<br>
+
+                        CONVERGENTE SERVICIOS<br>
+
+                        FIJOS Y MÓVILES EN LA<br>
+
+                        MODALIDAD POSPAGO
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     TEXTO INTRODUCTORIO
+                ================================================== -->
+
+                <div class="introduccion">
+
+                    <div class="introduccion-texto">
+
+                        Este contrato explica las condiciones para la
+                        prestación de los servicios entre usted y
+                        @SONET COLOMBIA SAS, por el que pagará mínimo
+                        mensualmente valor señalado en la sección
+                        «Valor de los servicios contratados». Este contrato
+                        tendrá vigencia de
+                        <input type="number" id="vigenciaMeses" name="vigenciaMeses" min="0" max="12" step="1" required
+                            class="campo-vigencia" aria-label="Vigencia en meses">
+                        meses, contados a partir de la fecha de
+                        suscripción de este contrato.
+
+                    </div>
+
+
+                    <div class="introduccion-renovacion">
+
+                        Acepto que mi contrato se renueve sucesiva y
+                        automáticamente por un plazo igual al inicial
+
+                        <span class="cuadro-check"></span>
+
+                        <span class="asterisco">*</span>
+
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="nota">
+
+                    * Espacio diligenciado por el usuario
+
+                </div>
+
+                <!-- =================================================
+                     LOS SERVICIOS
+                ================================================== -->
+
+                <div class="servicios">
+
+
+                    <div class="barra">
+
+                        LOS SERVICIOS
+
+                    </div>
+
+
+                    <div class="texto">
+
+                        <p>
+
+                            Con este contrato nos comprometemos a
+                            prestarle los servicios que usted elija*:
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="servicio-seleccion">
+
+                        <span class="nombre-servicio">
+
+                            Internet fijo
+
+                        </span>
+
+                        <input type="checkbox" class="checkbox" id="internetFijo" name="internetFijo" checked
+                            aria-label="Internet fijo">
+
+                    </div>
+
+
+                    <div class="texto-azul">
+
+                        El cobro por la efectiva prestación de los
+                        servicios fijos se realizará a partir de su
+                        instalación.
+
+                    </div>
+
+
+                    <div class="texto">
+
+                        <p>
+
+                            Productos o servicios adicionales
+
+                            <input type="text" class="linea campo-productos" id="productosAdicionales"
+                                name="productosAdicionales" aria-label="Productos o servicios adicionales">
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="texto-azul">
+
+                        El cobro por la efectiva prestación de los
+                        productos o servicios adicionales se realizará
+                        a partir de
+
+                        <input type="text" class="campo-fecha" placeholder="dd/mm/aaaa">
+
+                    </div>
+
+
+                    <div class="texto">
+
+                        <p>
+
+                            Usted se compromete a pagar oportunamente
+                            el (los) precio(s) acordado(s).
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     INFORMACIÓN DEL USUARIO
+                ================================================== -->
+
+                <div class="informacion">
+
+
+                    <div class="barra">
+
+                        INFORMACIÓN DEL USUARIO
+
+                    </div>
+
+
+                    <div class="datos">
+
+
+                        <!-- CONTRATO -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Contrato Nº:
+
+                            </span>
+
+                            <input type="text" class="linea dato-dinamico contrato" id="numeroContrato"
+                                name="numeroContrato" inputmode="numeric" maxlength="10" minlength="10"
+                                pattern="[0-9]{10}" required aria-label="Contrato número">
+
+                        </div>
+
+
+                        <!-- NOMBRE -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Nombre / Razón Social
+
+                            </span>
+
+                            <input type="text" class="linea dato-dinamico nombre" id="nombreRazonSocial"
+                                name="nombreRazonSocial" maxlength="100" pattern="[A-Za-zÁÉÍÓÚáéíóúÜüÑñ ]+" required
+                                aria-label="Nombre o razón social">
+
+                        </div>
+
+
+                        <!-- IDENTIFICACIÓN -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Identificación
+
+                            </span>
+
+                            <input type="text" class="linea dato-dinamico identificacion" id="identificacion"
+                                name="identificacion" inputmode="numeric" maxlength="10" minlength="10"
+                                pattern="[0-9]{10}" readonly required aria-label="Identificación">
+
+                        </div>
+
+
+                        <!-- CORREO -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Correo electrónico
+
+                            </span>
+
+                            <input type="email" class="linea dato-dinamico correo" id="correoElectronico"
+                                name="correoElectronico" maxlength="120" required aria-label="Correo electrónico">
+
+                        </div>
+
+
+                        <!-- TELÉFONO -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Teléfono de contacto
+
+                            </span>
+
+                            <input type="text" class="linea dato-dinamico telefono" id="telefonoContacto"
+                                name="telefonoContacto" inputmode="tel" maxlength="21" minlength="21"
+                                pattern="[0-9]{10}-[0-9]{10}" required aria-label="Teléfono de contacto">
+
+                        </div>
+
+
+                        <!-- DIRECCIÓN + ESTRATO -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Dirección Servicio fijo
+
+                            </span>
+
+                            <input type="text" class="linea linea-direccion" id="direccionServicio"
+                                name="direccionServicio" maxlength="150" required aria-label="Dirección servicio fijo">
+
+
+                        </div>
+
+
+                        <!-- DEPARTAMENTO + MUNICIPIO -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Departamento
+
+                            </span>
+
+                            <span class="linea linea-departamento" id="departamento"
+                                aria-label="Departamento">Huila</span>
+
+
+                            <span class="etiqueta etiqueta-municipio">
+
+                                Municipio
+
+                            </span>
+
+                            <input type="text" class="linea linea-municipio" id="municipio" name="municipio"
+                                maxlength="80" pattern="[A-Za-zÁÉÍÓÚáéíóúÜüÑñ ]+" required aria-label="Municipio">
+
+                        </div>
+
+
+                        <!-- ESTRATO -->
+
+                        <div class="fila fila-estrato">
+
+                            <span class="etiqueta">
+
+                                Estrato
+
+                            </span>
+
+                            <select class="linea estrato-select" id="estrato" name="estrato" required
+                                aria-label="Estrato">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="Comercial">Comercial</option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- LÍNEA + NÚMERO MÓVIL -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Línea o número móvil
+
+                            </span>
+                            <input type="text" class="linea linea-numero-movil" id="numeroMovil" name="numeroMovil"
+                                inputmode="numeric" maxlength="20" pattern="[0-9]+" aria-label="Línea o número móvil">
+
+                        </div>
+
+
+                        <!-- DIRECCIÓN USUARIO -->
+
+                        <div class="fila">
+
+                            <span class="etiqueta">
+
+                                Dirección del usuario
+
+                            </span>
+
+                            <input type="text" class="linea linea-direccion-usuario" id="direccionUsuario"
+                                name="direccionUsuario" maxlength="150" aria-label="Dirección del usuario">
+
+                        </div>
+
+                        <br />
+                    </div>
+
+                </div>
+                <br />
+
+                <!-- =================================================
+                     CONDICIONES COMERCIALES
+                ================================================== -->
+
+                <div class="condiciones">
+
+
+                    <div class="barra">
+
+                        CONDICIONES COMERCIALES
+                        PLAN SERVICIOS FIJOS
+
+                    </div>
+
+
+                    <table class="tabla-condiciones">
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+
+                                    Internet fijo
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr>
+
+                                <td class="descripcion">
+
+                                    Descripción
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 COLUMNA DERECHA
+            ================================================== -->
+
+            <div class="columna columna-derecha">
+                <br />
+
+                <!-- =================================================
+                     VALOR DE LOS SERVICIOS
+                ================================================== -->
+
+                <div class="valor-servicios">
+
+
+                    <div class="barra">
+
+                        VALOR DE LOS SERVICIOS CONTRATADOS
+
+                    </div>
+
+
+                    <table class="tabla-valor">
+
+                        <tbody>
+
+                            <tr>
+
+                                <td class="descripcion-valor">
+
+                                    VALOR MENSUAL PLAN<br>
+
+                                    SERVICIOS FIJOS
+
+                                </td>
+
+
+                                <td class="valor">
+
+                                    $
+
+                                    <input type="text" class="campo-valor" id="valorMensual" name="valorMensual"
+                                        inputmode="numeric" pattern="[0-9]+" required
+                                        aria-label="Valor mensual plan servicios fijos">
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+                <br />
+                <!-- =================================================
+                     INCREMENTOS TARIFARIOS
+                ================================================== -->
+
+                <div class="incrementos">
+
+
+                    <div class="barra">
+
+                        INCREMENTOS TARIFARIOS
+
+                    </div>
+
+
+                    <div class="texto-derecho">
+
+
+                        <p>
+
+                            @sonet podrá incrementar anualmente el
+                            valor de su plan hasta un máximo de ___ %
+                            del precio vigente. El cambio solo regirá
+                            en el periodo siguiente al aviso del
+                            incremento, que se enviará por el mismo
+                            canal de la factura al menos cinco (5) días
+                            hábiles antes de que termine el ciclo de
+                            facturación en curso.
+
+                        </p>
+
+
+                        <p>
+
+                            Si la nueva tarifa no le conviene, podrá
+                            terminar el contrato pagando solo lo
+                            adeudado hasta la fecha. Además, cualquier
+                            aumento fuera de lo pactado o sin su
+                            autorización le permite dar por terminado
+                            el contrato sin penalidades, incluso si
+                            existe cláusula de permanencia mínima.
+
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PRINCIPALES OBLIGACIONES
+                ================================================== -->
+
+                <div class="obligaciones">
+
+
+                    <div class="barra">
+
+                        PRINCIPALES OBLIGACIONES DEL USUARIO
+
+                    </div>
+
+                    <br />
+                    <!-- 1 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            1.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Informarse, antes de celebrar el contrato
+                            o aceptar un nuevo servicio, acerca de las
+                            condiciones del servicio.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 2 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            2.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Cumplir los términos y condiciones pactados
+                            en el contrato.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 3 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            3.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Pagar las obligaciones contraídas con el
+                            operador en las fechas acordadas.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 4 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            4.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            No cometer o ser partícipe de actividades
+                            de fraude haciendo uso de un servicio de
+                            comunicaciones.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 5 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            5.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Hacer uso adecuado y de forma respetuosa
+                            de los medios de atención dispuestos por
+                            el operador.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- 6 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            6.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Hacer uso adecuado de las redes, de los
+                            servicios y de los equipos necesarios para
+                            su prestación.
+
+                        </div>
+
+                    </div>
+
+                    <!-- 7 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            7.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Informar al operador ante cualquier falla
+                            en la prestación del servicio.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- 8 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            8.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Actuar de buena fe durante toda la relación
+                            contractual.
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- 9 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            9.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Hacer uso adecuado de su derecho a presentar
+                            PQR y en consecuencia abstenerse de
+                            presentar solicitudes reincidentes, por
+                            hechos que ya han sido objeto de decisión
+                            por el operador, excepto cuando
+                            correspondan a la presentación de un
+                            recurso.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- 10 -->
+
+                    <div class="obligacion">
+
+                        <div class="numero">
+
+                            10.
+
+                        </div>
+
+                        <div class="contenido-obligacion">
+
+                            Permitir que el operador ejecute labores
+                            tendientes a revisar el funcionamiento de
+                            los servicios, y en especial permitir la
+                            realización de revisiones o visitas técnicas
+                            previamente programadas y aceptadas.
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================================================
+             PIE DE PÁGINA
+        ========================================================== -->
+
+        <div class="pie">
+
+            Página 1 de 6
+
+        </div>
+
+
+    </div>
+
+    <!-- =========================================================
+     PÁGINA 2
+========================================================= -->
+
+    <div class="hoja pagina-2">
+        <br />
+        <br />
+
+        <div class="columnas">
+
+            <!-- =================================================
+             COLUMNA IZQUIERDA
+        ================================================== -->
+
+            <div class="columna">
+                <br />
+                <!-- =============================================
+                 CONDICIONES DE ACTIVACIÓN O INSTALACIÓN
+            ============================================== -->
+
+                <div class="incrementos">
+
+                    <div class="barra">
+                        CONDICIONES DE ACTIVACIÓN O INSTALACIÓN
+                    </div>
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            <strong>Para los servicios fijos:</strong>
+                        </p>
+
+                        <p>
+                            El plazo máximo de instalación es de 15 días hábiles,
+                            contados a partir de la suscripción del presente contrato,
+                            es decir, a más tardar día
+                            <span class="linea" style="width: 25mm;">
+                            </span>.
+                        </p>
+
+                        <p>
+                            En caso de que no sea posible la activación o instalación de
+                            alguno de los servicios contratados, usted podrá terminar
+                            el contrato sin costo alguno, ni penalidades, incluso si
+                            existe cláusula de permanencia mínima. Adicionalmente,
+                            usted tiene derecho a solicitar la devolución del dinero en
+                            caso de haber hecho un pago anticipado.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                 CALIDAD Y COMPENSACIÓN
+            ============================================== -->
+
+                <div class="incrementos">
+
+                    <div class="barra">
+                        CALIDAD Y COMPENSACIÓN
+                    </div>
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            Cuando se presente indisponibilidad del servicio o este se
+                            suspenda a pesar de su pago oportuno, lo compensaremos en
+                            su próxima factura. Debemos cumplir con las condiciones de
+                            calidad definidas por la CRC. Consúltelas en nuestra página
+                            web: www.asonet.com.co
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                 CESIÓN
+            ============================================== -->
+
+                <div class="incrementos">
+
+                    <div class="barra">
+                        CESIÓN
+                    </div>
+
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            Si quiere ceder este contrato a otra persona, debe
+                            presentar una solicitud por escrito a través de nuestros
+                            Medios de Atención, acompañada de la aceptación por
+                            escrito de la persona a la que se hará la cesión. Dentro de
+                            los 15 días hábiles siguientes, analizaremos su solicitud y
+                            le daremos una respuesta. Si se acepta la cesión queda
+                            liberado de cualquier responsabilidad con nosotros.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                 MODIFICACIÓN O TERMINACIÓN
+            ============================================== -->
+
+                <div class="incrementos">
+
+                    <div class="barra">
+                        MODIFICACIÓN O TERMINACIÓN
+                    </div>
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            Nosotros no podemos modificar el contrato sin su
+                            autorización. Esto incluye que no podemos cobrarle
+                            servicios que no haya aceptado expresamente. Si esto
+                            ocurre tiene derecho a terminar el contrato, incluso
+                            estando vigente la cláusula de permanencia mínima,
+                            aplicable únicamente para servicios fijos, sin la obligación
+                            de pagar suma alguna por este concepto.
+                        </p>
+
+                        <p>
+                            No obstante, usted puede en cualquier momento solicitar
+                            la modificación o terminación de los servicios contratados.
+                            Dicha modificación o terminación se hará efectiva en el
+                            período de facturación siguiente, para lo cual deberá
+                            presentar la respectiva solicitud por lo menos con 3 días
+                            hábiles de anterioridad a la fecha de corte de facturación,
+                            informada en su factura.
+                        </p>
+
+                        <p>
+                            Usted puede modificar o cancelar cualquiera de los
+                            servicios contratados, sean del segmento fijo o del
+                            segmento móvil, de manera independiente, caso en el
+                            cual, durante el período de facturación siguiente le
+                            enviaremos copia del contrato ajustado por el medio que
+                            usted elija.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+             COLUMNA DERECHA
+        ================================================== -->
+
+            <div class="columna columna-derecha">
+
+                <!-- =============================================
+                 SUSPENSIÓN
+            ============================================== -->
+                <br />
+                <div class="incrementos">
+
+                    <div class="barra">
+                        SUSPENSIÓN
+                    </div>
+
+                    <br />
+                    <div class="texto-derecho">
+
+                        <p>
+                            <strong>Servicios fijos:</strong>
+                            Usted tiene derecho a solicitar la suspensión del servicio
+                            por un máximo de 2 meses al año. Para esto debe presentar
+                            la solicitud antes del inicio del ciclo de facturación que
+                            desea suspender. Si existe una cláusula de permanencia
+                            mínima, su vigencia se prolongará por el tiempo que dure
+                            la suspensión.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                 PAGO Y FACTURACIÓN
+            ============================================== -->
+
+                <div class="incrementos">
+
+                    <div class="barra">
+                        PAGO Y FACTURACIÓN
+                    </div>
+                    <br />
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            Si usted está adquiriendo un paquete de servicios, recibirá
+                            una sola factura por esos servicios en la que podrá
+                            diferenciar el precio correspondiente a cada servicio y al
+                            paquete completo. Si el paquete de servicios incluye
+                            servicios del segmento móvil y del segmento fijo, usted
+                            podrá recibir una factura por cada segmento.
+                        </p>
+
+                        <p>
+                            La factura le debe llegar como mínimo 5 días hábiles antes
+                            de la fecha de pago. Si no llega, puede solicitarla a través
+                            de nuestros Medios de Atención y debe pagarla
+                            oportunamente. Usted puede pagar los servicios fijos y
+                            móviles de manera separada.
+                        </p>
+
+                        <p>
+                            Si no paga a tiempo, previo aviso, suspenderemos su
+                            servicio hasta que pague sus saldos pendientes. Los
+                            servicios fijos y móviles se suspenderán de manera
+                            separada dependiendo sobre cuál de ellos recaiga el
+                            impago. Contamos con 3 días hábiles luego de su pago
+                            para reconectarle el servicio.
+                        </p>
+
+                        <p>
+                            Si no paga a tiempo, también podemos reportar su deuda a
+                            las centrales de riesgo. Para esto tenemos que avisarle
+                            por lo menos un vez con 20 días calendario de anticipación,
+                            si su deuda es superior al 15% del salario mínimo legal
+                            mensual vigente (SMLMV). Si su deuda es igual o inferior
+                            al 15% del SMLMV, tenemos que avisarle al menos en dos
+                            ocasiones, en días diferentes, y solo podremos
+                            reportarlo pasados 20 días a partir de la segunda
+                            comunicación. Si paga luego de este reporte tenemos la
+                            obligación dentro del mes siguiente de informar su pago
+                            para que ya no aparezca reportado.
+                        </p>
+
+                        <p>
+                            Si tiene un reclamo sobre su factura, puede presentarlo
+                            antes de la fecha de pago y en ese caso no debe pagar las
+                            sumas reclamadas hasta que resolvamos su solicitud. Si ya
+                            pagó, tiene 6 meses para presentar la reclamación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================================
+         PIE DE PÁGINA
+    ========================================================== -->
+
+        <div class="pie">
+            Página 2 de 6
+        </div>
+
+    </div>
+
+
+    <!-- =============================================================
+     PÁGINA 3
+============================================================== -->
+
+    <div class="hoja pagina-3">
+
+        <div class="columnas">
+
+            <!-- =============================================
+             COLUMNA IZQUIERDA
+        ============================================== -->
+
+            <div class="columna">
+
+                <!-- COBRO POR RECONEXIÓN DEL SERVICIO -->
+                <div class="incrementos">
+
+                    <div class="barra">
+                        COBRO POR RECONEXIÓN DEL SERVICIO
+                    </div>
+
+                    <div class="texto-derecho">
+                        <p>
+                            En caso de suspensión del servicio por mora en el
+                            pago, podremos cobrarle un valor por reconexión que
+                            corresponderá estrictamente a los costos asociados a
+                            la operación de reconexión. En caso de servicios
+                            empaquetados procede máximo un cobro de reconexión
+                            por cada tipo de conexión (medio de transmisión)
+                            empleado en la prestación de los servicios.
+                        </p>
+                    </div>
+
+                    <div class="campo-reconexion">
+                        Costo reconexión servicios fijos:
+                        <span class="signo-peso">$</span>
+                        <input type="text" inputmode="numeric" id="costoReconexion"
+                            aria-label="Costo reconexión servicios fijos">
+                    </div>
+
+                </div>
+
+
+                <!-- CÓMO COMUNICARSE CON NOSOTROS -->
+                <div class="incrementos">
+
+                    <div class="barra barra-roja">
+                        CÓMO COMUNICARSE CON NOSOTROS<br>(MEDIOS DE ATENCIÓN)
+                    </div>
+
+                    <div class="medios-atencion">
+
+                        <div class="paso">
+                            <div class="numero-circulo">1</div>
+                            <div>
+                                Nuestros medios de atención son: oficinas
+                                físicas: Carrera 7 n° 7-84 centro, Garzón -
+                                Huila, Neiva: Calle 19 Sur No. 7-127 Zona
+                                Industrial. página web: www.asonet.com.co, redes
+                                sociales: Facebook, instagram, whatsapp, Líneas
+                                telefónicas: 3118666946.
+                            </div>
+                        </div>
+
+                        <div class="paso">
+                            <div class="numero-circulo">2</div>
+                            <div>
+                                Presente cualquier queja, petición o recurso a
+                                través de estos medios y le responderemos en
+                                máximo 15 días hábiles.
+                            </div>
+                        </div>
+
+                        <div class="paso">
+                            <div class="numero-circulo">3</div>
+                            <div>
+                                Si no respondemos es porque aceptamos su
+                                petición o reclamo. Esto se llama silencio
+                                administrativo positivo.
+                            </div>
+                        </div>
+
+                        <div class="subheading-medios">
+                            Si no está de acuerdo con nuestra respuesta
+                        </div>
+
+                        <div class="paso">
+                            <div class="numero-circulo">4</div>
+                            <div>
+                                Tiene la opción de insistir en su reclamo ante
+                                nosotros y pedir que, si no llegamos a una
+                                solución satisfactoria para usted, enviemos su
+                                reclamo directamente a la Superintendencia de
+                                Industria y Comercio para que resuelva de manera
+                                definitiva la disputa. Esto se llama recurso de
+                                reposición y en subsidio de apelación.
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SOBRE TUS SERVICIOS FIJOS -->
+                <div class="incrementos">
+                    <div class="barra barra-roja">
+                        SOBRE TUS SERVICIOS FIJOS
+                    </div>
+                </div>
+                <br />
+
+                <!-- CLÁUSULA DE PERMANENCIA MÍNIMA -->
+                <div class="incrementos">
+
+                    <div class="barra barra-roja">
+                        CLÁUSULA DE PERMANENCIA MÍNIMA
+                    </div>
+                    <br />
+
+                    <div class="acepto-clausula">
+                        ACEPTO LA CLÁUSULA DE PERMANENCIA MÍNIMA
+                        <input type="checkbox" class="checkbox" id="aceptaClausulaPermanencia"
+                            aria-label="Acepto la cláusula de permanencia mínima">
+                        <span class="asterisco">*</span>
+                    </div>
+
+                    <div class="nota">
+                        * Espacio diligenciado por el usuario
+                    </div>
+
+                    <div class="texto-derecho">
+                        <p>
+                            La presente cláusula de permanencia mínima, en caso
+                            de ser aceptada por usted, solo aplica respecto del
+                            plan de servicios fijos, <strong>NO APLICA SOBRE EL
+                                PLAN DE SERVICIOS MÓVILES</strong>.
+                        </p>
+                        <p>
+                            Se incluye esta cláusula en consideración a que le
+                            estamos otorgando un descuento respecto del valor
+                            del cargo por conexión, o le diferimos el pago del
+                            mismo, con ocasión de la instalación del servicio
+                            por primera vez o por una nueva instalación
+                            generada por el cambio de domicilio. En cualquier
+                            caso, solo estaría vigente una cláusula de
+                            permanencia mínima. En la factura encontrará el
+                            valor a pagar si decide terminar el contrato
+                            anticipadamente.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+             COLUMNA DERECHA
+        ============================================== -->
+
+            <div class="columna columna-derecha">
+
+                <table class="tabla-permanencia">
+                    <tr>
+                        <td class="descripcion-permanencia">Valor total del cargo por conexión</td>
+                        <td class="valor-permanencia">
+                            <div class="valor-wrap">
+                                <span class="signo-peso">$</span>
+                                <input type="text" inputmode="numeric" class="campo-tabla" id="valorCargoConexion"
+                                    aria-label="Valor total del cargo por conexión">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="descripcion-permanencia">Suma que le fue descontada o diferida del valor total del
+                            cargo de conexión</td>
+                        <td class="valor-permanencia">
+                            <div class="valor-wrap">
+                                <span class="signo-peso">$</span>
+                                <input type="text" inputmode="numeric" class="campo-tabla" id="valorDescontado"
+                                    aria-label="Suma que le fue descontada o diferida">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="descripcion-permanencia">Fecha de inicio de la permanencia mínima</td>
+                        <td class="valor-permanencia">DD/MM/AAAA</td>
+                    </tr>
+                    <tr>
+                        <td class="descripcion-permanencia">Fecha de finalización de la permanencia mínima</td>
+                        <td class="valor-permanencia">DD/MM/AAAA</td>
+                    </tr>
+                </table>
+
+
+                <!-- VALOR A PAGAR SEGÚN MES -->
+                <div class="incrementos">
+
+                    <div class="barra">
+                        VALOR A PAGAR SI TERMINA EL CONTRATO ANTICIPADAMENTE SEGÚN MES
+                    </div>
+
+                    <table class="tabla-meses">
+                        <tr>
+                            <td class="mes-nombre">Mes 1</td>
+                            <td class="mes-nombre">Mes 2</td>
+                            <td class="mes-nombre">Mes 3</td>
+                            <td class="mes-nombre">Mes 4</td>
+                            <td class="mes-nombre">Mes 5</td>
+                            <td class="mes-nombre">Mes 6</td>
+                        </tr>
+                        <tr>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes1"
+                                        aria-label="Valor mes 1"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes2"
+                                        aria-label="Valor mes 2"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes3"
+                                        aria-label="Valor mes 3"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes4"
+                                        aria-label="Valor mes 4"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes5"
+                                        aria-label="Valor mes 5"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes6"
+                                        aria-label="Valor mes 6"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mes-nombre">Mes 7</td>
+                            <td class="mes-nombre">Mes 8</td>
+                            <td class="mes-nombre">Mes 9</td>
+                            <td class="mes-nombre">Mes 10</td>
+                            <td class="mes-nombre">Mes 11</td>
+                            <td class="mes-nombre">Mes 12</td>
+                        </tr>
+                        <tr>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes7"
+                                        aria-label="Valor mes 7"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes8"
+                                        aria-label="Valor mes 8"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes9"
+                                        aria-label="Valor mes 9"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes10"
+                                        aria-label="Valor mes 10"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes11"
+                                        aria-label="Valor mes 11"></div>
+                            </td>
+                            <td class="mes-valor">
+                                <div class="valor-wrap"><span class="signo-peso"></span><input type="text"
+                                        inputmode="numeric" class="campo-tabla campo-mes" id="mes12"
+                                        aria-label="Valor mes 12"></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="texto-derecho">
+                        <p>
+                            Encontrará los detalles sobre la permanencia mínima
+                            de los servicios fijos en su factura.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- CAMBIO DE DOMICILIO -->
+                <div class="incrementos gap-reducido">
+
+                    <div class="barra barra-roja">
+                        CAMBIO DE DOMICILIO
+                    </div>
+
+                    <div class="texto-derecho">
+                        <p>
+                            Usted puede cambiar de domicilio y continuar con el
+                            servicio siempre que sea técnicamente posible. Si
+                            desde el punto de vista técnico no es viable el
+                            traslado del servicio, usted puede ceder su
+                            contrato a un tercero o terminarlo pagando el valor
+                            de la cláusula de permanencia mínima si está
+                            vigente.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- ENTREGA Y DEVOLUCIÓN DE EQUIPOS -->
+                <div class="incrementos">
+
+                    <div class="barra barra-roja">
+                        ENTREGA Y DEVOLUCIÓN DE EQUIPOS
+                    </div>
+
+                    <div class="texto-derecho">
+                        <p>
+                            @sonet entrega los equipos en el plan de servicios
+                            fijos bajo las siguientes condiciones:
+                        </p>
+                    </div>
+
+                    <table class="tabla-equipos">
+                        <tr>
+                            <th>Equipo</th>
+                            <th>Condición de entrega</th>
+                            <th>Precio</th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="campo-tabla" aria-label="Equipo"></td>
+                            <td><input type="text" class="campo-tabla" aria-label="Condición de entrega"></td>
+                            <td><input type="text" class="campo-tabla" aria-label="Precio"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="campo-tabla" aria-label="Equipo"></td>
+                            <td><input type="text" class="campo-tabla" aria-label="Condición de entrega"></td>
+                            <td><input type="text" class="campo-tabla" aria-label="Precio"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="campo-tabla" aria-label="Equipo"></td>
+                            <td><input type="text" class="campo-tabla" aria-label="Condición de entrega"></td>
+                            <td><input type="text" class="campo-tabla" aria-label="Precio"></td>
+                        </tr>
+                    </table>
+
+                    <div class="texto-derecho">
+                        <p>
+                            Al terminar este contrato usted deberá devolver los
+                            equipos entregados. En este sentido, deberá atender
+                            la cita que se programe para la recolección de los
+                            equipos en el lugar de instalación. En caso de no
+                            atender esta cita, los equipos deberán ser
+                            entregados en el centro de atención que le
+                            indiquemos.
+                        </p>
+                        <p>
+                            El hurto, pérdida o daño de equipos deberá
+                            reportarse a <strong>3118666946</strong>.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================================
+         PIE DE PÁGINA
+    ========================================================== -->
+
+        <div class="pie">
+            Página 3 de 6
+        </div>
+
+    </div>
+    <!-- =============================================================
+     PÁGINA 4
+============================================================== -->
+
+    <div class="hoja pagina-4">
+
+        <div class="columnas">
+
+            <!-- =================================================
+             COLUMNA IZQUIERDA
+        ================================================== -->
+
+            <div class="columna">
+
+                <div class="incrementos">
+
+                    <div class="barra">
+                        OTRAS CONDICIONES
+                    </div>
+
+                    <div class="texto-derecho">
+
+                        <p>
+                            <strong>1. Uso y manipulación de equipos:</strong>
+                            El usuario deberá hacer uso adecuado de los equipos y
+                            elementos suministrados o instalados por ASONET COLOMBIA
+                            S.A.S. y abstenerse de abrirlos, modificarlos,
+                            desinstalarlos o trasladarlos por cuenta propia. Las
+                            actividades técnicas sobre dichos equipos deberán ser
+                            realizadas por personal autorizado por el operador.
+                        </p>
+
+                        <p>
+                            <strong>2. Reubicación de equipos:</strong>
+                            La reubicación de los equipos o elementos instalados por
+                            ASONET COLOMBIA S.A.S. dentro del inmueble deberá ser
+                            previamente solicitada y coordinada con el operador, con
+                            el fin de verificar las condiciones técnicas requeridas
+                            para la adecuada prestación del servicio.
+                        </p>
+
+                        <p>
+                            <strong>3. Visitas y acceso técnico:</strong>
+                            Cuando resulte necesario realizar actividades relacionadas
+                            con el mantenimiento, reparación, diagnóstico,
+                            actualización o reubicación de los equipos asociados al
+                            servicio, el usuario deberá facilitar, previa
+                            coordinación, el acceso al lugar de prestación del
+                            servicio, de conformidad con las condiciones y
+                            procedimientos establecidos por ASONET COLOMBIA S.A.S.
+                        </p>
+
+                        <p>
+                            <strong>4. Instalaciones internas y elementos del usuario:</strong>
+                            El usuario deberá mantener en condiciones adecuadas las
+                            instalaciones internas, el suministro eléctrico y los
+                            demás elementos de su propiedad que resulten necesarios
+                            para el funcionamiento de los equipos asociados al
+                            servicio. Los equipos, dispositivos, repetidores,
+                            routers, sistemas de distribución inalámbrica, cableado
+                            u otros elementos de propiedad del usuario o de terceros
+                            no hacen parte de los equipos suministrados por ASONET
+                            COLOMBIA S.A.S., salvo que hayan sido expresamente
+                            incluidos en los servicios contratados.
+                        </p>
+
+                        <p>
+                            <strong>5. Intervención o manipulación por terceros:</strong>
+                            Cuando se evidencie técnicamente la intervención,
+                            modificación o manipulación no autorizada de los equipos
+                            o elementos de red instalados por ASONET COLOMBIA S.A.S.,
+                            el operador podrá realizar las acciones técnicas
+                            necesarias para restablecer las condiciones adecuadas
+                            de prestación del servicio, de conformidad con la
+                            regulación vigente.
+                        </p>
+
+                        <p>
+                            <strong>6. Factibilidad técnica para cambio de domicilio:</strong>
+                            Las solicitudes de cambio de domicilio estarán sujetas
+                            a la verificación de factibilidad técnica, cobertura,
+                            disponibilidad de infraestructura y demás condiciones
+                            necesarias para la prestación del servicio en la nueva
+                            dirección. El resultado de dicha verificación será
+                            informado al usuario, de conformidad con los derechos y
+                            alternativas establecidos en el presente contrato y en
+                            la regulación vigente.
+                        </p>
+
+                        <p>
+                            <strong>7. Condiciones particulares de instalación:</strong>
+                            La instalación del servicio incluye hasta ciento
+                            cincuenta (150) metros de tendido de fibra óptica.
+                            Cuando, de acuerdo con las condiciones técnicas
+                            requeridas para la instalación, sea necesario superar
+                            dicha longitud, cada metro adicional a los ciento
+                            cincuenta (150) metros incluidos tendrá un valor de
+                            MIL SETECIENTOS PESOS M/CTE ($1.700) por metro
+                            adicional.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+             COLUMNA DERECHA
+        ================================================== -->
+
+            <div class="columna columna-derecha">
+
+                <!-- CONTINUACIÓN PUNTO 7 -->
+
+                <div class="continuacion-punto-7">
+
+                    <p>
+                        El metraje requerido y el valor correspondiente serán
+                        informados al usuario previamente a la ejecución de la
+                        instalación y deberán ser aceptados por este.
+                    </p>
+                    <br />
+                    <p>
+                        <strong>
+                            8. Condiciones de conectividad inalámbrica y reporte
+                            de fallas:
+                        </strong>
+                        La experiencia de conexión mediante redes inalámbricas
+                        dentro del inmueble puede variar de acuerdo con las
+                        características físicas del lugar, distancia respecto del
+                        equipo de acceso, obstáculos, interferencias, cantidad de
+                        dispositivos conectados y demás condiciones propias de la
+                        red interna. Lo anterior se entiende sin perjuicio de las
+                        condiciones de calidad y velocidad correspondientes al
+                        servicio contratado y de las obligaciones regulatorias del
+                        operador. El usuario deberá informar oportunamente las
+                        fallas que identifique en la prestación del servicio a
+                        través de los medios de atención habilitados por ASONET
+                        COLOMBIA S.A.S., suministrando la información necesaria para
+                        facilitar la identificación y atención de la incidencia.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                 INFORMACIÓN ADICIONAL
+            ================================================== -->
+                <br />
+                <div class="informacion-adicional">
+
+                    <div class="informacion-adicional-titulo">
+                        INFORMACIÓN ADICIONAL
+                    </div>
+
+
+                    <div class="fila-vivienda">
+
+                        <span>Tipo de Vivienda:</span>
+
+                        <span>
+                            Propia
+                            <input type="checkbox" class="checkbox" id="viviendaPropia" name="viviendaPropia">
+                        </span>
+
+                        <span>
+                            Arriendo
+                            <input type="checkbox" class="checkbox" id="viviendaArriendo" name="viviendaArriendo">
+                        </span>
+
+                        <span>
+                            Familiar
+                            <input type="checkbox" class="checkbox" id="viviendaFamiliar" name="viviendaFamiliar">
+                        </span>
+
+                    </div>
+
+
+                    <!-- REFERENCIA PERSONAL -->
+
+                    <div class="referencia-titulo">
+                        Referencia Personal (2).
+                    </div>
+
+                    <div class="fila-referencia">
+
+                        <span class="etiqueta-referencia">
+                            Nombre:
+                        </span>
+
+                        <input type="text" id="nombreReferenciaPersonal1" name="nombreReferenciaPersonal1"
+                            class="linea campo-referencia-nombre" maxlength="100">
+
+                    </div>
+
+
+                    <div class="fila-referencia celular">
+
+                        <span class="etiqueta-referencia">
+                            Cel.
+                        </span>
+
+                        <input type="text" id="celReferenciaPersonal1" name="celReferenciaPersonal1"
+                            class="linea campo-referencia-celular" inputmode="numeric" maxlength="15">
+
+                    </div>
+
+
+                    <div class="fila-referencia">
+
+                        <span class="etiqueta-referencia">
+                            Nombre:
+                        </span>
+
+                        <input type="text" id="nombreReferenciaPersonal2" name="nombreReferenciaPersonal2"
+                            class="linea campo-referencia-nombre" maxlength="100">
+
+                    </div>
+
+
+                    <div class="fila-referencia celular">
+
+                        <span class="etiqueta-referencia">
+                            Cel.
+                        </span>
+
+                        <input type="text" id="celReferenciaPersonal2" name="celReferenciaPersonal2"
+                            class="linea campo-referencia-celular" inputmode="numeric" maxlength="15">
+
+                    </div>
+
+
+                    <!-- REFERENCIA FAMILIAR -->
+
+                    <div class="referencia-titulo">
+                        Referencia Familiar (1).
+                    </div>
+
+                    <div class="fila-referencia">
+
+                        <span class="etiqueta-referencia">
+                            Nombre:
+                        </span>
+
+                        <input type="text" id="nombreReferenciaFamiliar" name="nombreReferenciaFamiliar"
+                            class="linea campo-referencia-nombre" maxlength="100">
+
+                    </div>
+
+
+                    <div class="fila-referencia referencia-familiar-celular">
+
+                        <span class="etiqueta-referencia">
+                            Cel.
+                        </span>
+
+                        <input type="text" id="celReferenciaFamiliar" name="celReferenciaFamiliar"
+                            class="linea campo-referencia-celular" inputmode="numeric" maxlength="15">
+
+                    </div>
+
+
+                    <!-- PERSONA -->
+
+                    <div class="fila-persona">
+
+                        <span>
+                            Persona:
+                        </span>
+
+                        <span>
+                            Jurídica
+                            <input type="checkbox" class="checkbox" id="personaJuridica" name="personaJuridica">
+                        </span>
+
+                        <span>
+                            Natural
+                            <input type="checkbox" class="checkbox" id="personaNatural" name="personaNatural">
+                        </span>
+
+                    </div>
+
+
+                    <!-- REPRESENTANTE LEGAL -->
+
+                    <div class="fila-representante">
+
+                        <span class="etiqueta-representante">
+                            Representante Legal
+                        </span>
+
+                        <input type="text" id="representanteLegal" name="representanteLegal"
+                            class="linea campo-representante" maxlength="100">
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                 ACEPTACIÓN DEL CONTRATO
+            ================================================== -->
+
+                <div class="aceptacion-contrato">
+                    <BR />
+                    <BR />
+                    <BR />
+                    <BR />
+                    <BR />
+                    <div class="linea-aceptacion"></div>
+
+                    <div class="texto-aceptacion">
+                        Aceptación contrato mediante firma o cualquier<br>
+                        otro medio válido
+                    </div>
+
+                    <div class="fila-fecha-aceptacion">
+
+                        <span>
+                            Fecha
+                        </span>
+
+                        <input type="text" id="fechaAceptacion" name="fechaAceptacion"
+                            class="campo-fecha fecha-aceptacion" placeholder="DD/MM/AAAA" maxlength="10">
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                 ASESOR
+            ================================================== -->
+
+                <div class="asesor-contrato">
+
+                    <strong>
+                        Asesor:
+                    </strong>
+
+                    <input type="text" id="asesorContrato" name="asesorContrato" class="linea campo-asesor"
+                        maxlength="100">
+
+                </div>
+
+
+                <!-- =================================================
+                 NOTA FINAL
+            ================================================== -->
+
+                <div class="nota-final">
+
+                    Consulte el régimen de protección de los derechos de los usuarios
+                    de comunicaciones en www.crcom.gov.co
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================================
+         PIE DE PÁGINA
+    ========================================================== -->
+
+        <div class="pie">
+            Página 4 de 6
+        </div>
+
+    </div>
+    <div class="hoja pagina-5">
+
+        <!-- =================================================
+         ENCABEZADO
+    ================================================== -->
+
+        <div class="encabezado">
+
+            <img src="logo-sonet-light.png" alt="Asonet Colombia" class="logo">
+
+            <div class="titulo">
+
+                ANEXO DE<br>
+
+                DISPOSICIONES LEGALES
+
+            </div>
+
+        </div>
+
+
+        <div class="columnas">
+
+            <!-- =============================================
+             COLUMNA IZQUIERDA
+        ============================================== -->
+
+            <div class="columna">
+                <BR />
+                <div class="barra">
+                    1. AUTORIZACIÓN CENTRALES DE RIESGO
+                </div>
+
+                <div class="texto-derecho">
+
+                    <p>
+                        Con la suscripción del Contrato de prestación de
+                        servicios de telecomunicaciones en los términos de las
+                        leyes 1266 de 2008 EL USUARIO autoriza a @SONET
+                        COLOMBIA SAS en adelante @SONET para que consulte de
+                        cualquier fuente y/o reporte y/o actualice a cualquier
+                        operador de información, y sea fuente de información
+                        respecto a los datos sobre su persona, nombre,
+                        apellidos y documento de identificación, su
+                        comportamiento y crédito comercial, hábitos de pago,
+                        manejo de su(s) cuenta(s) corriente(s) bancaria(s) y en
+                        general al cumplimiento de sus obligaciones comerciales
+                        y pecuniarias, con el fin de verificar sus condiciones
+                        para acceder y/o modificar productos o servicios en
+                        @SONET. Así mismo, de conformidad con lo dispuesto en
+                        el artículo del Decreto 1377 de 2013, y sin perjuicio
+                        del derecho que le asiste al usuario de abstenerse de
+                        autorizar el tratamiento de datos sensibles, el usuario
+                        manifiesta que autoriza de manera libre, previa,
+                        informada, voluntaria y expresa el tratamiento de
+                        datos sensibles (huella dactilar), con la finalidad de
+                        validar su identidad.
+                    </p>
+
+                    <p>
+                        Para esta última finalidad, también autoriza a @SONET
+                        de manera libre, previa, informada, voluntaria y
+                        expresa el tratamiento del dato sensible de voz y para
+                        que valide la identidad en los contactos telefónicos
+                        que realice con @SONET. A estos efectos la autorización
+                        otorgada resulta irrevocable mientras existan
+                        obligaciones contractuales entre las partes. Del mismo
+                        modo, el USUARIO, otorga a @SONET expresa autorización
+                        para llevar a cabo el tratamiento de sus datos
+                        personales. La política de tratamiento de datos de
+                        @SONET, se encuentra disponible para consulta en
+                        www.asonet.com.co Así mismo autoriza expresa a @SONET
+                        para que puedan comunicarse conmigo a través de
+                        WhatsApp a la línea móvil y correos electrónicos
+                        suministrados.
+                    </p>
+                    <BR />
+                    <p>
+                        <strong>PARÁGRAFO PRIMERO.</strong>
+                        Previa la realización de eventuales reportes a las
+                        centrales de información sobre comportamiento
+                        crediticio del USUARIO, @SONET le remitirá comunicación
+                        con una antelación de por lo menos veinte (20) días
+                        calendario a la fecha en que se produzca el reporte,
+                        indicando la obligación en mora que generó el reporte,
+                        el monto y el fundamento de la misma.
+                    </p>
+                    <BR />
+                    <p>
+                        <strong>PARÁGRAFO SEGUNDO.</strong>
+                        @SONET informa al USUARIO que sus datos personales
+                        suministrados en virtud de la Suscripción del contrato
+                        de prestación de servicios de telecomunicaciones serán
+                        objeto de reporte únicamente para los siguientes
+                        propósitos: para consulta y reporte de información ante
+                        operadores de bancos de datos de contenido crediticio y
+                        financiero.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+             COLUMNA DERECHA
+        ============================================== -->
+
+            <div class="columna columna-derecha">
+                <BR />
+                <div class="barra">
+                    2. AUTORIZACIÓN PARA EL TRATAMIENTO DE DATOS PERSONALES
+                </div>
+
+                <div class="texto-derecho">
+
+                    <p>
+                        EL USUARIO puede en cualquier momento ejercer los
+                        derechos previstos en el artículo 8 de la Ley 1581 de
+                        2012; en especial: a) Conocer, actualizar y rectificar
+                        sus datos personales frente a los Responsables del
+                        Tratamiento y Encargados del Tratamiento. Este derecho
+                        se podrá ejercer, entre otros frente a datos parciales,
+                        inexactos, incompletos, fraccionados, que induzcan a
+                        error, o aquellos cuyo Tratamiento esté expresamente
+                        prohibido o no haya sido autorizado; b) Solicitar
+                        prueba de la autorización otorgada al Responsable del
+                        Tratamiento salvo cuando expresamente se exceptúe como
+                        requisito para el Tratamiento, de conformidad con lo
+                        previsto en el artículo 10 de la mencionada ley; c) Ser
+                        informado por el Responsable del Tratamiento o el
+                        Encargado del Tratamiento, previa solicitud, respecto
+                        del uso que le ha dado a sus datos personales; d)
+                        Presentar ante la Superintendencia de Industria y
+                        Comercio quejas por infracciones a lo dispuesto en la
+                        referida ley y las demás normas que la modifiquen,
+                        adicionen o complementen; e) Revocar la autorización
+                        y/o solicitar la supresión del dato cuando en el
+                        Tratamiento no se respeten los principios, derechos y
+                        garantías constitucionales y legales.
+                    </p>
+                    <br />
+                    <p>
+                        La revocatoria y/o supresión procederá cuando la
+                        Superintendencia de Industria y Comercio haya
+                        determinado que en el Tratamiento el Responsable o
+                        Encargado han incurrido en conductas contrarias a la
+                        Ley y la Constitución. Sin perjuicio del derecho que
+                        asiste a los titulares de la información de solicitar
+                        revocatoria o supresión de la información, con los
+                        siguientes datos: nombre y apellidos, domicilio a
+                        efectos de notificaciones, petición en que se concreta
+                        la solicitud, fecha, firma de la persona interesada,
+                        éstas medidas no procederán cuando exista una
+                        obligación legal o contractual que imponga al usuario
+                        el deber de permanecer en nuestras bases de datos;
+
+                        f) Acceder en forma gratuita sus datos personales que
+                        hayan sido objeto de Tratamiento.
+                    </p>
+                    <br />
+                    <p>
+                        <strong>PARÁGRAFO TERCERO.</strong>
+                        El responsable de tratamiento de la información es
+                        @SONET.com NIT.900669038-6, dirección principal
+                        CRA7#7-84 Centro Garzón Huila y teléfono 3118666946.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================================
+         PIE DE PÁGINA
+    ========================================================== -->
+
+        <div class="pie">
+            Página 5 de 6
+        </div>
+
+    </div>
+    <div class="hoja pagina-6">
+        <div class="columna-unica">
+            <div class="barra">
+                3. PORNOGRAFÍA INFANTIL
+            </div>
+
+            <div class="texto-derecho">
+
+                <p>
+                    En cumplimiento de la Ley 679 de 2001 y conforme a lo
+                    establecido en los artículos 4 y 5 del Decreto 1524 de 2012,
+                    los proveedores o servidores, administradores y usuarios de
+                    redes globales de información no podrán alojar en su propio
+                    sitio: a). imágenes, textos o archivos que impliquen directa o
+                    indirectamente actividades sexuales con menores de edad, b).
+                    material pornográfico, cuando existan indicios que las
+                    personas fotografiadas o filmadas son menores de edad, c).
+                    vínculos sobre sitios telemáticos que contengan o distribuyan
+                    material pornográfico relativo a menores de edad. Deberá: a.
+                    Denunciar ante las autoridades competentes cualquier acto
+                    criminal contra menores de edad que tenga conocimiento. b.
+                    Combatir con todos los medios técnicos a su alcance la
+                    difusión de material pornográfico asociado a menores. c.
+                    Abstenerse de usar las redes globales de información para la
+                    divulgación de material ilegal con menores de edad. d.
+                    Establecer mecanismos técnicos de bloqueo por medio de los
+                    cuales los usuarios puedan proteger a sí mismos o a sus hijos
+                    de material ilegal, ofensivo o indeseable en relación con
+                    menores de edad. El incumplimiento de estas prohibiciones
+                    acarreará las sanciones administrativas y penales
+                    contempladas en las normas señaladas.
+                </p>
+
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <hr class="linea-divisoria">
+
+            <div class="firma-titulo">
+                Firma del Suscriptor
+            </div>
+
+            <div class="caja-documento">
+
+                <div class="fila-documento">
+                    <span class="etiqueta-documento">TIPO DE DOCUMENTO:</span>
+                    <input type="text" class="campo-documento" id="tipoDocumentoFirma" aria-label="Tipo de documento">
+                </div>
+
+                <div class="fila-documento">
+                    <span class="etiqueta-documento">NÚMERO DOCUMENTO:</span>
+                    <input type="text" inputmode="numeric" class="campo-documento" id="numeroDocumentoFirma"
+                        aria-label="Número de documento">
+                </div>
+
+                <div class="fila-documento">
+                    <span class="etiqueta-documento">FECHA:</span>
+                    <input type="text" class="campo-documento" id="fechaFirma" aria-label="Fecha">
+                </div>
+
+            </div>
+
+            <div class="nota-legal">
+                Consulte el régimen de protección de usuarios en
+                www.crcom.gov.co
+            </div>
+
+
+            <!-- =========================================================
+         PIE DE PÁGINA
+    ========================================================== -->
+        </div>
+        <div class="pie">
+            Página 6 de 6
+        </div>
+
+    </div>
+    <script>
+        (function () {
+            "use strict";
+
+            const soloNumeros = (input, maxLength) => {
+                input.addEventListener("input", function () {
+                    this.value = this.value.replace(/\D/g, "").slice(0, maxLength);
+                });
+            };
+
+            const soloLetras = (input) => {
+                input.addEventListener("input", function () {
+                    this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÜüÑñ ]/g, "");
+                });
+            };
+
+            const contrato = document.getElementById("numeroContrato");
+            const identificacion = document.getElementById("identificacion");
+            const vigencia = document.getElementById("vigenciaMeses");
+            const nombre = document.getElementById("nombreRazonSocial");
+            const municipio = document.getElementById("municipio");
+            const telefono = document.getElementById("telefonoContacto");
+            const movil = document.getElementById("numeroMovil");
+            const valor = document.getElementById("valorMensual");
+
+            soloNumeros(contrato, 10);
+            soloNumeros(valor, 20);
+
+            const costoReconexion = document.getElementById("costoReconexion");
+            const valorCargoConexion = document.getElementById("valorCargoConexion");
+            const valorDescontado = document.getElementById("valorDescontado");
+
+            if (costoReconexion) soloNumeros(costoReconexion, 15);
+            if (valorCargoConexion) soloNumeros(valorCargoConexion, 15);
+            if (valorDescontado) soloNumeros(valorDescontado, 15);
+
+            for (let i = 1; i <= 12; i++) {
+                const campoMes = document.getElementById("mes" + i);
+                if (campoMes) soloNumeros(campoMes, 12);
+            }
+            soloNumeros(movil, 20);
+
+            soloLetras(nombre);
+            soloLetras(municipio);
+            // Página 4 — Referencia Personal
+            const nombreRef1 = document.getElementById("nombreReferenciaPersonal1");
+            const celRef1 = document.getElementById("celReferenciaPersonal1");
+            const nombreRef2 = document.getElementById("nombreReferenciaPersonal2");
+            const celRef2 = document.getElementById("celReferenciaPersonal2");
+
+            // Página 4 — Referencia Familiar
+            const nombreRefFamiliar = document.getElementById("nombreReferenciaFamiliar");
+            const celRefFamiliar = document.getElementById("celReferenciaFamiliar");
+
+            // Página 4 — Representante Legal y Asesor
+            const representanteLegal = document.getElementById("representanteLegal");
+            const asesorContrato = document.getElementById("asesorContrato");
+
+            if (nombreRef1) soloLetras(nombreRef1);
+            if (celRef1) soloNumeros(celRef1, 15);
+            if (nombreRef2) soloLetras(nombreRef2);
+            if (celRef2) soloNumeros(celRef2, 15);
+            if (nombreRefFamiliar) soloLetras(nombreRefFamiliar);
+            if (celRefFamiliar) soloNumeros(celRefFamiliar, 15);
+            if (representanteLegal) soloLetras(representanteLegal);
+            if (asesorContrato) soloLetras(asesorContrato);
+            contrato.addEventListener("input", function () {
+                identificacion.value = this.value;
+            });
+
+            vigencia.addEventListener("input", function () {
+                if (this.value !== "") {
+                    let n = parseInt(this.value, 10);
+                    if (Number.isNaN(n)) {
+                        this.value = "";
+                        return;
+                    }
+                    if (n < 0) this.value = "0";
+                    if (n > 12) this.value = "12";
+                }
+            });
+
+            telefono.addEventListener("input", function () {
+                let value = this.value.replace(/\D/g, "").slice(0, 20);
+
+                if (value.length > 10) {
+                    value = value.slice(0, 10) + "-" + value.slice(10);
+                }
+
+                this.value = value;
+            });
+            // Página 4 — Fecha automática de aceptación
+            const fechaAceptacion = document.getElementById("fechaAceptacion");
+
+            if (fechaAceptacion) {
+                const hoy = new Date();
+                const dia = String(hoy.getDate()).padStart(2, "0");
+                const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+                const anio = hoy.getFullYear();
+
+                fechaAceptacion.value = `${dia}/${mes}/${anio}`;
+                fechaAceptacion.readOnly = true;
+            }
+            // Página 6 — Firma del Suscriptor
+            const tipoDocumentoFirma = document.getElementById("tipoDocumentoFirma");
+            const numeroDocumentoFirma = document.getElementById("numeroDocumentoFirma");
+            const fechaFirma = document.getElementById("fechaFirma");
+
+            if (tipoDocumentoFirma) soloLetras(tipoDocumentoFirma);
+
+            if (numeroDocumentoFirma) {
+                numeroDocumentoFirma.readOnly = true;
+                numeroDocumentoFirma.value = contrato.value;
+
+                contrato.addEventListener("input", function () {
+                    numeroDocumentoFirma.value = this.value;
+                });
+            }
+
+            if (fechaFirma) {
+                const hoy = new Date();
+                const dia = String(hoy.getDate()).padStart(2, "0");
+                const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+                const anio = hoy.getFullYear();
+
+                fechaFirma.value = `${dia}/${mes}/${anio}`;
+                fechaFirma.readOnly = true;
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

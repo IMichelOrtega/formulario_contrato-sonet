@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@sonet — Dashboard Asesor</title>
+    <title>@sonet — Panel Asesor</title>
+    <link rel="icon" type="image/png" href="asonet-removebg-preview.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
     <style>
@@ -105,7 +106,7 @@
             font-weight: 800;
             color: #fff;
             flex-shrink: 0;
-            font-family: 'Syne', sans-serif
+            font-family: 'Space Grotesk', sans-serif
         }
 
         .u-name {
@@ -380,10 +381,11 @@
         }
 
         .kpi-num {
-            font-family: 'Syne', sans-serif;
-            font-size: 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 36px;
             font-weight: 800;
-            letter-spacing: -1px;
+            font-variant-numeric: tabular-nums lining-nums;
+            letter-spacing: -0.03em;
             line-height: 1;
             margin-bottom: 4px
         }
@@ -682,11 +684,6 @@
             cursor: not-allowed
         }
 
-        /* mobile bottom nav */
-        .mobile-nav {
-            display: none
-        }
-
         /* ── ANIMATIONS ── */
         @keyframes fadeUp {
             from {
@@ -734,7 +731,7 @@
             }
 
             .content {
-                padding: 18px 16px 90px
+                padding: 18px 16px 24px
             }
 
             .kpi-row {
@@ -743,49 +740,13 @@
             }
 
             .kpi-num {
-                font-size: 26px
+                font-size: 30px
             }
 
             .s-inp {
                 width: 150px
             }
 
-            .mobile-nav {
-                display: flex;
-                justify-content: space-around;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: var(--sb2);
-                border-top: 1px solid var(--bdr);
-                padding: 10px 0 20px;
-                z-index: 150
-            }
-
-            .mnav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 3px;
-                font-size: 11px;
-                font-weight: 600;
-                color: var(--t3);
-                cursor: pointer;
-                border: none;
-                background: none;
-                text-decoration: none;
-                transition: color .15s;
-                padding: 0 10px
-            }
-
-            .mnav-item i {
-                font-size: 22px
-            }
-
-            .mnav-item.act {
-                color: var(--b)
-            }
         }
 
         @media(max-width:540px) {
@@ -849,7 +810,7 @@
         .modal-header h3 {
             font-size: 18px;
             font-weight: 700;
-            font-family: 'Syne', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -1023,18 +984,17 @@
         <div class="user-pill">
             <div class="av" id="sb-avatar">JP</div>
             <div>
-                <div class="u-name" id="sb-name">Juan Pérez</div>
+                <div class="u-name" id="sb-name">Cargando...</div>
                 <div class="u-role" id="sb-role">Asesor comercial</div>
             </div>
         </div>
 
         <nav>
             <button class="ni act">
-                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Inicio
             </button>
             <button class="ni" onclick="window.location.href='contrato.html'">
                 <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
-                <span class="nbadge" id="sb-pending-badge">0</span>
             </button>
             <button class="ni" onclick="window.location.href='cliente.html'">
                 <i class="ti ti-users" aria-hidden="true"></i>Clientes
@@ -1042,10 +1002,6 @@
         </nav>
 
         <div class="sb-bot">
-            <button class="mnav-item" onclick="window.location.href='contrato.html'">
-            <i class="ti ti-file-text" aria-hidden="true"></i>
-            <span>Contratos</span>
-        </button>
             <button class="ni" onclick="logout()">
                 <i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión
             </button>
@@ -1062,12 +1018,12 @@
                     <i class="ti ti-menu-2" aria-hidden="true"></i>
                 </button>
                 <div>
-                    <div class="tb-title">Panel de control</div>
+                    <div class="tb-title" id="tb-welcome">Bienvenido, Asesor</div>
                     <div class="tb-sub" id="today-date"></div>
                 </div>
             </div>
             <div class="tb-r">
-                <div class="ib" id="topbar-avatar" title="Perfil" style="font-size:12px;font-weight:800;color:#1a56db;font-family:'Syne',sans-serif;">JP</div>
+                <div class="ib" id="topbar-avatar" title="Perfil" style="font-size:12px;font-weight:800;color:#1a56db;font-family:'Space Grotesk',sans-serif;">JP</div>
             </div>
         </header>
 
@@ -1101,19 +1057,34 @@
                         <path d="M0,32 30,28 60,20 90,16 120,8 120,36 0,36Z" fill="rgba(34,197,94,0.10)" />
                     </svg>
                 </div>
-                <div class="kpi">
-                    <div class="kpi-top">
-                        <div class="kpi-icon ki-a"><i class="ti ti-file-check" aria-hidden="true"></i></div>
-                        <span class="kpi-badge kb-flat">PDF</span>
+            </div>
+
+            <!-- ADMIN: Resumen por asesor -->
+            <div id="admin-asesores-panel" style="display:none;">
+                <div class="tbl-card">
+                    <div class="tbl-hd">
+                        <div class="tbl-title">
+                            <i class="ti ti-users-group" aria-hidden="true"></i>
+                            Contratos por Asesor
+                        </div>
                     </div>
-                    <div class="kpi-num" id="stat-pdf">0</div>
-                    <div class="kpi-lbl">Con PDF generado</div>
-                    <svg class="kpi-spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true">
-                        <polyline points="0,28 20,24 40,22 60,18 80,18 100,14 120,12" fill="none" stroke="#f59e0b"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M0,28 20,24 40,22 60,18 80,18 100,14 120,12 120,36 0,36Z"
-                            fill="rgba(245,158,11,0.10)" />
-                    </svg>
+                    <div class="tbl-wrap">
+                        <table id="asesores-table">
+                            <thead>
+                                <tr>
+                                    <th>Asesor</th>
+                                    <th style="text-align:center">Total</th>
+                                    <th style="text-align:center"><i class="ti ti-wifi"></i> Internet</th>
+                                    <th style="text-align:center"><i class="ti ti-device-tv"></i> Televisión</th>
+                                </tr>
+                            </thead>
+                            <tbody id="asesores-tbody"></tbody>
+                        </table>
+                        <div class="empty-state" id="asesores-empty" style="display:none;">
+                            <i class="ti ti-users" aria-hidden="true"></i>
+                            <p>Sin datos de asesores</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1127,10 +1098,6 @@
                             <input class="s-inp" type="text" id="search-input" placeholder="Buscar cliente o CC…"
                                 oninput="filterTable()">
                         </div>
-                        <button class="btn-p" onclick="nuevoContrato()">
-                            <i class="ti ti-plus" aria-hidden="true"></i>
-                            <span>Nuevo contrato</span>
-                        </button>
                     </div>
                 </div>
 
@@ -1220,6 +1187,10 @@
                         <label class="form-label">Departamento</label>
                         <input type="text" id="nc-departamento" class="form-input" value="Huila">
                     </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" id="nc-direccion" class="form-input" placeholder="Dirección del cliente">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -1231,212 +1202,34 @@
         </div>
     </div>
 
-    <!-- MOBILE BOTTOM NAV -->
-    <nav class="mobile-nav">
-        <a class="mnav-item act" href="dasboard.html"><i class="ti ti-layout-dashboard"></i>Inicio</a>
-        <a class="mnav-item" href="contrato.html"><i class="ti ti-file-text"></i>Contratos</a>
-        <a class="mnav-item" href="cliente.html"><i class="ti ti-users"></i>Clientes</a>
-        <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
-    </nav>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="pdf-generator.js"></script>
+
+    <script>
+        // Carga inmediata del nombre del asesor desde sessionStorage
+        (function () {
+            document.addEventListener('DOMContentLoaded', function () {
+                var user = null;
+                try { user = JSON.parse(sessionStorage.getItem('user') || 'null'); } catch (e) {}
+                if (!user) { window.location.href = 'index.html'; return; }
+                var name = user.name || 'Asesor';
+                var ini = user.iniciales || name.split(' ').slice(0, 2).map(function (p) { return p[0]; }).join('').toUpperCase() || 'U';
+                var sbName = document.getElementById('sb-name');
+                var sbAv = document.getElementById('sb-avatar');
+                var topAv = document.getElementById('topbar-avatar');
+                if (sbName) sbName.textContent = name;
+                if (sbAv) sbAv.textContent = ini;
+                if (topAv) topAv.textContent = ini;
+                var welcomeEl = document.getElementById('tb-welcome');
+                if (welcomeEl) welcomeEl.textContent = 'Bienvenido, ' + name;
+            });
+        })();
+    </script>
 
     <script type="module">
         import { db } from './firebase-config.js';
-        import { collection, getDocs, addDoc, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-
-        // ──────────────────────────────────────────────────────────────
-        // FUNCIÓN GENERADORA DE PDF INLINE (sin archivo externo)
-        // ──────────────────────────────────────────────────────────────
-        function generarPDFContrato(datosContrato) {
-            if (typeof html2pdf === 'undefined') {
-                console.error('html2pdf no cargado.');
-                return;
-            }
-
-            // HTML del contrato (idéntico a contrato_internet.html)
-            const htmlContenido = `
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-      <meta charset="UTF-8">
-      <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: #fff; }
-        .page { font-size: 9px; color: #000; width: 100%; margin: 0; background: #fff; 
-                page-break-after: always; padding: 20px; }
-        table { border-collapse: collapse; width: 100%; }
-        td { border: 1px solid #000; vertical-align: top; padding: 0; }
-        .col { width: 50%; vertical-align: top; border-right: 1px solid #000; }
-        .col:last-child { border-right: none; }
-        .st { background: #000; color: #fff; font-weight: 700; font-size: 8.5px; 
-              padding: 2px 6px; text-transform: uppercase; }
-        .bd { padding: 5px 7px; font-size: 8.8px; line-height: 1.45; border-top: 1px solid #000; }
-        .sec { border-bottom: 1px solid #000; }
-        input { border: none; border-bottom: 1px solid #000; background: transparent; 
-                font-family: Arial; font-size: 9px; padding: 1px 2px; color: #000; }
-        input[type="checkbox"] { vertical-align: middle; }
-        ol { padding-left: 13px; }
-        ol li { margin-bottom: 2px; }
-        p { margin-bottom: 2px; }
-        table.inner { border-collapse: collapse; width: 100%; font-size: 8.5px; }
-        table.inner td { border: 1px solid #000; padding: 2px 4px; }
-        .num-circle { display: inline-flex; align-items: center; justify-content: center; 
-                      width: 14px; height: 14px; border: 1px solid #000; border-radius: 50%; 
-                      font-weight: 700; font-size: 8px; margin-right: 4px; }
-        .row-item { display: flex; align-items: flex-start; margin-bottom: 4px; }
-      </style>
-    </head>
-    <body>
-
-    <div class="page">
-      <table class="doc">
-        <tr>
-          <td class="col">
-
-            <table>
-              <tr>
-                <td style="border:none;padding:8px 8px 6px;">
-                  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-                    <div>
-                      <div style="font-size:26px;font-weight:900;line-height:1.1;">@sonet</div>
-                      <div style="font-size:13px;">Colombia <strong>sas</strong></div>
-                      <div style="font-size:8.5px;margin-top:3px;">Nit: 900.669.038-6</div>
-                      <div style="font-size:8.5px;">Cra 7 # 7-84</div>
-                      <div style="font-size:8.5px;">barrio el centro Garzón - Huila</div>
-                    </div>
-                    <div style="border:1px solid #000;padding:4px 6px;font-size:8.5px;font-weight:700;text-align:center;">
-                      CONTRATO ÚNICO<br>DE SERVICIOS FIJOS</div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-
-            <table>
-              <tr>
-                <td class="bd" style="border-top:1px solid #000;">
-                  Este contrato explica las condiciones para la presentación de los servicios entre usted y @SONET
-                  COLOMBIA SAS, por el que pagará mínimo mensualmente $${datosContrato.valorMensual || '___________'}.<br>
-                  Este contrato tendrá vigencia de ${datosContrato.mesesVigencia || '___'} meses, contados a partir del ${datosContrato.fechaInicio || '_______________'}<br>
-                  El plazo máximo de instalación es de 15 días hábiles.<br>
-                  Acepto que mi contrato se renueve sucesiva y automáticamente por un plazo igual al inicial. 
-                  ${datosContrato.renovacionAuto ? '✓' : '☐'}
-                </td>
-              </tr>
-            </table>
-
-            <div class="sec">
-              <div class="st">EL SERVICIO</div>
-              <div class="bd">
-                <p>Con este contrato nos comprometemos a prestarle los servicios que usted elija*:</p>
-                <p>
-                  ${datosContrato.servicios?.telefoniaFija ? '✓' : '☐'} Telefonía fija &nbsp;&nbsp;
-                  ${datosContrato.servicios?.internetFijo ? '✓' : '☐'} Internet fijo &nbsp;&nbsp;
-                  ${datosContrato.servicios?.television ? '✓' : '☐'} Televisión
-                </p>
-                <p style="margin-top:3px;">Servicios adicionales: ${datosContrato.serviciosAdicionales || 'Ninguno'}</p>
-                <p>Usted se compromete a pagar oportunamente el precio acordado.</p>
-                <p>El servicio se activará a más tardar el día: ${datosContrato.fechaActivacion || '______________'}</p>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">INFORMACIÓN DEL SUSCRIPTOR</div>
-              <div class="bd">
-                <p>Contrato N° ${datosContrato.numeroContrato || '_______________'}</p>
-                <p>Nombre/Razón Social ${datosContrato.nombre || '_______________'}</p>
-                <p>Identificación ${datosContrato.identificacion || '_______________'}</p>
-                <p>Correo Electrónico ${datosContrato.email || '_______________'}</p>
-                <p>Teléfono de contacto ${datosContrato.telefono || '_______________'}</p>
-                <p>Dirección Servicio ${datosContrato.direccionServicio || '_______________'} Estrato ${datosContrato.estrato || '___'}</p>
-                <p>Departamento ${datosContrato.departamento || 'Huila'} Municipio ${datosContrato.municipio || 'Garzón'}</p>
-                <p>Dirección Suscriptor ${datosContrato.direccionSuscriptor || 'Misma del servicio'}</p>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">CONDICIONES COMERCIALES<br>CARACTERÍSTICAS DEL PLAN</div>
-              <div class="bd">
-                <p><strong>INTERNET FIJO.</strong> "Redes interconectadas" Unión de todas las redes y computadoras 
-                distribuidas en el mundo, creando una red global conjunta de equipos que trabajan sobre protocolos TCP/IP 
-                compatibles entre sí.</p>
-                <p style="margin-top:3px;">@SONET COLOMBIA SAS debe mantener en buen estado el funcionamiento de servicio 
-                contratado, solucionar los cortes o interferencia durante las siguientes 72 horas de reportada la falla.</p>
-              </div>
-            </div>
-
-          </td>
-
-          <td class="col" style="border-right:none;">
-
-            <div class="sec">
-              <div class="st">PRINCIPALES OBLIGACIONES DEL USUARIO</div>
-              <div class="bd">
-                <ol>
-                  <li>Pagar oportunamente los servicios prestados</li>
-                  <li>Suministrar información verdadera</li>
-                  <li>Hacer uso adecuado de los equipos y los servicios</li>
-                  <li>No divulgar ni acceder a pornografía infantil</li>
-                  <li>Avisar a las autoridades cualquier evento de robo o hurto</li>
-                  <li>No cometer o ser partícipe de actividades de fraude</li>
-                </ol>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">TERMINACIÓN</div>
-              <div class="bd">
-                <p>Usted puede terminar el contrato en cualquier momento sin penalidades. Para esto debe realizar 
-                una solicitud mínimo 3 días hábiles antes del corte de facturación (día ${datosContrato.diaCorte || '15'} 
-                de cada mes).</p>
-              </div>
-            </div>
-
-            <div class="sec">
-              <div class="st">INFORMACIÓN ADICIONAL</div>
-              <div class="bd">
-                <p>Tipo de Vivienda: &nbsp;${datosContrato.tipoVivienda?.propia ? '✓' : '☐'} Propia 
-                &nbsp;${datosContrato.tipoVivienda?.arriendo ? '✓' : '☐'} Arriendo 
-                &nbsp;${datosContrato.tipoVivienda?.familiar ? '✓' : '☐'} Familiar</p>
-                <p style="margin-top:3px;">Persona: &nbsp;${datosContrato.personaJuridica ? '✓' : '☐'} Jurídica 
-                &nbsp;${datosContrato.personaNatural ? '✓' : '☐'} Natural</p>
-                <table class="inner" style="margin-top:4px;">
-                  <tr>
-                    <td style="width:50%;font-weight:700;">CC/CE</td>
-                    <td style="font-weight:700;">FECHA</td>
-                  </tr>
-                  <tr>
-                    <td style="height:20px;">${datosContrato.cedula || ''}</td>
-                    <td>${datosContrato.fechaFirma || ''}</td>
-                  </tr>
-                </table>
-                <p style="margin-top:5px;">Asesor: ${datosContrato.asesor || '_______________'}</p>
-              </div>
-            </div>
-
-            <div style="text-align:right;padding:4px 6px;font-size:8px;color:#555;">1 de 1</div>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    </body>
-    </html>
-            `;
-
-            const elemento = document.createElement('div');
-            elemento.innerHTML = htmlContenido;
-
-            const opciones = {
-                margin: 0,
-                filename: `contrato-${datosContrato.numeroContrato || datosContrato.id}-${datosContrato.nombre?.replace(/\s+/g, '-') || 'cliente'}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
-            };
-
-            html2pdf().set(opciones).from(elemento).save();
-        }
+        import { collection, getDocs, addDoc, deleteDoc, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
         // ──────────────────────────────────────────────────────────────
         // CONFIGURACIÓN Y DEMO DATA
@@ -1463,13 +1256,20 @@
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             setTodayDate();
+            // Limpiar caché de contratos al cargar para evitar datos de otra sesión
+            localStorage.removeItem('sonet_contratos');
             loadDashboard();
         });
 
         function setTodayDate() {
+            const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
+            const rol = (sessionUser && sessionUser.role === 'ADMIN') ? 'Administrador' : 'Asesor Comercial';
             const d = new Date();
             document.getElementById('today-date').textContent =
-                d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                rol + ' · ' + d.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            // Actualizar rol en sidebar
+            const sbRole = document.getElementById('sb-role');
+            if (sbRole) sbRole.textContent = rol;
         }
 
         async function loadDashboard() {
@@ -1485,8 +1285,14 @@
             setAsesor(asesor);
 
             try {
-                // Conectar con Firestore en lugar del backend REST
-                const qSnap = await getDocs(collection(db, 'contratos'));
+                // Si es ASESOR, cargar solo sus contratos; si es ADMIN, cargar todos
+                let qSnap;
+                if (sessionUser.role === 'ASESOR') {
+                    const q = query(collection(db, 'contratos'), where('asesor', '==', sessionUser.name));
+                    qSnap = await getDocs(q);
+                } else {
+                    qSnap = await getDocs(collection(db, 'contratos'));
+                }
                 const contratos = [];
                 qSnap.forEach(docSnap => {
                     contratos.push({ id: docSnap.id, ...docSnap.data() });
@@ -1500,10 +1306,13 @@
 
             const savedContratos = localStorage.getItem('sonet_contratos');
             if (savedContratos) {
-                setContracts(JSON.parse(savedContratos));
+                let todos = JSON.parse(savedContratos);
+                if (sessionUser.role === 'ASESOR') {
+                    todos = todos.filter(c => c.asesor === sessionUser.name || c.asesorUid === sessionUser.uid);
+                }
+                setContracts(todos);
             } else {
-                setContracts(DEMO_DATA.contratos);
-                localStorage.setItem('sonet_contratos', JSON.stringify(DEMO_DATA.contratos));
+                setContracts([]);
             }
         }
 
@@ -1521,9 +1330,66 @@
         function setContracts(contratos) {
             allContracts = contratos;
             updateStats();
+            renderAdminAsesores();
             filtered = [...allContracts];
             currentPage = 1;
             renderTable();
+        }
+
+        function renderAdminAsesores() {
+            const sessionUser = JSON.parse(sessionStorage.getItem('user') || 'null');
+            const panel = document.getElementById('admin-asesores-panel');
+            if (!panel) return;
+            if (!sessionUser || sessionUser.role !== 'ADMIN') {
+                panel.style.display = 'none';
+                return;
+            }
+            panel.style.display = 'block';
+
+            // Agrupar por asesor
+            const map = {};
+            allContracts.forEach(c => {
+                const nombre = (c.asesor || 'Sin asignar').trim();
+                if (!map[nombre]) map[nombre] = { total: 0, internet: 0, tv: 0 };
+                map[nombre].total++;
+                const s = (c.servicio || '').toLowerCase();
+                const esTV = s.includes('tv') || s.includes('televisión') || s.includes('television');
+                if (esTV) map[nombre].tv++; else map[nombre].internet++;
+            });
+
+            const filas = Object.entries(map).sort((a, b) => b[1].total - a[1].total);
+            const tbody = document.getElementById('asesores-tbody');
+            const empty = document.getElementById('asesores-empty');
+
+            if (filas.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'flex';
+                return;
+            }
+            empty.style.display = 'none';
+            tbody.innerHTML = filas.map(([nombre, s]) => `
+                <tr>
+                    <td>
+                        <div class="c-cell">
+                            <div class="c-av">${getIniciales(nombre)}</div>
+                            <div class="c-name">${esc(nombre)}</div>
+                        </div>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="font-weight:800;font-size:20px;color:var(--b)">${s.total}</span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--ist);background:var(--is);padding:4px 12px;border-radius:20px;">
+                            <i class="ti ti-wifi" style="font-size:14px"></i>${s.internet}
+                        </span>
+                    </td>
+                    <td style="text-align:center">
+                        <span style="display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#c2410c;background:#fff7ed;padding:4px 12px;border-radius:20px;">
+                            <i class="ti ti-device-tv" style="font-size:14px"></i>${s.tv}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
         }
 
         function updateStats() {
@@ -1535,13 +1401,9 @@
                 const d = new Date(c.fecha);
                 return d.getMonth() === mes && d.getFullYear() === anio;
             }).length;
-            const conPdf = allContracts.filter(c => c.pdf_listo).length;
-            const pending = allContracts.filter(c => !c.pdf_listo).length;
 
             animateNum('stat-total', total);
             animateNum('stat-month', esteMes);
-            animateNum('stat-pdf', conPdf);
-            document.getElementById('sb-pending-badge').textContent = pending;
         }
 
         function animateNum(id, target) {
@@ -1594,12 +1456,6 @@
             <td style="font-size:12px;color:var(--t2)">${formatDate(c.fecha)}</td>
             <td>
               <div class="actions">
-                <button class="btn-dl" onclick="descargarPDFContrato('${esc(c.id)}','${esc(c.nombre)}','${esc(c.cc)}','${esc(c.servicio)}')">
-                  <i class="ti ti-download" aria-hidden="true"></i>PDF
-                </button>
-                <button class="btn-eye" onclick="verContrato('${esc(c.id)}')">
-                  <i class="ti ti-eye" aria-hidden="true"></i>
-                </button>
                 <button class="btn-trash" onclick="eliminarContrato('${esc(c.id)}')">
                   <i class="ti ti-trash" aria-hidden="true"></i>
                 </button>
@@ -1659,6 +1515,17 @@
         // FUNCIÓN DE DESCARGA DE PDF CON DATOS RELLENADOS
         // ──────────────────────────────────────────────────────────────
         function descargarPDFContrato(id, nombre, cc, servicio) {
+            const servLower = (servicio || '').toLowerCase();
+            const esTV = servLower.includes('tv') || servLower.includes('televisión') || servLower.includes('television');
+
+            if (esTV) {
+                // Para contratos TV: navegar a contratotv.html con los datos pre-cargados
+                const contrato = allContracts.find(c => c.id === id);
+                if (contrato) sessionStorage.setItem('contrato_ver', JSON.stringify(contrato));
+                window.location.href = 'contratotv.html';
+                return;
+            }
+
             try {
                 const localData = JSON.parse(localStorage.getItem('sonet_contratos') || '[]');
                 const savedItem = localData.find(c => c.id === id) || {};
@@ -1677,7 +1544,7 @@
                     servicios: {
                         internetFijo: servicio.toLowerCase().includes('internet'),
                         telefoniaFija: servicio.toLowerCase().includes('telefonía') || servicio.toLowerCase().includes('telefonia'),
-                        television: servicio.toLowerCase().includes('tv') || servicio.toLowerCase().includes('televisión')
+                        television: false
                     },
                     fechaActivacion: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000).toLocaleDateString('es-CO'),
                     diaCorte: '15',
@@ -1687,7 +1554,8 @@
                     email: savedItem.email || 'cliente@example.com',
                     telefono: savedItem.telefono || '(+57) 8330560',
                     permanenciaMinima: false,
-                    asesor: JSON.parse(sessionStorage.getItem('user') || '{}').name || 'Asesor'
+                    asesor: JSON.parse(sessionStorage.getItem('user') || '{}').name || 'Asesor',
+                    asesorUid: JSON.parse(sessionStorage.getItem('user') || '{}').uid || ''
                 };
 
                 if (typeof generarPDFContrato === 'function') {
@@ -1723,6 +1591,7 @@
             const email = document.getElementById('nc-email').value.trim();
             const municipio = document.getElementById('nc-municipio').value.trim();
             const departamento = document.getElementById('nc-departamento').value.trim();
+            const direccion = document.getElementById('nc-direccion').value.trim();
 
             if (!nombre || !cc) {
                 alert('Por favor complete los campos obligatorios.');
@@ -1741,8 +1610,10 @@
                 email: email,
                 municipio: municipio,
                 departamento: departamento,
+                direccion: direccion,
                 mesesVigencia: '12',
-                asesor: JSON.parse(sessionStorage.getItem('user') || '{}').name || 'Asesor'
+                asesor: JSON.parse(sessionStorage.getItem('user') || '{}').name || 'Asesor',
+                asesorUid: JSON.parse(sessionStorage.getItem('user') || '{}').uid || ''
             };
 
             try {
@@ -1783,7 +1654,11 @@
         }
 
         function verContrato(id) {
-            window.location.href = 'contrato_internet.html';
+            const contrato = allContracts.find(c => c.id === id);
+            if (contrato) sessionStorage.setItem('contrato_ver', JSON.stringify(contrato));
+            const servicio = (contrato?.servicio || '').toLowerCase();
+            const esTV = servicio.includes('tv') || servicio.includes('televisión') || servicio.includes('television');
+            window.location.href = esTV ? 'contratotv.html' : 'contrato_internet.html';
         }
 
         async function logout() {

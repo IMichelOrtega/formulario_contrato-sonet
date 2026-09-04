@@ -4,14 +4,14 @@
  */
 
 function generarPDFContrato(datosContrato) {
-    // Verificar que html2pdf esté cargado
-    if (typeof html2pdf === 'undefined') {
-        console.error('html2pdf no cargado. Asegúrate de incluir el script en tu HTML.');
-        return;
-    }
+  // Verificar que html2pdf esté cargado
+  if (typeof html2pdf === 'undefined') {
+    console.error('html2pdf no cargado. Asegúrate de incluir el script en tu HTML.');
+    return;
+  }
 
-    // Estructura HTML idéntica a contrato_internet.html pero con campos rellenados
-    const htmlContenido = `
+  // Estructura HTML idéntica a contrato_internet.html pero con campos rellenados
+  const htmlContenido = `
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -479,23 +479,22 @@ function generarPDFContrato(datosContrato) {
 </html>
     `;
 
-    // Configuración para html2pdf
-    const elemento = document.createElement('div');
-    elemento.innerHTML = htmlContenido;
+  const elemento = document.createElement('div');
+  elemento.innerHTML = htmlContenido;
 
-    const opciones = {
-        margin: 0,
-        filename: `contrato-${datosContrato.numeroContrato || datosContrato.id}-${datosContrato.nombre?.replace(/\s+/g, '-') || 'cliente'}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
+  const opciones = {
+    margin: 0,
+    filename: `contrato-${datosContrato.numeroContrato || datosContrato.id}-${datosContrato.nombre?.replace(/\s+/g, '-') || 'cliente'}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 1, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'letter', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  };
 
-    html2pdf().set(opciones).from(elemento).save();
+  html2pdf().set(opciones).from(elemento).save();
 }
 
 // Exportar para uso en módulos
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { generarPDFContrato };
+  module.exports = { generarPDFContrato };
 }

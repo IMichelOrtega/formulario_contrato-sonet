@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Asesores - Asonet</title>
+    <title>Asonet Colombia</title>
+    <link rel="icon" type="image/png" href="asonet-removebg-preview.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -510,6 +511,23 @@
         // ───────────────────────────────────────────────────────────────────────────
 
         let currentRole = 'ASESOR';
+
+        // ───────────────────────────────────────────────────────────────────────────
+        // TOGGLE CONTRASEÑA
+        // ───────────────────────────────────────────────────────────────────────────
+
+        const togglePassBtn = document.getElementById('toggle-pass');
+        const passwordInput = document.getElementById('input-password');
+        const eyeIcon = document.getElementById('eye-icon');
+
+        if (togglePassBtn && passwordInput && eyeIcon) {
+            togglePassBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
+                eyeIcon.className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+            });
+        }
 
         // ───────────────────────────────────────────────────────────────────────────
         // CAMBIAR ENTRE TABS (ASESOR / ADMIN)

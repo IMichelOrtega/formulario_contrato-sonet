@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@sonet — Clientes</title>
+    <link rel="icon" type="image/png" href="asonet-removebg-preview.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space Grotesk:wght@700;800&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
     <style>
@@ -44,7 +46,7 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: #f3f4f8;
             color: var(--t);
             min-height: 100vh;
@@ -106,7 +108,7 @@
             font-weight: 800;
             color: #fff;
             flex-shrink: 0;
-            font-family: 'Outfit', sans-serif
+            font-family: 'Space Grotesk', sans-serif
         }
 
         .u-name {
@@ -884,11 +886,6 @@
             background: #b91c1c
         }
 
-        /* mobile */
-        .mobile-nav {
-            display: none
-        }
-
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -924,7 +921,7 @@
             }
 
             .content {
-                padding: 16px 14px 90px
+                padding: 16px 14px 24px
             }
 
             .stats-row {
@@ -933,43 +930,6 @@
 
             .s-inp {
                 width: 150px
-            }
-
-            .mobile-nav {
-                display: flex;
-                justify-content: space-around;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: #fff;
-                border-top: 1px solid var(--bdr);
-                padding: 10px 0 20px;
-                z-index: 150
-            }
-
-            .mnav-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 3px;
-                font-size: 11px;
-                font-weight: 600;
-                color: var(--t3);
-                cursor: pointer;
-                border: none;
-                background: none;
-                text-decoration: none;
-                transition: color .15s;
-                padding: 0 10px
-            }
-
-            .mnav-item i {
-                font-size: 22px
-            }
-
-            .mnav-item.act {
-                color: var(--b)
             }
         }
 
@@ -998,6 +958,29 @@
                 flex-direction: column;
                 align-items: flex-start
             }
+        }
+
+        .actions button {
+            margin-right: 6px;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-download {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-del {
+            background-color: #dc3545;
+            color: #fff;
         }
     </style>
 </head>
@@ -1029,24 +1012,25 @@
             <div>
                 <div class="u-name" id="sb-name">Juan Pérez</div>
                 <div class="u-role" id="sb-role">Asesor comercial</div>
+                <div class="online">
+                    <div class="dot-g"></div>En línea
+                </div>
             </div>
         </div>
 
         <nav>
             <a class="ni" href="dasboard.html">
-                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Dashboard
+                <i class="ti ti-layout-dashboard" aria-hidden="true"></i>Inicio
             </a>
-            <a class="ni" href="#">
+            <a class="ni" href="contrato.html">
                 <i class="ti ti-file-text" aria-hidden="true"></i>Contratos
-                <span class="nbadge" id="sb-pending-badge">0</span>
             </a>
-            <a class="ni act" href="#">
+            <a class="ni act" href="cliente.html">
                 <i class="ti ti-users" aria-hidden="true"></i>Clientes
             </a>
         </nav>
 
         <div class="sb-bot">
-            <a class="ni" href="#"><i class="ti ti-settings" aria-hidden="true"></i>Configuración</a>
             <button class="ni" onclick="logout()"><i class="ti ti-logout" aria-hidden="true"></i>Cerrar sesión</button>
         </div>
     </aside>
@@ -1089,13 +1073,7 @@
                         <div class="stat-lbl">Total clientes</div>
                     </div>
                 </div>
-                <div class="stat">
-                    <div class="stat-icon si-g"><i class="ti ti-file-check" aria-hidden="true"></i></div>
-                    <div class="stat-body">
-                        <div class="stat-num" id="stat-pdf">0</div>
-                        <div class="stat-lbl">PDF generados</div>
-                    </div>
-                </div>
+
                 <div class="stat">
                     <div class="stat-icon si-r"><i class="ti ti-calendar-month" aria-hidden="true"></i></div>
                     <div class="stat-body">
@@ -1127,7 +1105,6 @@
                                 <th>CC / NIT</th>
                                 <th>Servicio</th>
                                 <th>Fecha</th>
-                                <th>PDF</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -1149,16 +1126,9 @@
     </div>
 
     <!-- MOBILE NAV -->
-    <nav class="mobile-nav">
-        <a class="mnav-item" href="dasboard.html"><i class="ti ti-layout-dashboard"></i>Inicio</a>
-        <a class="mnav-item" href="contrato.html"><i class="ti ti-file-text"></i>Contratos</a>
-        <a class="mnav-item act" href="#"><i class="ti ti-users"></i>Clientes</a>
-        <a class="mnav-item" href="#"><i class="ti ti-user"></i>Perfil</a>
-    </nav>
-
     <script type="module">
         import { db } from './firebase-config.js';
-        import { collection, getDocs, deleteDoc, doc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        import { collection, getDocs, deleteDoc, doc, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
         /* ════════════════════════════════════════════════════
            CONFIGURACIÓN — AJUSTA ESTAS URLs A TU BACKEND
@@ -1221,12 +1191,19 @@
 
             try {
                 // Obtener datos desde Firebase Firestore
-                const qSnap = await getDocs(collection(db, 'contratos'));
+                let qSnap;
+                if (sessionUser.role === 'ASESOR') {
+                    const q = query(collection(db, 'contratos'), where('asesor', '==', sessionUser.name));
+                    qSnap = await getDocs(q);
+                } else {
+                    qSnap = await getDocs(collection(db, 'contratos'));
+                }
+
                 const contratos = [];
                 qSnap.forEach(docSnap => {
                     contratos.push({ id: docSnap.id, ...docSnap.data() });
                 });
-                
+
                 if (contratos.length > 0) {
                     setContracts(contratos);
                     localStorage.setItem('sonet_contratos', JSON.stringify(contratos));
@@ -1234,7 +1211,11 @@
                     // Fallback a localStorage o DEMO
                     const savedContratos = localStorage.getItem('sonet_contratos');
                     if (savedContratos) {
-                        setContracts(JSON.parse(savedContratos));
+                        let todos = JSON.parse(savedContratos);
+                        if (sessionUser.role === 'ASESOR') {
+                            todos = todos.filter(c => c.asesor === sessionUser.name || c.asesorUid === sessionUser.uid);
+                        }
+                        setContracts(todos);
                     } else {
                         setContracts(DEMO_DATA.contratos);
                         localStorage.setItem('sonet_contratos', JSON.stringify(DEMO_DATA.contratos));
@@ -1244,7 +1225,11 @@
                 console.error('Error cargando datos de Firebase Firestore:', err);
                 const savedContratos = localStorage.getItem('sonet_contratos');
                 if (savedContratos) {
-                    setContracts(JSON.parse(savedContratos));
+                    let todos = JSON.parse(savedContratos);
+                    if (sessionUser.role === 'ASESOR') {
+                        todos = todos.filter(c => c.asesor === sessionUser.name || c.asesorUid === sessionUser.uid);
+                    }
+                    setContracts(todos);
                 } else {
                     showError('No se pudo conectar con el servidor.');
                 }
@@ -1284,17 +1269,13 @@
             const mes = now.getMonth();
             const anio = now.getFullYear();
             const total = allContracts.length;
-            const pdf = allContracts.filter(c => c.pdf_listo).length;
-            const pending = allContracts.filter(c => !c.pdf_listo).length;
             const month = allContracts.filter(c => {
                 const d = new Date(c.fecha);
                 return d.getMonth() === mes && d.getFullYear() === anio;
             }).length;
 
             animNum('stat-total', total);
-            animNum('stat-pdf', pdf);
             animNum('stat-month', month);
-            document.getElementById('sb-pending-badge').textContent = pending;
         }
 
         function animNum(id, target) {
@@ -1311,18 +1292,13 @@
 
         function filterTable() {
             const q = document.getElementById('search-input').value.toLowerCase().trim();
-            const filterPdfEl = document.getElementById('filter-pdf');
-            const pdf = filterPdfEl ? filterPdfEl.value : '';
             filtered = allContracts.filter(c => {
                 const matchQ = !q ||
                     c.nombre.toLowerCase().includes(q) ||
                     c.cc.replace(/\./g, '').includes(q.replace(/\./g, '')) ||
                     c.servicio.toLowerCase().includes(q) ||
                     c.id.includes(q);
-                const matchP = !pdf ||
-                    (pdf === 'yes' && c.pdf_listo) ||
-                    (pdf === 'no' && !c.pdf_listo);
-                return matchQ && matchP;
+                return matchQ;
             });
             currentPage = 1;
             renderTable();
@@ -1359,16 +1335,7 @@
         </td>
         <td style="font-size:12px;color:var(--t2)">${formatDate(c.fecha)}</td>
         <td>
-          ${c.pdf_listo
-                        ? `<span class="pdf-yes"><i class="ti ti-check" aria-hidden="true"></i>Listo</span>`
-                        : `<span class="pdf-no"><i class="ti ti-clock" aria-hidden="true"></i>Pendiente</span>`
-                    }
-        </td>
-        <td>
           <div class="actions">
-            <button class="btn-ver" onclick="verContrato('${esc(c.id)}')">
-              <i class="ti ti-eye" aria-hidden="true"></i>Ver
-            </button>
             <button class="btn-del" onclick="abrirModal('${esc(c.id)}','${esc(c.nombre)}')">
               <i class="ti ti-trash" aria-hidden="true"></i>Eliminar
             </button>
@@ -1462,7 +1429,11 @@
            NAVEGACIÓN
         ════════════════════════════════════════════════════ */
         function verContrato(id) {
-            window.location.href = 'contrato_internet.html';
+            const contrato = allContracts.find(c => c.id === id);
+            if (contrato) sessionStorage.setItem('contrato_ver', JSON.stringify(contrato));
+            const servicio = (contrato?.servicio || '').toLowerCase();
+            const esTV = servicio.includes('tv') || servicio.includes('televisión') || servicio.includes('television');
+            window.location.href = esTV ? 'contratotv.html' : 'contrato_internet.html';
         }
         function nuevoContrato() {
             window.location.href = API.nuevo;
